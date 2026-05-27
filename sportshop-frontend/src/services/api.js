@@ -1,4 +1,9 @@
-// ── Mensajes de error amigables ───────────────────────────────
+const AUTH_URL  = import.meta.env.VITE_AUTH_URL          || ''
+const CAT_URL   = import.meta.env.VITE_CATALOG_URL        || ''
+const ADMIN_URL = import.meta.env.VITE_ADMIN_URL          || ''
+const NOTIF_URL = import.meta.env.VITE_NOTIFICATIONS_URL  || ''
+
+// ── Mensajes de error amigables ───────────────────────────────────────────────
 function mensajeAmigable(err, status) {
   const e = (err || '').toLowerCase()
 
@@ -45,12 +50,12 @@ async function req(method, url, body, token) {
   }
 
   if (!res.ok) {
-      if (res.status === 400 && json.data && typeof json.data === 'object') {
-          const campos = Object.values(json.data).join('\n')
-          throw new Error(campos)
-      }
-      const raw = json.mensaje || json.message || json.error || ''
-      throw new Error(mensajeAmigable(raw, res.status))
+    if (res.status === 400 && json.data && typeof json.data === 'object') {
+      const campos = Object.values(json.data).join('\n')
+      throw new Error(campos)
+    }
+    const raw = json.mensaje || json.message || json.error || ''
+    throw new Error(mensajeAmigable(raw, res.status))
   }
   return json
 }
@@ -63,48 +68,48 @@ const d  = (u, t)    => req('DELETE', u, null, t)
 
 // ── AUTH :8080 ────────────────────────────────────────────────
 export const authApi = {
-  login:    (email, password) => p('/api/sportshop/auth/login', { email, password }),
-  register: (data)            => p('/api/sportshop/auth/save', data),
-  getAll:   (t)               => g('/api/sportshop/auth/all', t),
-  getOne:   (doc, t)          => g(`/api/sportshop/auth/get/${doc}`, t),
-  update:   (doc, data, t)    => pu(`/api/sportshop/auth/update/${doc}`, data, t),
-  delete:   (doc, t)          => d(`/api/sportshop/auth/delete/${doc}`, t),
+  login:    (email, password) => p(`${AUTH_URL}/api/sportshop/auth/login`, { email, password }),
+  register: (data)            => p(`${AUTH_URL}/api/sportshop/auth/save`, data),
+  getAll:   (t)               => g(`${AUTH_URL}/api/sportshop/auth/all`, t),
+  getOne:   (doc, t)          => g(`${AUTH_URL}/api/sportshop/auth/get/${doc}`, t),
+  update:   (doc, data, t)    => pu(`${AUTH_URL}/api/sportshop/auth/update/${doc}`, data, t),
+  delete:   (doc, t)          => d(`${AUTH_URL}/api/sportshop/auth/delete/${doc}`, t),
 }
 
 // ── CATALOG :8081 ─────────────────────────────────────────────
 export const catalogApi = {
-  getActive:    ()            => g('/api/sportshop/catalog/products'),
-  getAll:       (t)           => g('/api/sportshop/catalog/products/all', t),
-  getById:      (id)          => g(`/api/sportshop/catalog/products/${id}`),
-  getByCategory:(cat)         => g(`/api/sportshop/catalog/products/category/${cat}`),
-  create:       (data, t)     => p('/api/sportshop/catalog/products', data, t),
-  update:       (id, data, t) => pu(`/api/sportshop/catalog/products/${id}`, data, t),
-  delete:       (id, t)       => d(`/api/sportshop/catalog/products/${id}`, t),
-  getCart:      (t)           => g('/api/sportshop/catalog/cart', t),
-  addToCart:    (data, t)     => p('/api/sportshop/catalog/cart', data, t),
-  updateCart:   (id, qty, t)  => pu(`/api/sportshop/catalog/cart/${id}?quantity=${qty}`, {}, t),
-  removeCart:   (id, t)       => d(`/api/sportshop/catalog/cart/${id}`, t),
-  purchase:     (t)           => p('/api/sportshop/catalog/cart/purchase', {}, t),
+  getActive:    ()            => g(`${CAT_URL}/api/sportshop/catalog/products`),
+  getAll:       (t)           => g(`${CAT_URL}/api/sportshop/catalog/products/all`, t),
+  getById:      (id)          => g(`${CAT_URL}/api/sportshop/catalog/products/${id}`),
+  getByCategory:(cat)         => g(`${CAT_URL}/api/sportshop/catalog/products/category/${cat}`),
+  create:       (data, t)     => p(`${CAT_URL}/api/sportshop/catalog/products`, data, t),
+  update:       (id, data, t) => pu(`${CAT_URL}/api/sportshop/catalog/products/${id}`, data, t),
+  delete:       (id, t)       => d(`${CAT_URL}/api/sportshop/catalog/products/${id}`, t),
+  getCart:      (t)           => g(`${CAT_URL}/api/sportshop/catalog/cart`, t),
+  addToCart:    (data, t)     => p(`${CAT_URL}/api/sportshop/catalog/cart`, data, t),
+  updateCart:   (id, qty, t)  => pu(`${CAT_URL}/api/sportshop/catalog/cart/${id}?quantity=${qty}`, {}, t),
+  removeCart:   (id, t)       => d(`${CAT_URL}/api/sportshop/catalog/cart/${id}`, t),
+  purchase:     (t)           => p(`${CAT_URL}/api/sportshop/catalog/cart/purchase`, {}, t),
 }
 
 // ── ADMIN :8082 ───────────────────────────────────────────────
 export const adminApi = {
-  getUsers:    (t)            => g('/api/sportshop/admin/users', t),
-  createUser:  (data, t)      => p('/api/sportshop/admin/users', data, t),
-  updateUser:  (doc, data, t) => pu(`/api/sportshop/admin/users/${doc}`, data, t),
-  deleteUser:  (doc, t)       => d(`/api/sportshop/admin/users/${doc}`, t),
-  changeRole:  (doc, role, t) => pa(`/api/sportshop/admin/users/${doc}/role?newRole=${role}`, {}, t),
-  getProducts: (t)            => g('/api/sportshop/admin/products', t),
-  createProd:  (data, t)      => p('/api/sportshop/admin/products', data, t),
-  updateProd:  (id, data, t)  => pu(`/api/sportshop/admin/products/${id}`, data, t),
-  deleteProd:  (id, t)        => d(`/api/sportshop/admin/products/${id}`, t),
+  getUsers:    (t)            => g(`${ADMIN_URL}/api/sportshop/admin/users`, t),
+  createUser:  (data, t)      => p(`${ADMIN_URL}/api/sportshop/admin/users`, data, t),
+  updateUser:  (doc, data, t) => pu(`${ADMIN_URL}/api/sportshop/admin/users/${doc}`, data, t),
+  deleteUser:  (doc, t)       => d(`${ADMIN_URL}/api/sportshop/admin/users/${doc}`, t),
+  changeRole:  (doc, role, t) => pa(`${ADMIN_URL}/api/sportshop/admin/users/${doc}/role?newRole=${role}`, {}, t),
+  getProducts: (t)            => g(`${ADMIN_URL}/api/sportshop/admin/products`, t),
+  createProd:  (data, t)      => p(`${ADMIN_URL}/api/sportshop/admin/products`, data, t),
+  updateProd:  (id, data, t)  => pu(`${ADMIN_URL}/api/sportshop/admin/products/${id}`, data, t),
+  deleteProd:  (id, t)        => d(`${ADMIN_URL}/api/sportshop/admin/products/${id}`, t),
 }
 
 // ── NOTIFICATIONS :8083 ───────────────────────────────────────
 export const notifApi = {
-  getAll:    (t)      => g('/api/sportshop/notifications', t),
-  getByUser: (doc, t) => g(`/api/sportshop/notifications/user/${doc}`, t),
-  markRead:  (id, t)  => pa(`/api/sportshop/notifications/${id}/read`, {}, t),
+  getAll:    (t)      => g(`${NOTIF_URL}/api/sportshop/notifications`, t),
+  getByUser: (doc, t) => g(`${NOTIF_URL}/api/sportshop/notifications/user/${doc}`, t),
+  markRead:  (id, t)  => pa(`${NOTIF_URL}/api/sportshop/notifications/${id}/read`, {}, t),
 }
 
 // ── Helpers ───────────────────────────────────────────────────
@@ -124,7 +129,7 @@ export const sportIcon = (sport = '', cat = '') => {
 }
 
 export const fmt = (n) =>
-  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n)
+    new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n)
 
 export const fmtDate = (s) =>
-  s ? new Date(s).toLocaleString('es-CO', { dateStyle: 'short', timeStyle: 'short' }) : ''
+    s ? new Date(s).toLocaleString('es-CO', { dateStyle: 'short', timeStyle: 'short' }) : ''
