@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: sportshop-catalog
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sportshop?currentSchema=catalog
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: catalog
+  security:
+    user:
+      name: disabled
+      password: disabled
+
+server:
+  port: 8081
+
+jwt:
+  secret: "3f8a2b1c9d7e4f6a0b5c8d2e1f7a3b4c9d6e5f8a2b1c0d7e4f3a6b5c8d9e2f1a"
+  expiration-ms: 3600000
+
+notifications:
+  service:
+    url: http://localhost:8083
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha

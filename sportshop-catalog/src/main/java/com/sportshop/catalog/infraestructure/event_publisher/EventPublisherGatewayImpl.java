@@ -1,0 +1,39 @@
+package com.sportshop.catalog.infraestructure.event_publisher;
+
+import com.sportshop.catalog.domain.model.event.CatalogEvent;
+import com.sportshop.catalog.domain.model.gateway.EventPublisherGateway;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+
+/**
+ * Adaptador conducido (Driven Adapter) para publicar eventos.
+ * Envía el evento al microservicio de notificaciones via HTTP POST.
+ * Si el servicio de notificaciones no está disponible, no falla la operación principal.
+ */
+@Component
+@Slf4j
+public class EventPublisherGatewayImpl implements EventPublisherGateway {
+
+    private final WebClient webClient;
+
+    public EventPublisherGatewayImpl(
+            WebClient.Builder webClientBuilder,
+            @Value("${notifications.service.url}") String notificationsUrl) {
+        this.webClient = webClientBuilder.baseUrl(notificationsUrl).build();
+    }
+
+    @Override
+    public void publish(CatalogEvent event) {
+        webClient.post()
+                .uri("/api/sportshop/notifications/receive")
+                .bodyValue(event)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .doOnSuccess(v -> log.info("Evento publicado: {} - {}", event.getType(), event.getTitle()))
+                .doOnError(e -> log.warn("No se pudo enviar evento al servicio de notificaciones: {}", e.getMessage()))
+                .onErrorComplete()  // No propaga el error - el evento es best-effort
+                .subscribe();
+    }
+}
