@@ -29,7 +29,7 @@ jwt:
 
 auth:
   service:
-    url: ${AUTH_URL:http://localhost:8080/api/sportshop/auth%7D
+    url: ${AUTH_URL:http://localhost:8080/api/sportshop/auth%7D}
 
 notifications:
   service:
