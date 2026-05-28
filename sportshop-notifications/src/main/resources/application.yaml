@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: sportshop-notifications
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/sportshop?currentSchema=notifications}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:123}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: notifications
+  security:
+    user:
+      name: disabled
+      password: disabled
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:tucorreo@gmail.com}
+    password: ${MAIL_PASSWORD:tu-clave-de-aplicacion-gmail}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+        debug: false
+
+server:
+  port: ${PORT:8083}
+
+jwt:
+  secret: ${JWT_SECRET:3f8a2b1c9d7e4f6a0b5c8d2e1f7a3b4c9d6e5f8a2b1c0d7e4f3a6b5c8d9e2f1a}
+  expiration-ms: 3600000
+
+# Email del administrador que recibirá las notificaciones de nuevos productos
+notification:
+  admin-email: ${NOTIFICATION_ADMIN_EMAIL:admin@sportshop.com}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
