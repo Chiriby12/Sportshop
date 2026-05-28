@@ -18,7 +18,7 @@ public class EmailSenderGatewayImpl implements EmailSenderGateway {
     private final JavaMailSender mailSender;
 
     @Override
-    @Async
+    //@Async
     public void sendEmail(String to, String subject, String body) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
