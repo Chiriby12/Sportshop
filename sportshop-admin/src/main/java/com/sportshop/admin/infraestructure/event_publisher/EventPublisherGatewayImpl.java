@@ -7,15 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-/**
- * Adaptador conducido (Driven Adapter) para publicar eventos.
- * Envía el AdminEvent al microservicio de notificaciones (port 8083) via HTTP POST.
- * Si el servicio no está disponible, NO falla la operación principal (best-effort).
- *
- * El notifications-service espera un objeto con los campos:
- *   type, title, message, performedBy, payload, timestamp
- * que coincide exactamente con AdminEvent.
- */
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
 @Slf4j
 public class EventPublisherGatewayImpl implements EventPublisherGateway {
@@ -30,9 +25,19 @@ public class EventPublisherGatewayImpl implements EventPublisherGateway {
 
     @Override
     public void publish(AdminEvent event) {
+        // Mapeamos AdminEvent a un Map con los campos que CatalogEvent espera
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("type", event.getType().name());        // String puro, no enum
+        payload.put("title", event.getTitle());
+        payload.put("message", event.getMessage());
+        payload.put("performedBy", event.getPerformedBy());
+        payload.put("sourceService", "admin-service");
+        payload.put("payload", event.getPayload());
+        payload.put("timestamp", LocalDateTime.now().toString());
+
         webClient.post()
                 .uri("/api/sportshop/notifications/receive")
-                .bodyValue(event)
+                .bodyValue(payload)
                 .retrieve()
                 .bodyToMono(Void.class)
                 .doOnSuccess(v -> log.info("Evento admin publicado: {} - {}", event.getType(), event.getTitle()))
