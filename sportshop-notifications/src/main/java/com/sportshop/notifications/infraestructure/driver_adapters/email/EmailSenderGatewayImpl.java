@@ -9,13 +9,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-/**
- * Adaptador conducido (Driven Adapter) - Envío de emails via JavaMailSender (Gmail SMTP).
- * Arquitectura Hexagonal: implementa el puerto EmailSenderGateway.
- *
- * El envío es ASÍNCRONO (@Async) para no bloquear el hilo del request
- * mientras se conecta al servidor SMTP.
- */
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
