@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * Representa el evento que llega desde el microservicio de catálogo (o auth).
+ * Debe ser idéntico al CatalogEvent del catálogo para deserializar correctamente.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,7 +31,6 @@ public class CatalogEvent {
     private String title;
     private String message;
     private String performedBy;
-    private String sourceService; // catalog-service, auth-service, admin-service
     private Object payload;
     private LocalDateTime timestamp;
 }

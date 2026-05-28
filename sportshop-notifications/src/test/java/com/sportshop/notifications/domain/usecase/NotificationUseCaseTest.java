@@ -2,12 +2,12 @@ package com.sportshop.notifications.domain.usecase;
 
 import com.sportshop.notifications.domain.model.Notification;
 import com.sportshop.notifications.domain.model.event.CatalogEvent;
-import com.sportshop.notifications.domain.model.gateway.EmailSenderGateway;
 import com.sportshop.notifications.domain.model.gateway.NotificationGateway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -24,31 +24,29 @@ import static org.mockito.Mockito.*;
 @DisplayName("NotificationUseCase - Tests")
 class NotificationUseCaseTest {
 
-    @Mock private NotificationGateway notificationGateway;
-    @Mock private EmailSenderGateway emailSenderGateway;
+    @Mock
+    private NotificationGateway notificationGateway;
 
+    @InjectMocks
     private NotificationUseCase useCase;
+
     private CatalogEvent event;
     private Notification notification;
 
     @BeforeEach
     void setUp() {
-        useCase = new NotificationUseCase(notificationGateway, emailSenderGateway);
-        useCase.setAdminEmail("admin@sportshop.com");
-
         event = new CatalogEvent();
         event.setType(CatalogEvent.EventType.PRODUCT_CREATED);
-        event.setTitle("Balon de Futbol agregado");
-        event.setMessage("El admin creo el producto: Balon de Futbol");
+        event.setTitle("Nuevo producto creado");
+        event.setMessage("El admin creó el producto: Balón de Fútbol");
         event.setPerformedBy("12345678");
-        event.setSourceService("catalog-service");
         event.setTimestamp(LocalDateTime.now());
 
         notification = new Notification();
         notification.setId(1L);
         notification.setType("PRODUCT_CREATED");
-        notification.setTitle("Balon de Futbol agregado");
-        notification.setMessage("El admin creo el producto: Balon de Futbol");
+        notification.setTitle("Nuevo producto creado");
+        notification.setMessage("El admin creó el producto: Balón de Fútbol");
         notification.setPerformedBy("12345678");
         notification.setSourceService("catalog-service");
         notification.setStatus("RECEIVED");
@@ -58,67 +56,38 @@ class NotificationUseCaseTest {
     // ── receiveEvent ──────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("receiveEvent PRODUCT_CREATED: persiste y envia email al admin")
-    void receiveEvent_productCreated_enviaEmail() {
+    @DisplayName("receiveEvent: persiste notificación correctamente")
+    void receiveEvent_ok() {
         when(notificationGateway.save(any())).thenReturn(notification);
-        doNothing().when(emailSenderGateway).sendEmail(anyString(), anyString(), anyString());
-
         Notification result = useCase.receiveEvent(event);
-
         assertNotNull(result);
         assertEquals("PRODUCT_CREATED", result.getType());
-        // Verifica que se llamo al gateway de email
-        verify(emailSenderGateway).sendEmail(
-            eq("admin@sportshop.com"),
-            contains("Nuevo producto"),
-            anyString()
-        );
+        assertEquals("RECEIVED", result.getStatus());
+        verify(notificationGateway).save(any(Notification.class));
     }
 
     @Test
-    @DisplayName("receiveEvent PRODUCT_UPDATED: persiste pero NO envia email")
-    void receiveEvent_productUpdated_noEnviaEmail() {
-        event.setType(CatalogEvent.EventType.PRODUCT_UPDATED);
+    @DisplayName("receiveEvent: asigna sourceService = catalog-service")
+    void receiveEvent_sourceService() {
         when(notificationGateway.save(any())).thenReturn(notification);
-
         useCase.receiveEvent(event);
-
-        // No debe llamar al email gateway para eventos distintos a PRODUCT_CREATED
-        verify(emailSenderGateway, never()).sendEmail(any(), any(), any());
-    }
-
-    @Test
-    @DisplayName("receiveEvent CART_PURCHASED: persiste pero NO envia email")
-    void receiveEvent_cartPurchased_noEnviaEmail() {
-        event.setType(CatalogEvent.EventType.CART_PURCHASED);
-        when(notificationGateway.save(any())).thenReturn(notification);
-
-        useCase.receiveEvent(event);
-
-        verify(emailSenderGateway, never()).sendEmail(any(), any(), any());
-    }
-
-    @Test
-    @DisplayName("receiveEvent: sourceService del evento se usa en la notificacion")
-    void receiveEvent_sourceServiceDelEvento() {
-        when(notificationGateway.save(any())).thenReturn(notification);
-        doNothing().when(emailSenderGateway).sendEmail(any(), any(), any());
-
-        useCase.receiveEvent(event);
-
         verify(notificationGateway).save(argThat(n -> "catalog-service".equals(n.getSourceService())));
     }
 
     @Test
-    @DisplayName("receiveEvent: sourceService null usa 'catalog-service' por defecto")
-    void receiveEvent_sourceServiceNull() {
-        event.setSourceService(null);
+    @DisplayName("receiveEvent: asigna status = RECEIVED")
+    void receiveEvent_status() {
         when(notificationGateway.save(any())).thenReturn(notification);
-        doNothing().when(emailSenderGateway).sendEmail(any(), any(), any());
-
         useCase.receiveEvent(event);
+        verify(notificationGateway).save(argThat(n -> "RECEIVED".equals(n.getStatus())));
+    }
 
-        verify(notificationGateway).save(argThat(n -> "catalog-service".equals(n.getSourceService())));
+    @Test
+    @DisplayName("receiveEvent: tipo se convierte a String del enum")
+    void receiveEvent_tipoString() {
+        when(notificationGateway.save(any())).thenReturn(notification);
+        useCase.receiveEvent(event);
+        verify(notificationGateway).save(argThat(n -> "PRODUCT_CREATED".equals(n.getType())));
     }
 
     @Test
@@ -126,34 +95,17 @@ class NotificationUseCaseTest {
     void receiveEvent_performedByNull() {
         event.setPerformedBy(null);
         when(notificationGateway.save(any())).thenReturn(notification);
-        doNothing().when(emailSenderGateway).sendEmail(any(), any(), any());
-
         useCase.receiveEvent(event);
-
         verify(notificationGateway).save(argThat(n -> "system".equals(n.getPerformedBy())));
     }
 
     @Test
-    @DisplayName("receiveEvent: title null usa el nombre del tipo")
+    @DisplayName("receiveEvent: title null usa nombre del tipo")
     void receiveEvent_titleNull() {
         event.setTitle(null);
         when(notificationGateway.save(any())).thenReturn(notification);
-        doNothing().when(emailSenderGateway).sendEmail(any(), any(), any());
-
         useCase.receiveEvent(event);
-
         verify(notificationGateway).save(argThat(n -> n.getTitle() != null && !n.getTitle().isBlank()));
-    }
-
-    @Test
-    @DisplayName("receiveEvent: status siempre es RECEIVED al crear")
-    void receiveEvent_statusReceived() {
-        when(notificationGateway.save(any())).thenReturn(notification);
-        doNothing().when(emailSenderGateway).sendEmail(any(), any(), any());
-
-        useCase.receiveEvent(event);
-
-        verify(notificationGateway).save(argThat(n -> "RECEIVED".equals(n.getStatus())));
     }
 
     @Test
@@ -162,80 +114,82 @@ class NotificationUseCaseTest {
         RuntimeException ex = assertThrows(RuntimeException.class, () -> useCase.receiveEvent(null));
         assertEquals("El evento no puede ser nulo", ex.getMessage());
         verify(notificationGateway, never()).save(any());
-        verify(emailSenderGateway, never()).sendEmail(any(), any(), any());
     }
 
     @Test
     @DisplayName("receiveEvent: tipo null lanza error")
     void receiveEvent_tipoNull() {
         event.setType(null);
-        assertThrows(RuntimeException.class, () -> useCase.receiveEvent(event));
-        verify(emailSenderGateway, never()).sendEmail(any(), any(), any());
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> useCase.receiveEvent(event));
+        assertEquals("El tipo del evento no puede ser nulo", ex.getMessage());
     }
 
     @Test
-    @DisplayName("receiveEvent: mensaje vacio lanza error")
+    @DisplayName("receiveEvent: mensaje vacío lanza error")
     void receiveEvent_mensajeVacio() {
-        event.setMessage("  ");
-        assertThrows(RuntimeException.class, () -> useCase.receiveEvent(event));
+        event.setMessage("   ");
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> useCase.receiveEvent(event));
+        assertEquals("El mensaje del evento no puede estar vacío", ex.getMessage());
     }
 
     @Test
-    @DisplayName("receiveEvent: email falla silenciosamente (no rompe el flujo)")
-    void receiveEvent_emailFallaNoRompeFlijo() {
-        when(notificationGateway.save(any())).thenReturn(notification);
-        doThrow(new RuntimeException("SMTP error")).when(emailSenderGateway).sendEmail(any(), any(), any());
-
-        // No debe lanzar excepcion — el email falla silenciosamente
-        assertDoesNotThrow(() -> useCase.receiveEvent(event));
-        verify(notificationGateway).save(any());
+    @DisplayName("receiveEvent: mensaje null lanza error")
+    void receiveEvent_mensajeNull() {
+        event.setMessage(null);
+        assertThrows(RuntimeException.class, () -> useCase.receiveEvent(event));
     }
 
-    // ── getAllNotifications ────────────────────────────────────────────────────
+    // ── getAllNotifications ───────────────────────────────────────────────────
 
     @Test
     @DisplayName("getAllNotifications: retorna lista completa")
     void getAll_ok() {
         when(notificationGateway.findAll()).thenReturn(List.of(notification));
-        assertEquals(1, useCase.getAllNotifications().size());
+        List<Notification> result = useCase.getAllNotifications();
+        assertEquals(1, result.size());
+        verify(notificationGateway).findAll();
     }
 
     @Test
-    @DisplayName("getAllNotifications: lista vacia")
+    @DisplayName("getAllNotifications: retorna lista vacía cuando no hay notificaciones")
     void getAll_vacia() {
         when(notificationGateway.findAll()).thenReturn(Collections.emptyList());
-        assertTrue(useCase.getAllNotifications().isEmpty());
+        List<Notification> result = useCase.getAllNotifications();
+        assertTrue(result.isEmpty());
     }
 
     // ── getNotificationById ───────────────────────────────────────────────────
 
     @Test
-    @DisplayName("getNotificationById: retorna notificacion existente")
+    @DisplayName("getNotificationById: retorna notificación existente")
     void getById_ok() {
         when(notificationGateway.findById(1L)).thenReturn(Optional.of(notification));
-        assertNotNull(useCase.getNotificationById(1L));
+        Notification result = useCase.getNotificationById(1L);
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
     }
 
     @Test
     @DisplayName("getNotificationById: ID negativo lanza error")
-    void getById_negativo() {
-        assertThrows(RuntimeException.class, () -> useCase.getNotificationById(-1L));
+    void getById_idNegativo() {
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> useCase.getNotificationById(-1L));
+        assertEquals("El ID debe ser un número positivo", ex.getMessage());
     }
 
     @Test
     @DisplayName("getNotificationById: ID cero lanza error")
-    void getById_cero() {
+    void getById_idCero() {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationById(0L));
     }
 
     @Test
-    @DisplayName("getNotificationById: null lanza error")
-    void getById_null() {
+    @DisplayName("getNotificationById: ID null lanza error")
+    void getById_idNull() {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationById(null));
     }
 
     @Test
-    @DisplayName("getNotificationById: no existe lanza error con ID")
+    @DisplayName("getNotificationById: no existe lanza error")
     void getById_noExiste() {
         when(notificationGateway.findById(99L)).thenReturn(Optional.empty());
         RuntimeException ex = assertThrows(RuntimeException.class, () -> useCase.getNotificationById(99L));
@@ -248,17 +202,18 @@ class NotificationUseCaseTest {
     @DisplayName("getNotificationsByUser: retorna notificaciones del usuario")
     void getByUser_ok() {
         when(notificationGateway.findByPerformedBy("12345678")).thenReturn(List.of(notification));
-        assertEquals(1, useCase.getNotificationsByUser("12345678").size());
+        List<Notification> result = useCase.getNotificationsByUser("12345678");
+        assertEquals(1, result.size());
     }
 
     @Test
-    @DisplayName("getNotificationsByUser: usuario vacio lanza error")
+    @DisplayName("getNotificationsByUser: usuario vacío lanza error")
     void getByUser_vacio() {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsByUser("  "));
     }
 
     @Test
-    @DisplayName("getNotificationsByUser: null lanza error")
+    @DisplayName("getNotificationsByUser: usuario null lanza error")
     void getByUser_null() {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsByUser(null));
     }
@@ -266,67 +221,82 @@ class NotificationUseCaseTest {
     // ── getNotificationsByType ────────────────────────────────────────────────
 
     @Test
-    @DisplayName("getNotificationsByType: retorna por tipo")
+    @DisplayName("getNotificationsByType: retorna notificaciones del tipo")
     void getByType_ok() {
         when(notificationGateway.findByType("PRODUCT_CREATED")).thenReturn(List.of(notification));
-        assertEquals(1, useCase.getNotificationsByType("PRODUCT_CREATED").size());
+        List<Notification> result = useCase.getNotificationsByType("PRODUCT_CREATED");
+        assertEquals(1, result.size());
     }
 
     @Test
-    @DisplayName("getNotificationsByType: convierte a mayusculas")
-    void getByType_mayusculas() {
+    @DisplayName("getNotificationsByType: convierte a mayúsculas")
+    void getByType_mayus() {
         when(notificationGateway.findByType("PRODUCT_DELETED")).thenReturn(Collections.emptyList());
         useCase.getNotificationsByType("product_deleted");
         verify(notificationGateway).findByType("PRODUCT_DELETED");
     }
 
     @Test
-    @DisplayName("getNotificationsByType: vacio lanza error")
+    @DisplayName("getNotificationsByType: tipo vacío lanza error")
     void getByType_vacio() {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsByType(""));
+    }
+
+    @Test
+    @DisplayName("getNotificationsByType: tipo null lanza error")
+    void getByType_null() {
+        assertThrows(RuntimeException.class, () -> useCase.getNotificationsByType(null));
     }
 
     // ── getNotificationsByStatus ──────────────────────────────────────────────
 
     @Test
-    @DisplayName("getNotificationsByStatus: RECEIVED funciona")
+    @DisplayName("getNotificationsByStatus: RECEIVED funciona correctamente")
     void getByStatus_received() {
         when(notificationGateway.findByStatus("RECEIVED")).thenReturn(List.of(notification));
-        assertEquals(1, useCase.getNotificationsByStatus("RECEIVED").size());
+        List<Notification> result = useCase.getNotificationsByStatus("RECEIVED");
+        assertEquals(1, result.size());
     }
 
     @Test
-    @DisplayName("getNotificationsByStatus: READ funciona")
+    @DisplayName("getNotificationsByStatus: READ funciona correctamente")
     void getByStatus_read() {
         when(notificationGateway.findByStatus("READ")).thenReturn(Collections.emptyList());
         assertTrue(useCase.getNotificationsByStatus("READ").isEmpty());
     }
 
     @Test
-    @DisplayName("getNotificationsByStatus: estado invalido lanza error")
+    @DisplayName("getNotificationsByStatus: estado inválido lanza error")
     void getByStatus_invalido() {
         RuntimeException ex = assertThrows(RuntimeException.class,
-            () -> useCase.getNotificationsByStatus("PENDIENTE"));
+                () -> useCase.getNotificationsByStatus("PENDIENTE"));
         assertTrue(ex.getMessage().contains("RECEIVED o READ"));
     }
 
     @Test
-    @DisplayName("getNotificationsByStatus: vacio lanza error")
+    @DisplayName("getNotificationsByStatus: estado vacío lanza error")
     void getByStatus_vacio() {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsByStatus(""));
+    }
+
+    @Test
+    @DisplayName("getNotificationsByStatus: estado null lanza error")
+    void getByStatus_null() {
+        assertThrows(RuntimeException.class, () -> useCase.getNotificationsByStatus(null));
     }
 
     // ── getNotificationsBySourceService ──────────────────────────────────────
 
     @Test
-    @DisplayName("getNotificationsBySourceService: retorna por servicio")
+    @DisplayName("getNotificationsBySourceService: retorna notificaciones del servicio")
     void getBySource_ok() {
         when(notificationGateway.findBySourceService("catalog-service")).thenReturn(List.of(notification));
-        assertEquals(1, useCase.getNotificationsBySourceService("catalog-service").size());
+        List<Notification> result = useCase.getNotificationsBySourceService("catalog-service");
+        assertEquals(1, result.size());
     }
 
     @Test
-    @DisplayName("getNotificationsBySourceService: vacio lanza error")
+    @DisplayName("getNotificationsBySourceService: servicio vacío lanza error")
     void getBySource_vacio() {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsBySourceService("  "));
     }
@@ -334,28 +304,30 @@ class NotificationUseCaseTest {
     // ── markAsRead ────────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("markAsRead: marca como READ correctamente")
+    @DisplayName("markAsRead: marca correctamente como leída")
     void markAsRead_ok() {
         notification.setStatus("READ");
         when(notificationGateway.findById(1L)).thenReturn(Optional.of(notification));
         when(notificationGateway.markAsRead(1L)).thenReturn(notification);
-        assertEquals("READ", useCase.markAsRead(1L).getStatus());
+        Notification result = useCase.markAsRead(1L);
+        assertEquals("READ", result.getStatus());
+        verify(notificationGateway).markAsRead(1L);
     }
 
     @Test
     @DisplayName("markAsRead: ID negativo lanza error")
-    void markAsRead_negativo() {
-        assertThrows(RuntimeException.class, () -> useCase.markAsRead(-1L));
+    void markAsRead_idNegativo() {
+        assertThrows(RuntimeException.class, () -> useCase.markAsRead(-5L));
     }
 
     @Test
-    @DisplayName("markAsRead: null lanza error")
-    void markAsRead_null() {
+    @DisplayName("markAsRead: ID null lanza error")
+    void markAsRead_idNull() {
         assertThrows(RuntimeException.class, () -> useCase.markAsRead(null));
     }
 
     @Test
-    @DisplayName("markAsRead: no existe lanza error")
+    @DisplayName("markAsRead: notificación no existe lanza error")
     void markAsRead_noExiste() {
         when(notificationGateway.findById(99L)).thenReturn(Optional.empty());
         assertThrows(RuntimeException.class, () -> useCase.markAsRead(99L));

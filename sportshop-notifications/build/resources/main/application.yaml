@@ -2,14 +2,14 @@ spring:
   application:
     name: sportshop-notifications
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/sportshop?currentSchema=notifications}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:123}
+    url: jdbc:postgresql://localhost:5432/sportshop?currentSchema=notifications
+    username: postgres
+    password: 123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
     open-in-view: false
     properties:
       hibernate:
@@ -21,10 +21,10 @@ spring:
       password: disabled
 
 server:
-  port: ${PORT:8083}
+  port: 8083
 
 jwt:
-  secret: ${JWT_SECRET:3f8a2b1c9d7e4f6a0b5c8d2e1f7a3b4c9d6e5f8a2b1c0d7e4f3a6b5c8d9e2f1a}
+  secret: "3f8a2b1c9d7e4f6a0b5c8d2e1f7a3b4c9d6e5f8a2b1c0d7e4f3a6b5c8d9e2f1a"
   expiration-ms: 3600000
 
 springdoc:
