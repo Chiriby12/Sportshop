@@ -31,7 +31,7 @@ public class UserUpdateDTO {
     @Email(message = "El email no tiene un formato válido")
     private String email;
 
-    // Opcional en update — si se envía, debe cumplir el patrón
+
     @Pattern(
         regexp = "^$|^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,20}$",
         message = "La contraseña debe tener entre 8 y 20 caracteres, al menos una mayúscula, un número y un carácter especial (!@#$%)"

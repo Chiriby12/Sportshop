@@ -28,7 +28,7 @@ public class UserUseCase {
         if (userGateway.getUserByEmail(user.getEmail()) != null)
             throw new RuntimeException("Ya existe un usuario con el email: " + user.getEmail());
 
-        // Por defecto, si no se especifica rol, es USER
+
         if (user.getRole() == null || user.getRole().trim().isEmpty()) {
             user.setRole("USER");
         }
