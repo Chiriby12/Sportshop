@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="UserDataGatewayImp - Tests del adaptador JPA" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:32.994Z" hostname="SEBASGL" time="0.033">
+  <properties/>
+  <testcase name="existsByDocument: retorna false si no existe" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.002"/>
+  <testcase name="existsByDocument: retorna true si existe" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.002"/>
+  <testcase name="getUserByEmail: retorna null cuando no existe" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.002"/>
+  <testcase name="getAllUsers: retorna lista mapeada" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.003"/>
+  <testcase name="existsByEmail: retorna true si el email ya está registrado" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.002"/>
+  <testcase name="existsByEmail: retorna false si el email no está registrado" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.003"/>
+  <testcase name="getUserForDocument: retorna null cuando no existe" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.003"/>
+  <testcase name="getUserByEmail: retorna usuario cuando existe" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.003"/>
+  <testcase name="saveUser: guarda y retorna el dominio mapeado" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.002"/>
+  <testcase name="getUserForDocument: retorna usuario cuando existe" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.002"/>
+  <testcase name="deleteUserForDocument: llama al repositorio con el documento correcto" classname="com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserDataGatewayImpTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

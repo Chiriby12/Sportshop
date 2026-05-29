@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">auth</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.auth.infraestructure.entry_points</a> &gt; <span class="el_source">JwtFilter.java</span></div><h1>JwtFilter.java</h1><pre class="source lang-java linenums">package com.sportshop.auth.infraestructure.entry_points;
+
+import com.sportshop.auth.domain.model.gateway.JwtGateway;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * Filtro de seguridad JWT.
+ * Adaptador conductor (Driving Adapter): intercepta peticiones HTTP
+ * y delega la validación al puerto JwtGateway del dominio.
+ */
+@Component
+@RequiredArgsConstructor
+public class JwtFilter extends OncePerRequestFilter {
+
+    private final JwtGateway jwtGateway;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+<span class="fc" id="L34">        String authHeader = request.getHeader(&quot;Authorization&quot;);</span>
+
+<span class="fc bfc" id="L36" title="All 4 branches covered.">        if (authHeader != null &amp;&amp; authHeader.startsWith(&quot;Bearer &quot;)) {</span>
+<span class="fc" id="L37">            String token = authHeader.substring(7);</span>
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            if (jwtGateway.isTokenValid(token)) {</span>
+<span class="fc" id="L40">                String email = jwtGateway.extractEmail(token);</span>
+<span class="fc" id="L41">                String role  = jwtGateway.extractRole(token);</span>
+
+<span class="fc" id="L43">                UsernamePasswordAuthenticationToken auth =</span>
+                        new UsernamePasswordAuthenticationToken(
+                                email,
+                                null,
+<span class="fc" id="L47">                                List.of(new SimpleGrantedAuthority(&quot;ROLE_&quot; + role))</span>
+                        );
+
+<span class="fc" id="L50">                SecurityContextHolder.getContext().setAuthentication(auth);</span>
+            }
+        }
+
+<span class="fc" id="L54">        filterChain.doFilter(request, response);</span>
+<span class="fc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

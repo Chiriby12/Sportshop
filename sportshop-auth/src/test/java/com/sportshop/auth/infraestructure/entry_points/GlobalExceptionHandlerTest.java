@@ -5,10 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.mock.web.MockHttpInputMessage;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.FieldError;
@@ -16,10 +14,10 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock; // 1. Agregamos el import de Mockito
 
 class GlobalExceptionHandlerTest {
 
@@ -45,8 +43,7 @@ class GlobalExceptionHandlerTest {
     @Test
     @DisplayName("handleJsonErrors: retorna 400")
     void handleJsonErrors() {
-        HttpMessageNotReadableException ex = new HttpMessageNotReadableException(
-                "bad json", new MockHttpInputMessage("{}".getBytes(StandardCharsets.UTF_8)));
+        HttpMessageNotReadableException ex = new HttpMessageNotReadableException("bad json");
         ResponseEntity<?> response = handler.handleJsonErrors(ex);
         assertEquals(400, response.getStatusCode().value());
     }
@@ -111,8 +108,10 @@ class GlobalExceptionHandlerTest {
     @Test
     @DisplayName("handleNoResource: retorna 404")
     void handleNoResource() {
-        ResponseEntity<?> response = handler.handleNoResource(
-                new NoResourceFoundException(org.springframework.http.HttpMethod.GET, "/bad-url"));
+        // 2. Solución: Simulamos la excepción con mock() para no depender de su constructor
+        NoResourceFoundException ex = mock(NoResourceFoundException.class);
+
+        ResponseEntity<?> response = handler.handleNoResource(ex);
         assertEquals(404, response.getStatusCode().value());
     }
 }

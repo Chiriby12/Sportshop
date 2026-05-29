@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">auth</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.auth.infraestructure.entry_points</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package com.sportshop.auth.infraestructure.entry_points;
+
+import com.sportshop.auth.application.dto.ApiResponse;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Manejador global de excepciones.
+ * Transforma cualquier error en una respuesta JSON clara para el frontend,
+ * indicando exactamente qué campo falló y por qué.
+ */
+@RestControllerAdvice
+<span class="fc" id="L25">public class GlobalExceptionHandler {</span>
+
+    /**
+     * Errores de validación de @Valid — muestra campo por campo qué falló
+     * y qué valor se rechazó. Ej:
+     * {
+     *   &quot;password&quot;: &quot;La contraseña debe tener mayúscula... — ingresaste: abc123&quot;,
+     *   &quot;age&quot;: &quot;Debes tener mínimo 18 años — ingresaste: 15&quot;
+     * }
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Map&lt;String, String&gt;&gt;&gt; handleValidationErrors(
+            MethodArgumentNotValidException ex) {
+
+<span class="fc" id="L39">        Map&lt;String, String&gt; campos = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L40">        ex.getBindingResult().getFieldErrors().forEach(error -&gt;</span>
+<span class="fc" id="L41">                campos.put(</span>
+<span class="fc" id="L42">                        error.getField(),</span>
+<span class="fc" id="L43">                        error.getDefaultMessage() + &quot; — ingresaste: &quot; + error.getRejectedValue()</span>
+                )
+        );
+<span class="fc" id="L46">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L47">                buildError(HttpStatus.BAD_REQUEST, &quot;Error de validación en los campos&quot;, campos),</span>
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    /**
+     * Body JSON malformado o vacío
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleJsonErrors(HttpMessageNotReadableException ex) {
+<span class="fc" id="L57">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L58">                buildError(HttpStatus.BAD_REQUEST,</span>
+                        &quot;El cuerpo de la solicitud es inválido — verifica que sea JSON válido&quot;, null),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    /**
+     * Ruta no encontrada
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleNoResource(NoResourceFoundException ex) {
+<span class="fc" id="L69">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L70">                buildError(HttpStatus.NOT_FOUND,</span>
+<span class="fc" id="L71">                        &quot;URL no encontrada — verifica que la ruta sea correcta: &quot; + ex.getResourcePath(), null),</span>
+                HttpStatus.NOT_FOUND
+        );
+    }
+
+    /**
+     * Acceso denegado (token sin permisos suficientes)
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleAccessDenied(AccessDeniedException ex) {
+<span class="fc" id="L81">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L82">                buildError(HttpStatus.FORBIDDEN,</span>
+                        &quot;No tienes permisos para realizar esta acción&quot;, null),
+                HttpStatus.FORBIDDEN
+        );
+    }
+
+    /**
+     * Violación de constraint en BD (email o documento duplicado a nivel de BD)
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleDataIntegrity(DataIntegrityViolationException ex) {
+<span class="fc" id="L93">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L94">                buildError(HttpStatus.BAD_REQUEST,</span>
+                        &quot;Ya existe un registro con esos datos (email o documento duplicado)&quot;, null),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    /**
+     * Errores de lógica de negocio lanzados desde el UseCase
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleRuntimeErrors(RuntimeException ex) {
+<span class="fc" id="L105">        String mensaje = ex.getMessage();</span>
+        HttpStatus status;
+
+<span class="pc bpc" id="L108" title="1 of 4 branches missed.">        if (mensaje != null &amp;&amp; mensaje.contains(&quot;Contraseña incorrecta&quot;))</span>
+<span class="fc" id="L109">            status = HttpStatus.UNAUTHORIZED;</span>
+<span class="pc bpc" id="L110" title="1 of 4 branches missed.">        else if (mensaje != null &amp;&amp; mensaje.contains(&quot;permiso&quot;))</span>
+<span class="fc" id="L111">            status = HttpStatus.FORBIDDEN;</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        else if (mensaje != null &amp;&amp; (</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">                mensaje.contains(&quot;Ya existe&quot;) ||</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">                mensaje.contains(&quot;no coincide&quot;) ||</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">                mensaje.contains(&quot;vacío&quot;)</span>
+        ))
+<span class="fc" id="L117">            status = HttpStatus.BAD_REQUEST;</span>
+        else
+<span class="fc" id="L119">            status = HttpStatus.NOT_FOUND;</span>
+
+<span class="fc" id="L121">        return new ResponseEntity&lt;&gt;(buildError(status, mensaje, null), status);</span>
+    }
+
+    /**
+     * Método HTTP no soportado en la ruta (ej: GET en endpoint que solo acepta POST)
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleMethodNotSupported(
+            HttpRequestMethodNotSupportedException ex) {
+<span class="fc" id="L130">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L131">                buildError(HttpStatus.METHOD_NOT_ALLOWED,</span>
+<span class="fc" id="L132">                        &quot;Método &quot; + ex.getMethod() + &quot; no permitido en esta ruta — usa: &quot; +</span>
+<span class="fc" id="L133">                        ex.getSupportedHttpMethods(), null),</span>
+                HttpStatus.METHOD_NOT_ALLOWED
+        );
+    }
+
+    /**
+     * Cualquier otro error inesperado
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleGeneralErrors(Exception ex) {
+<span class="fc" id="L143">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L144">                buildError(HttpStatus.INTERNAL_SERVER_ERROR,</span>
+<span class="fc" id="L145">                        &quot;Error interno del servidor — &quot; + ex.getMessage(), null),</span>
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
+
+    private &lt;T&gt; ApiResponse&lt;T&gt; buildError(HttpStatus status, String mensaje, T detalle) {
+<span class="fc" id="L151">        return new ApiResponse&lt;&gt;(status.value(), mensaje, detalle, LocalDateTime.now().toString());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

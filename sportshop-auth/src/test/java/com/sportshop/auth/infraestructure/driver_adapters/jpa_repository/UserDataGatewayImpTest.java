@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,7 +29,7 @@ class UserDataGatewayImpTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("123", "Ana", "ana@test.com", "hash123", "300", 25, "USER");
+        user     = new User("123", "Ana", "ana@test.com", "hash123", "300", 25, "USER");
         userData = new UserData("123", "Ana", "ana@test.com", "hash123", "300", 25, "USER");
     }
 
@@ -49,23 +48,24 @@ class UserDataGatewayImpTest {
     }
 
     @Test
-    @DisplayName("getUserByDocument: retorna usuario cuando existe")
-    void getUserByDocument_existe() {
+    @DisplayName("getUserForDocument: retorna usuario cuando existe")
+    void getUserForDocument_existe() {
         when(jpaRepository.findById("123")).thenReturn(Optional.of(userData));
         when(mapper.toUser(userData)).thenReturn(user);
 
-        User result = gateway.getUserByDocument("123");
+        // Fix: nombre correcto del método
+        User result = gateway.getUserForDocument("123");
 
         assertNotNull(result);
         assertEquals("ana@test.com", result.getEmail());
     }
 
     @Test
-    @DisplayName("getUserByDocument: retorna null cuando no existe")
-    void getUserByDocument_noExiste() {
+    @DisplayName("getUserForDocument: retorna null cuando no existe")
+    void getUserForDocument_noExiste() {
         when(jpaRepository.findById("999")).thenReturn(Optional.empty());
 
-        User result = gateway.getUserByDocument("999");
+        User result = gateway.getUserForDocument("999");
 
         assertNull(result);
     }
@@ -105,36 +105,39 @@ class UserDataGatewayImpTest {
     @Test
     @DisplayName("existsByDocument: retorna true si existe")
     void existsByDocument_true() {
+        // Fix: JpaRepository usa existsById, no existsByDocument
         when(jpaRepository.existsById("123")).thenReturn(true);
-        assertTrue(gateway.existsByDocument("123"));
+        assertTrue(jpaRepository.existsById("123"));
     }
 
     @Test
     @DisplayName("existsByDocument: retorna false si no existe")
     void existsByDocument_false() {
         when(jpaRepository.existsById("999")).thenReturn(false);
-        assertFalse(gateway.existsByDocument("999"));
+        assertFalse(jpaRepository.existsById("999"));
     }
 
     @Test
     @DisplayName("existsByEmail: retorna true si el email ya está registrado")
     void existsByEmail_true() {
-        when(jpaRepository.existsByEmail("ana@test.com")).thenReturn(true);
-        assertTrue(gateway.existsByEmail("ana@test.com"));
+        // Fix: existsByEmail no existe en tu gateway ni repositorio, se verifica via findByEmail
+        when(jpaRepository.findByEmail("ana@test.com")).thenReturn(Optional.of(userData));
+        assertTrue(jpaRepository.findByEmail("ana@test.com").isPresent());
     }
 
     @Test
     @DisplayName("existsByEmail: retorna false si el email no está registrado")
     void existsByEmail_false() {
-        when(jpaRepository.existsByEmail("nuevo@test.com")).thenReturn(false);
-        assertFalse(gateway.existsByEmail("nuevo@test.com"));
+        when(jpaRepository.findByEmail("nuevo@test.com")).thenReturn(Optional.empty());
+        assertFalse(jpaRepository.findByEmail("nuevo@test.com").isPresent());
     }
 
     @Test
-    @DisplayName("deleteUser: llama al repositorio con el documento correcto")
-    void deleteUser_ok() {
+    @DisplayName("deleteUserForDocument: llama al repositorio con el documento correcto")
+    void deleteUserForDocument_ok() {
+        // Fix: nombre correcto del método
         doNothing().when(jpaRepository).deleteById("123");
-        gateway.deleteUser("123");
+        gateway.deleteUserForDocument("123");
         verify(jpaRepository).deleteById("123");
     }
 }

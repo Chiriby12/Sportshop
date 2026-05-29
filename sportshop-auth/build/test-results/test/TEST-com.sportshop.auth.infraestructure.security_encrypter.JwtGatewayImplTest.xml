@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sportshop.auth.infraestructure.security_encrypter.JwtGatewayImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:37.070Z" hostname="SEBASGL" time="0.246">
+  <properties/>
+  <testcase name="generateToken: genera un token no nulo" classname="com.sportshop.auth.infraestructure.security_encrypter.JwtGatewayImplTest" time="0.155"/>
+  <testcase name="isTokenValid: token expirado retorna false" classname="com.sportshop.auth.infraestructure.security_encrypter.JwtGatewayImplTest" time="0.079"/>
+  <testcase name="isTokenValid: token válido retorna true" classname="com.sportshop.auth.infraestructure.security_encrypter.JwtGatewayImplTest" time="0.005"/>
+  <testcase name="extractEmail: extrae el email del token" classname="com.sportshop.auth.infraestructure.security_encrypter.JwtGatewayImplTest" time="0.002"/>
+  <testcase name="isTokenValid: token inválido retorna false" classname="com.sportshop.auth.infraestructure.security_encrypter.JwtGatewayImplTest" time="0.002"/>
+  <testcase name="extractRole: extrae el rol del token" classname="com.sportshop.auth.infraestructure.security_encrypter.JwtGatewayImplTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

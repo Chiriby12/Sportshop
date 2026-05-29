@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UseCaseConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">auth</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.auth.application.config</a> &gt; <span class="el_source">UseCaseConfig.java</span></div><h1>UseCaseConfig.java</h1><pre class="source lang-java linenums">package com.sportshop.auth.application.config;
+
+import com.sportshop.auth.domain.model.gateway.EncrypterGateway;
+import com.sportshop.auth.domain.model.gateway.JwtGateway;
+import com.sportshop.auth.domain.model.gateway.UserGateway;
+import com.sportshop.auth.domain.usecase.UserUseCase;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * Configuración de casos de uso.
+ * Arquitectura Hexagonal: aquí conectamos los puertos con los adaptadores.
+ * El UseCase (dominio) no sabe nada de Spring; es este config quien inyecta
+ * los adaptadores concretos a través de las interfaces/gateways.
+ */
+@Configuration
+<span class="fc" id="L17">public class UseCaseConfig {</span>
+
+    @Bean
+    public UserUseCase userUseCase(UserGateway userGateway,
+                                   EncrypterGateway encrypterGateway,
+                                   JwtGateway jwtGateway) {
+<span class="fc" id="L23">        return new UserUseCase(userGateway, encrypterGateway, jwtGateway);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SecurityConfig - Test de Cobertura de Excepciones" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:31.612Z" hostname="SEBASGL" time="0.984">
+  <properties/>
+  <testcase name="corsConfigurationSource: se crea correctamente" classname="com.sportshop.auth.application.config.SecurityConfigTest" time="0.292"/>
+  <testcase name="Debe ejecutar de forma real las lambdas de exceptionHandling e inyectar cobertura" classname="com.sportshop.auth.application.config.SecurityConfigTest" time="0.69"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

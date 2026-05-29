@@ -114,8 +114,8 @@ class UserUseCaseTest {
     @DisplayName("saveUser: lanza error si la contraseña está vacía")
     void saveUser_passwordVacio() {
         usuario.setPassword("");
-        when(userGateway.getUserForDocument(any())).thenReturn(null);
-        when(userGateway.getUserByEmail(any())).thenReturn(null);
+        // Fix: quitamos los when innecesarios — la excepción se lanza
+        // antes de que el useCase llegue a llamar userGateway o encrypterGateway
         RuntimeException ex = assertThrows(RuntimeException.class, () -> userUseCase.saveUser(usuario));
         assertEquals("La contraseña no puede estar vacía", ex.getMessage());
     }
