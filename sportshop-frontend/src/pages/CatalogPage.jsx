@@ -18,7 +18,7 @@ const CATS = [
   { v: 'GOLF',      l: 'Golf'       },
 ]
 
-// Modal detalle producto
+
 function DetailModal({ product, onClose, onAdd }) {
   const { isAuth } = useAuth()
   return (

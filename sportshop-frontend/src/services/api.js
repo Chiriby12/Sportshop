@@ -3,7 +3,7 @@ const CAT_URL   = import.meta.env.VITE_CATALOG_URL        || ''
 const ADMIN_URL = import.meta.env.VITE_ADMIN_URL          || ''
 const NOTIF_URL = import.meta.env.VITE_NOTIFICATIONS_URL  || ''
 
-// ── Mensajes de error amigables ───────────────────────────────────────────────
+
 function mensajeAmigable(err, status) {
   const e = (err || '').toLowerCase()
 
@@ -66,7 +66,7 @@ const pu = (u, b, t) => req('PUT',    u, b,    t)
 const pa = (u, b, t) => req('PATCH',  u, b,    t)
 const d  = (u, t)    => req('DELETE', u, null, t)
 
-// ── AUTH :8080 ────────────────────────────────────────────────
+
 export const authApi = {
   login:    (email, password) => p(`${AUTH_URL}/api/sportshop/auth/login`, { email, password }),
   register: (data)            => p(`${AUTH_URL}/api/sportshop/auth/save`, data),
@@ -76,7 +76,7 @@ export const authApi = {
   delete:   (doc, t)          => d(`${AUTH_URL}/api/sportshop/auth/delete/${doc}`, t),
 }
 
-// ── CATALOG :8081 ─────────────────────────────────────────────
+
 export const catalogApi = {
   getActive:    ()            => g(`${CAT_URL}/api/sportshop/catalog/products`),
   getAll:       (t)           => g(`${CAT_URL}/api/sportshop/catalog/products/all`, t),
@@ -92,7 +92,7 @@ export const catalogApi = {
   purchase:     (t)           => p(`${CAT_URL}/api/sportshop/catalog/cart/purchase`, {}, t),
 }
 
-// ── ADMIN :8082 ───────────────────────────────────────────────
+
 export const adminApi = {
   getUsers:    (t)            => g(`${ADMIN_URL}/api/sportshop/admin/users`, t),
   createUser:  (data, t)      => p(`${ADMIN_URL}/api/sportshop/admin/users`, data, t),
@@ -105,14 +105,14 @@ export const adminApi = {
   deleteProd:  (id, t)        => d(`${ADMIN_URL}/api/sportshop/admin/products/${id}`, t),
 }
 
-// ── NOTIFICATIONS :8083 ───────────────────────────────────────
+
 export const notifApi = {
   getAll:    (t)      => g(`${NOTIF_URL}/api/sportshop/notifications`, t),
   getByUser: (doc, t) => g(`${NOTIF_URL}/api/sportshop/notifications/user/${doc}`, t),
   markRead:  (id, t)  => pa(`${NOTIF_URL}/api/sportshop/notifications/${id}/read`, {}, t),
 }
 
-// ── Helpers ───────────────────────────────────────────────────
+
 export const sportIcon = (sport = '', cat = '') => {
   const s = (sport + cat).toUpperCase()
   if (s.includes('FUTBOL') || s.includes('FOOTBALL') || s.includes('SOCCER')) return 'ti-ball-football'

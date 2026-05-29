@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { adminApi, catalogApi, sportIcon, fmt } from '../services/api'
 
-// ── Product form modal ─────────────────────────────────────────
+
 function ProdModal({ item, token, onClose, onDone }) {
   const [f, setF] = useState(item || { name: '', description: '', brand: '', category: '', sport: '', price: '', stock: '', active: true })
   const [busy, setBusy] = useState(false)
@@ -59,7 +59,7 @@ function ProdModal({ item, token, onClose, onDone }) {
   )
 }
 
-// ── User form modal ────────────────────────────────────────────
+
 function UserModal({ item, token, onClose, onDone }) {
   const [f, setF] = useState(item || { name: '', email: '', password: '', document: '', telephone: '', age: '', role: 'USER' })
   const [busy, setBusy] = useState(false)
@@ -115,7 +115,7 @@ function UserModal({ item, token, onClose, onDone }) {
   )
 }
 
-// ── Products tab ───────────────────────────────────────────────
+
 function ProductsTab({ token }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -207,7 +207,7 @@ function ProductsTab({ token }) {
   )
 }
 
-// ── Users tab ──────────────────────────────────────────────────
+
 function UsersTab({ token }) {
   const [users, setUsers]   = useState([])
   const [loading, setLoading] = useState(true)
@@ -287,7 +287,7 @@ function UsersTab({ token }) {
   )
 }
 
-// ── AdminPage ──────────────────────────────────────────────────
+
 export default function AdminPage() {
   const { token } = useAuth()
   const [tab, setTab] = useState('products')
