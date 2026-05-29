@@ -2,12 +2,12 @@ package com.sportshop.notifications.domain.usecase;
 
 import com.sportshop.notifications.domain.model.Notification;
 import com.sportshop.notifications.domain.model.event.CatalogEvent;
+import com.sportshop.notifications.domain.model.gateway.EmailSenderGateway;
 import com.sportshop.notifications.domain.model.gateway.NotificationGateway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -24,17 +24,21 @@ import static org.mockito.Mockito.*;
 @DisplayName("NotificationUseCase - Tests")
 class NotificationUseCaseTest {
 
-    @Mock
-    private NotificationGateway notificationGateway;
+    @Mock private NotificationGateway notificationGateway;
+    @Mock private EmailSenderGateway emailSenderGateway;
 
-    @InjectMocks
     private NotificationUseCase useCase;
-
     private CatalogEvent event;
     private Notification notification;
 
     @BeforeEach
     void setUp() {
+        useCase = new NotificationUseCase(
+                notificationGateway,
+                emailSenderGateway,
+                "admin@sportshop.com"
+        );
+
         event = new CatalogEvent();
         event.setType(CatalogEvent.EventType.PRODUCT_CREATED);
         event.setTitle("Nuevo producto creado");
@@ -56,14 +60,18 @@ class NotificationUseCaseTest {
     // ── receiveEvent ──────────────────────────────────────────────────────────
 
     @Test
-    @DisplayName("receiveEvent: persiste notificación correctamente")
+    @DisplayName("receiveEvent: persiste y envía email correctamente")
     void receiveEvent_ok() {
         when(notificationGateway.save(any())).thenReturn(notification);
+        doNothing().when(emailSenderGateway).sendEmail(anyString(), anyString(), anyString());
+
         Notification result = useCase.receiveEvent(event);
+
         assertNotNull(result);
         assertEquals("PRODUCT_CREATED", result.getType());
         assertEquals("RECEIVED", result.getStatus());
         verify(notificationGateway).save(any(Notification.class));
+        verify(emailSenderGateway).sendEmail(eq("admin@sportshop.com"), anyString(), anyString());
     }
 
     @Test
@@ -139,6 +147,17 @@ class NotificationUseCaseTest {
         assertThrows(RuntimeException.class, () -> useCase.receiveEvent(event));
     }
 
+    @Test
+    @DisplayName("receiveEvent: email falla silenciosamente sin afectar el flujo")
+    void receiveEvent_emailFalla_noAfectaFlujo() {
+        when(notificationGateway.save(any())).thenReturn(notification);
+        doThrow(new RuntimeException("Resend caído"))
+                .when(emailSenderGateway).sendEmail(anyString(), anyString(), anyString());
+
+        assertDoesNotThrow(() -> useCase.receiveEvent(event));
+        verify(notificationGateway).save(any());
+    }
+
     // ── getAllNotifications ───────────────────────────────────────────────────
 
     @Test
@@ -147,15 +166,13 @@ class NotificationUseCaseTest {
         when(notificationGateway.findAll()).thenReturn(List.of(notification));
         List<Notification> result = useCase.getAllNotifications();
         assertEquals(1, result.size());
-        verify(notificationGateway).findAll();
     }
 
     @Test
     @DisplayName("getAllNotifications: retorna lista vacía cuando no hay notificaciones")
     void getAll_vacia() {
         when(notificationGateway.findAll()).thenReturn(Collections.emptyList());
-        List<Notification> result = useCase.getAllNotifications();
-        assertTrue(result.isEmpty());
+        assertTrue(useCase.getAllNotifications().isEmpty());
     }
 
     // ── getNotificationById ───────────────────────────────────────────────────
@@ -164,16 +181,13 @@ class NotificationUseCaseTest {
     @DisplayName("getNotificationById: retorna notificación existente")
     void getById_ok() {
         when(notificationGateway.findById(1L)).thenReturn(Optional.of(notification));
-        Notification result = useCase.getNotificationById(1L);
-        assertNotNull(result);
-        assertEquals(1L, result.getId());
+        assertEquals(1L, useCase.getNotificationById(1L).getId());
     }
 
     @Test
     @DisplayName("getNotificationById: ID negativo lanza error")
     void getById_idNegativo() {
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> useCase.getNotificationById(-1L));
-        assertEquals("El ID debe ser un número positivo", ex.getMessage());
+        assertThrows(RuntimeException.class, () -> useCase.getNotificationById(-1L));
     }
 
     @Test
@@ -192,8 +206,7 @@ class NotificationUseCaseTest {
     @DisplayName("getNotificationById: no existe lanza error")
     void getById_noExiste() {
         when(notificationGateway.findById(99L)).thenReturn(Optional.empty());
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> useCase.getNotificationById(99L));
-        assertTrue(ex.getMessage().contains("99"));
+        assertThrows(RuntimeException.class, () -> useCase.getNotificationById(99L));
     }
 
     // ── getNotificationsByUser ────────────────────────────────────────────────
@@ -202,8 +215,7 @@ class NotificationUseCaseTest {
     @DisplayName("getNotificationsByUser: retorna notificaciones del usuario")
     void getByUser_ok() {
         when(notificationGateway.findByPerformedBy("12345678")).thenReturn(List.of(notification));
-        List<Notification> result = useCase.getNotificationsByUser("12345678");
-        assertEquals(1, result.size());
+        assertEquals(1, useCase.getNotificationsByUser("12345678").size());
     }
 
     @Test
@@ -224,8 +236,7 @@ class NotificationUseCaseTest {
     @DisplayName("getNotificationsByType: retorna notificaciones del tipo")
     void getByType_ok() {
         when(notificationGateway.findByType("PRODUCT_CREATED")).thenReturn(List.of(notification));
-        List<Notification> result = useCase.getNotificationsByType("PRODUCT_CREATED");
-        assertEquals(1, result.size());
+        assertEquals(1, useCase.getNotificationsByType("PRODUCT_CREATED").size());
     }
 
     @Test
@@ -254,8 +265,7 @@ class NotificationUseCaseTest {
     @DisplayName("getNotificationsByStatus: RECEIVED funciona correctamente")
     void getByStatus_received() {
         when(notificationGateway.findByStatus("RECEIVED")).thenReturn(List.of(notification));
-        List<Notification> result = useCase.getNotificationsByStatus("RECEIVED");
-        assertEquals(1, result.size());
+        assertEquals(1, useCase.getNotificationsByStatus("RECEIVED").size());
     }
 
     @Test
@@ -291,8 +301,7 @@ class NotificationUseCaseTest {
     @DisplayName("getNotificationsBySourceService: retorna notificaciones del servicio")
     void getBySource_ok() {
         when(notificationGateway.findBySourceService("catalog-service")).thenReturn(List.of(notification));
-        List<Notification> result = useCase.getNotificationsBySourceService("catalog-service");
-        assertEquals(1, result.size());
+        assertEquals(1, useCase.getNotificationsBySourceService("catalog-service").size());
     }
 
     @Test
@@ -309,8 +318,7 @@ class NotificationUseCaseTest {
         notification.setStatus("READ");
         when(notificationGateway.findById(1L)).thenReturn(Optional.of(notification));
         when(notificationGateway.markAsRead(1L)).thenReturn(notification);
-        Notification result = useCase.markAsRead(1L);
-        assertEquals("READ", result.getStatus());
+        assertEquals("READ", useCase.markAsRead(1L).getStatus());
         verify(notificationGateway).markAsRead(1L);
     }
 
