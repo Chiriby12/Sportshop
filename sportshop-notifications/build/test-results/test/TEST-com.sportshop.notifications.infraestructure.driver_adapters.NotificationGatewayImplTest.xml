@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="NotificationGatewayImpl - Tests" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-05-29T22:08:31.075Z" hostname="SEBASGL" time="0.17">
+  <properties/>
+  <testcase name="findById: no existe retorna Optional vacío" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.137"/>
+  <testcase name="findBySourceService: filtra por servicio" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.004"/>
+  <testcase name="findByStatus: filtra por estado" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.002"/>
+  <testcase name="markAsRead: cambia estado a READ" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.006"/>
+  <testcase name="markAsRead: no existe lanza error" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.003"/>
+  <testcase name="findAll: retorna lista mapeada" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.003"/>
+  <testcase name="findByType: filtra por tipo" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.003"/>
+  <testcase name="findById: retorna Optional con dominio" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.002"/>
+  <testcase name="findByPerformedBy: filtra correctamente" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.003"/>
+  <testcase name="save: persiste y retorna dominio" classname="com.sportshop.notifications.infraestructure.driver_adapters.NotificationGatewayImplTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

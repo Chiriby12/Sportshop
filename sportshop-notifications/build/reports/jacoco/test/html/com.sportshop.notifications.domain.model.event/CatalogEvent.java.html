@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogEvent.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-notifications</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.notifications.domain.model.event</a> &gt; <span class="el_source">CatalogEvent.java</span></div><h1>CatalogEvent.java</h1><pre class="source lang-java linenums">package com.sportshop.notifications.domain.model.event;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+/**
+ * Representa el evento que llega desde cualquier microservicio
+ * (catálogo o admin). Debe contener todos los tipos posibles
+ * para que Jackson pueda deserializarlos correctamente.
+ */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class CatalogEvent {
+
+<span class="fc" id="L21">    public enum EventType {</span>
+        // Eventos del catálogo
+<span class="fc" id="L23">        PRODUCT_CREATED,</span>
+<span class="fc" id="L24">        PRODUCT_UPDATED,</span>
+<span class="fc" id="L25">        PRODUCT_DELETED,</span>
+<span class="fc" id="L26">        CART_ITEM_ADDED,</span>
+<span class="fc" id="L27">        CART_ITEM_REMOVED,</span>
+<span class="fc" id="L28">        CART_ITEM_UPDATED,</span>
+<span class="fc" id="L29">        CART_PURCHASED,</span>
+        // Eventos del admin (usuarios)
+<span class="fc" id="L31">        USER_CREATED,</span>
+<span class="fc" id="L32">        USER_UPDATED,</span>
+<span class="fc" id="L33">        USER_DELETED,</span>
+<span class="fc" id="L34">        USER_ROLE_CHANGED</span>
+    }
+
+    private EventType type;
+    private String title;
+    private String message;
+    private String performedBy;
+    private Object payload;
+    private LocalDateTime timestamp;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

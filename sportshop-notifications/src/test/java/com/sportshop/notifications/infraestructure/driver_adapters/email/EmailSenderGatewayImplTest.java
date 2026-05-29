@@ -13,25 +13,25 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("EmailSenderGatewayImpl - Tests del adaptador Resend")
+@DisplayName("EmailSenderGatewayImpl - Tests del adaptador de email")
 class EmailSenderGatewayImplTest {
 
     @Test
-    @DisplayName("sendEmail: envía correctamente cuando Resend responde OK")
+    @DisplayName("sendEmail: envia correctamente cuando el servicio responde OK")
     void sendEmail_ok() {
-        WebClient.Builder builder       = mock(WebClient.Builder.class);
-        WebClient webClient             = mock(WebClient.class);
-        WebClient.RequestBodyUriSpec uri = mock(WebClient.RequestBodyUriSpec.class);
-        WebClient.RequestBodySpec body  = mock(WebClient.RequestBodySpec.class);
-        WebClient.ResponseSpec resp     = mock(WebClient.ResponseSpec.class);
+        WebClient.Builder builder               = mock(WebClient.Builder.class);
+        WebClient webClient                     = mock(WebClient.class);
+        WebClient.RequestBodyUriSpec uri        = mock(WebClient.RequestBodyUriSpec.class);
+        WebClient.RequestHeadersSpec<?> headers = mock(WebClient.RequestHeadersSpec.class);
+        WebClient.ResponseSpec resp             = mock(WebClient.ResponseSpec.class);
 
         when(builder.baseUrl(anyString())).thenReturn(builder);
         when(builder.defaultHeader(anyString(), anyString())).thenReturn(builder);
         when(builder.build()).thenReturn(webClient);
         when(webClient.post()).thenReturn(uri);
-        when(uri.uri(anyString())).thenReturn(body);
-        when(body.bodyValue(any())).thenReturn(body);
-        when(body.retrieve()).thenReturn(resp);
+        when(uri.uri(anyString())).thenReturn(uri);
+        doReturn(headers).when(uri).bodyValue(any());
+        when(headers.retrieve()).thenReturn(resp);
         when(resp.bodyToMono(String.class)).thenReturn(Mono.just("{\"id\":\"abc123\"}"));
 
         EmailSenderGatewayImpl impl =
@@ -42,21 +42,21 @@ class EmailSenderGatewayImplTest {
     }
 
     @Test
-    @DisplayName("sendEmail: no lanza excepción si Resend devuelve error")
-    void sendEmail_resendError() {
-        WebClient.Builder builder       = mock(WebClient.Builder.class);
-        WebClient webClient             = mock(WebClient.class);
-        WebClient.RequestBodyUriSpec uri = mock(WebClient.RequestBodyUriSpec.class);
-        WebClient.RequestBodySpec body  = mock(WebClient.RequestBodySpec.class);
-        WebClient.ResponseSpec resp     = mock(WebClient.ResponseSpec.class);
+    @DisplayName("sendEmail: no lanza excepcion si el servicio devuelve error")
+    void sendEmail_serviceError() {
+        WebClient.Builder builder               = mock(WebClient.Builder.class);
+        WebClient webClient                     = mock(WebClient.class);
+        WebClient.RequestBodyUriSpec uri        = mock(WebClient.RequestBodyUriSpec.class);
+        WebClient.RequestHeadersSpec<?> headers = mock(WebClient.RequestHeadersSpec.class);
+        WebClient.ResponseSpec resp             = mock(WebClient.ResponseSpec.class);
 
         when(builder.baseUrl(anyString())).thenReturn(builder);
         when(builder.defaultHeader(anyString(), anyString())).thenReturn(builder);
         when(builder.build()).thenReturn(webClient);
         when(webClient.post()).thenReturn(uri);
-        when(uri.uri(anyString())).thenReturn(body);
-        when(body.bodyValue(any())).thenReturn(body);
-        when(body.retrieve()).thenReturn(resp);
+        when(uri.uri(anyString())).thenReturn(uri);
+        doReturn(headers).when(uri).bodyValue(any());
+        when(headers.retrieve()).thenReturn(resp);
         when(resp.bodyToMono(String.class))
                 .thenReturn(Mono.error(new RuntimeException("403 Forbidden")));
 
@@ -68,10 +68,10 @@ class EmailSenderGatewayImplTest {
     }
 
     @Test
-    @DisplayName("sendEmail: no lanza excepción si ocurre error inesperado")
+    @DisplayName("sendEmail: no lanza excepcion si ocurre error inesperado")
     void sendEmail_errorInesperado() {
-        WebClient.Builder builder = mock(WebClient.Builder.class);
-        WebClient webClient       = mock(WebClient.class);
+        WebClient.Builder builder        = mock(WebClient.Builder.class);
+        WebClient webClient              = mock(WebClient.class);
         WebClient.RequestBodyUriSpec uri = mock(WebClient.RequestBodyUriSpec.class);
 
         when(builder.baseUrl(anyString())).thenReturn(builder);

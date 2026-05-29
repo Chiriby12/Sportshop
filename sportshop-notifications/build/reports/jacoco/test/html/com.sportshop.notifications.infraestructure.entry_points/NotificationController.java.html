@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-notifications</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.notifications.infraestructure.entry_points</a> &gt; <span class="el_source">NotificationController.java</span></div><h1>NotificationController.java</h1><pre class="source lang-java linenums">package com.sportshop.notifications.infraestructure.entry_points;
+
+import com.sportshop.notifications.application.dto.ApiResponse;
+import com.sportshop.notifications.application.dto.NotificationResponseDTO;
+import com.sportshop.notifications.domain.model.Notification;
+import com.sportshop.notifications.domain.model.event.CatalogEvent;
+import com.sportshop.notifications.domain.usecase.NotificationUseCase;
+import com.sportshop.notifications.infraestructure.mapper.NotificationMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * Adaptador conductor (Driving Adapter) - Endpoints de notificaciones.
+ *
+ * Flujo automático:
+ *  1. catalog-service crea/actualiza/elimina un producto o el usuario agrega al carrito
+ *  2. EventPublisherGatewayImpl del catálogo hace POST /api/sportshop/notifications/receive
+ *  3. Este endpoint persiste la notificación en la BD
+ *  4. El frontend consulta GET /api/sportshop/notifications para mostrarlas en pantalla
+ */
+@RestController
+@RequestMapping(&quot;/api/sportshop/notifications&quot;)
+@RequiredArgsConstructor
+@Tag(name = &quot;Notificaciones&quot;, description = &quot;Historial de eventos del sistema SportShop&quot;)
+public class NotificationController {
+
+    private final NotificationUseCase notificationUseCase;
+    private final NotificationMapper notificationMapper;
+
+    /**
+     * Endpoint público - recibe eventos automáticos de otros microservicios.
+     * Llamado por: catalog-service (EventPublisherGatewayImpl)
+     */
+    @PostMapping(&quot;/receive&quot;)
+    @Operation(
+        summary = &quot;Recibir evento (interno)&quot;,
+        description = &quot;Endpoint público. Los microservicios lo llaman automáticamente al crear/actualizar/eliminar productos o realizar acciones de carrito.&quot;
+    )
+    public ResponseEntity&lt;ApiResponse&lt;NotificationResponseDTO&gt;&gt; receiveEvent(
+            @RequestBody CatalogEvent event) {
+<span class="fc" id="L49">        Notification notification = notificationUseCase.receiveEvent(event);</span>
+<span class="fc" id="L50">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L51">                ApiResponse.created(&quot;Notificación registrada&quot;, notificationMapper.toResponseDTO(notification)),</span>
+                HttpStatus.CREATED
+        );
+    }
+
+    /**
+     * Listar todas las notificaciones - solo ADMIN.
+     */
+    @GetMapping
+    @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Listar todas las notificaciones&quot;, description = &quot;Solo ADMIN&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;NotificationResponseDTO&gt;&gt;&gt; getAllNotifications() {
+<span class="fc" id="L64">        List&lt;NotificationResponseDTO&gt; notifications = notificationUseCase.getAllNotifications()</span>
+<span class="fc" id="L65">                .stream().map(notificationMapper::toResponseDTO).toList();</span>
+<span class="fc" id="L66">        return ResponseEntity.ok(ApiResponse.ok(&quot;Notificaciones encontradas&quot;, notifications));</span>
+    }
+
+    /**
+     * Obtener notificación por ID - ADMIN o USER autenticado.
+     */
+    @GetMapping(&quot;/{id}&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('USER')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Obtener notificación por ID&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;NotificationResponseDTO&gt;&gt; getById(@PathVariable Long id) {
+<span class="fc" id="L77">        Notification n = notificationUseCase.getNotificationById(id);</span>
+<span class="fc" id="L78">        return ResponseEntity.ok(ApiResponse.ok(&quot;Notificación encontrada&quot;, notificationMapper.toResponseDTO(n)));</span>
+    }
+
+    /**
+     * Notificaciones de un usuario específico (por documento o email).
+     * Un USER solo debería ver las suyas; ADMIN puede ver de cualquiera.
+     */
+    @GetMapping(&quot;/user/{performedBy}&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('USER')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Notificaciones por usuario&quot;, description = &quot;Filtra por documento o email del usuario&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;NotificationResponseDTO&gt;&gt;&gt; getByUser(
+            @PathVariable String performedBy) {
+<span class="fc" id="L91">        List&lt;NotificationResponseDTO&gt; notifications = notificationUseCase.getNotificationsByUser(performedBy)</span>
+<span class="fc" id="L92">                .stream().map(notificationMapper::toResponseDTO).toList();</span>
+<span class="fc" id="L93">        return ResponseEntity.ok(ApiResponse.ok(&quot;Notificaciones del usuario: &quot; + performedBy, notifications));</span>
+    }
+
+    /**
+     * Filtrar por tipo de evento.
+     */
+    @GetMapping(&quot;/type/{type}&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Notificaciones por tipo&quot;, description = &quot;Ej: PRODUCT_CREATED, CART_PURCHASED&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;NotificationResponseDTO&gt;&gt;&gt; getByType(
+            @PathVariable String type) {
+<span class="fc" id="L105">        List&lt;NotificationResponseDTO&gt; notifications = notificationUseCase.getNotificationsByType(type)</span>
+<span class="fc" id="L106">                .stream().map(notificationMapper::toResponseDTO).toList();</span>
+<span class="fc" id="L107">        return ResponseEntity.ok(ApiResponse.ok(&quot;Notificaciones de tipo: &quot; + type, notifications));</span>
+    }
+
+    /**
+     * Filtrar por estado: RECEIVED o READ.
+     */
+    @GetMapping(&quot;/status/{status}&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Notificaciones por estado&quot;, description = &quot;RECEIVED o READ&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;NotificationResponseDTO&gt;&gt;&gt; getByStatus(
+            @PathVariable String status) {
+<span class="fc" id="L119">        List&lt;NotificationResponseDTO&gt; notifications = notificationUseCase.getNotificationsByStatus(status)</span>
+<span class="fc" id="L120">                .stream().map(notificationMapper::toResponseDTO).toList();</span>
+<span class="fc" id="L121">        return ResponseEntity.ok(ApiResponse.ok(&quot;Notificaciones con estado: &quot; + status, notifications));</span>
+    }
+
+    /**
+     * Marcar notificación como leída.
+     */
+    @PatchMapping(&quot;/{id}/read&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('USER')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Marcar notificación como leída&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;NotificationResponseDTO&gt;&gt; markAsRead(@PathVariable Long id) {
+<span class="fc" id="L132">        Notification n = notificationUseCase.markAsRead(id);</span>
+<span class="fc" id="L133">        return ResponseEntity.ok(ApiResponse.ok(&quot;Notificación marcada como leída&quot;, notificationMapper.toResponseDTO(n)));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,6 +17,13 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleAccessDenied(AuthorizationDeniedException ex) {
+        return ResponseEntity.status(403).body(new ApiResponse<>(
+                403, "Acceso denegado", null, LocalDateTime.now()
+        ));
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ApiResponse<Void>> handleRuntime(RuntimeException ex) {
         String msg = ex.getMessage() != null ? ex.getMessage() : "Error interno";
@@ -26,11 +34,6 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    /**
-     * Captura errores de deserialización de Jackson.
-     * Sin este handler, cuando llega un tipo de evento desconocido
-     * el error se traga silenciosamente y la notificación nunca se guarda.
-     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<Void>> handleDeserializacion(HttpMessageNotReadableException ex) {
         log.error("Error deserializando evento entrante — revisa que el tipo del evento exista en CatalogEvent.EventType. Detalle: {}", ex.getMessage());

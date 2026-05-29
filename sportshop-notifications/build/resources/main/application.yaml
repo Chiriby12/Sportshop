@@ -19,18 +19,7 @@ spring:
     user:
       name: disabled
       password: disabled
-  mail:
-    host: smtp.gmail.com
-    port: 465
-    username: ${MAIL_USERNAME:lionxyz87@gmail.com}
-    password: ${MAIL_PASSWORD:envqgqfbsitnbamt}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          ssl:
-            enable: true
-        debug: false
+
 server:
   port: ${PORT:8083}
 
@@ -39,7 +28,11 @@ jwt:
   expiration-ms: 3600000
 
 notification:
-  admin-email: ${NOTIFICATION_ADMIN_EMAIL:sebasgonzalez014@gmail.com}
+  admin-email: ${NOTIFICATION_ADMIN_EMAIL:jaiderchiribi12@gmail.com}
+
+resend:
+  api-key: ${RESEND_API_KEY:re_3c2FdxFL_AB2rkzkpLEBgRgYacoffTQyF}
+  from: onboarding@resend.dev
 
 springdoc:
   api-docs:

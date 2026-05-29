@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-notifications</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.notifications.domain.usecase</a> &gt; <span class="el_source">NotificationUseCase.java</span></div><h1>NotificationUseCase.java</h1><pre class="source lang-java linenums">package com.sportshop.notifications.domain.usecase;
+
+import com.sportshop.notifications.domain.model.Notification;
+import com.sportshop.notifications.domain.model.event.CatalogEvent;
+import com.sportshop.notifications.domain.model.gateway.EmailSenderGateway;
+import com.sportshop.notifications.domain.model.gateway.NotificationGateway;
+import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+/**
+ * Caso de uso del dominio de Notificaciones.
+ * Arquitectura Hexagonal: núcleo del hexágono.
+ * Sin dependencias de Spring ni JPA.
+ */
+@RequiredArgsConstructor
+public class NotificationUseCase {
+
+    private final NotificationGateway notificationGateway;
+    private final EmailSenderGateway emailSenderGateway;
+    private final String adminEmail;
+
+    public Notification receiveEvent(CatalogEvent event) {
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (event == null)</span>
+<span class="fc" id="L26">            throw new RuntimeException(&quot;El evento no puede ser nulo&quot;);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (event.getType() == null)</span>
+<span class="fc" id="L28">            throw new RuntimeException(&quot;El tipo del evento no puede ser nulo&quot;);</span>
+<span class="fc bfc" id="L29" title="All 4 branches covered.">        if (event.getMessage() == null || event.getMessage().trim().isEmpty())</span>
+<span class="fc" id="L30">            throw new RuntimeException(&quot;El mensaje del evento no puede estar vacío&quot;);</span>
+
+<span class="fc" id="L32">        Notification notification = new Notification();</span>
+<span class="fc" id="L33">        notification.setType(event.getType().name());</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        notification.setTitle(event.getTitle() != null ? event.getTitle() : event.getType().name());</span>
+<span class="fc" id="L35">        notification.setMessage(event.getMessage());</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        notification.setPerformedBy(event.getPerformedBy() != null ? event.getPerformedBy() : &quot;system&quot;);</span>
+<span class="fc" id="L37">        notification.setSourceService(&quot;catalog-service&quot;);</span>
+<span class="fc" id="L38">        notification.setStatus(&quot;RECEIVED&quot;);</span>
+<span class="fc" id="L39">        notification.setCreatedAt(LocalDateTime.now());</span>
+
+<span class="fc" id="L41">        Notification saved = notificationGateway.save(notification);</span>
+
+        // Enviar email al admin
+<span class="fc" id="L44">        emailSenderGateway.sendEmail(</span>
+                adminEmail,
+<span class="fc" id="L46">                &quot;[SportShop] &quot; + saved.getTitle(),</span>
+<span class="fc" id="L47">                &quot;&lt;h2&gt;&quot; + saved.getTitle() + &quot;&lt;/h2&gt;&quot; +</span>
+<span class="fc" id="L48">                        &quot;&lt;p&gt;&quot; + saved.getMessage() + &quot;&lt;/p&gt;&quot; +</span>
+<span class="fc" id="L49">                        &quot;&lt;p&gt;&lt;small&gt;Evento: &quot; + saved.getType() + &quot; — &quot; + saved.getCreatedAt() + &quot;&lt;/small&gt;&lt;/p&gt;&quot;</span>
+        );
+
+<span class="fc" id="L52">        return saved;</span>
+    }
+
+    public List&lt;Notification&gt; getAllNotifications() {
+<span class="fc" id="L56">        return notificationGateway.findAll();</span>
+    }
+
+    public Notification getNotificationById(Long id) {
+<span class="fc bfc" id="L60" title="All 4 branches covered.">        if (id == null || id &lt;= 0)</span>
+<span class="fc" id="L61">            throw new RuntimeException(&quot;El ID debe ser un número positivo&quot;);</span>
+<span class="fc" id="L62">        return notificationGateway.findById(id)</span>
+<span class="fc" id="L63">                .orElseThrow(() -&gt; new RuntimeException(&quot;No existe una notificación con id: &quot; + id));</span>
+    }
+
+    public List&lt;Notification&gt; getNotificationsByUser(String performedBy) {
+<span class="fc bfc" id="L67" title="All 4 branches covered.">        if (performedBy == null || performedBy.trim().isEmpty())</span>
+<span class="fc" id="L68">            throw new RuntimeException(&quot;El usuario no puede estar vacío&quot;);</span>
+<span class="fc" id="L69">        return notificationGateway.findByPerformedBy(performedBy);</span>
+    }
+
+    public List&lt;Notification&gt; getNotificationsByType(String type) {
+<span class="fc bfc" id="L73" title="All 4 branches covered.">        if (type == null || type.trim().isEmpty())</span>
+<span class="fc" id="L74">            throw new RuntimeException(&quot;El tipo no puede estar vacío&quot;);</span>
+<span class="fc" id="L75">        return notificationGateway.findByType(type.toUpperCase());</span>
+    }
+
+    public List&lt;Notification&gt; getNotificationsByStatus(String status) {
+<span class="fc bfc" id="L79" title="All 4 branches covered.">        if (status == null || status.trim().isEmpty())</span>
+<span class="fc" id="L80">            throw new RuntimeException(&quot;El estado no puede estar vacío&quot;);</span>
+<span class="fc" id="L81">        String upperStatus = status.toUpperCase();</span>
+<span class="fc bfc" id="L82" title="All 4 branches covered.">        if (!upperStatus.equals(&quot;RECEIVED&quot;) &amp;&amp; !upperStatus.equals(&quot;READ&quot;))</span>
+<span class="fc" id="L83">            throw new RuntimeException(&quot;Estado inválido. Use RECEIVED o READ&quot;);</span>
+<span class="fc" id="L84">        return notificationGateway.findByStatus(upperStatus);</span>
+    }
+
+    public List&lt;Notification&gt; getNotificationsBySourceService(String sourceService) {
+<span class="pc bpc" id="L88" title="1 of 4 branches missed.">        if (sourceService == null || sourceService.trim().isEmpty())</span>
+<span class="fc" id="L89">            throw new RuntimeException(&quot;El servicio origen no puede estar vacío&quot;);</span>
+<span class="fc" id="L90">        return notificationGateway.findBySourceService(sourceService);</span>
+    }
+
+    public Notification markAsRead(Long id) {
+<span class="fc bfc" id="L94" title="All 4 branches covered.">        if (id == null || id &lt;= 0)</span>
+<span class="fc" id="L95">            throw new RuntimeException(&quot;El ID debe ser un número positivo&quot;);</span>
+<span class="fc" id="L96">        notificationGateway.findById(id)</span>
+<span class="fc" id="L97">                .orElseThrow(() -&gt; new RuntimeException(&quot;No existe una notificación con id: &quot; + id));</span>
+<span class="fc" id="L98">        return notificationGateway.markAsRead(id);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

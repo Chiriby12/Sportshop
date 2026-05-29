@@ -3,7 +3,6 @@ package com.sportshop.notifications.infraestructure.entry_points;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sportshop.notifications.application.config.SecurityConfig;
-import com.sportshop.notifications.application.config.UseCaseConfig;
 import com.sportshop.notifications.domain.model.Notification;
 import com.sportshop.notifications.domain.model.event.CatalogEvent;
 import com.sportshop.notifications.domain.usecase.NotificationUseCase;
@@ -16,19 +15,21 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(NotificationController.class)
-@Import({SecurityConfig.class, UseCaseConfig.class, NotificationMapper.class})
+@Import({SecurityConfig.class, JwtFilter.class})
+@TestPropertySource(properties = "jwt.secret=3f8a2b1c9d7e4f6a0b5c8d2e1f7a3b4c9d6e5f8a2b1c0d7e4f3a6b5c8d9e2f1a")
 @DisplayName("NotificationController - Tests")
 class NotificationControllerTest {
 
@@ -40,9 +41,6 @@ class NotificationControllerTest {
 
     @MockitoBean
     private NotificationMapper notificationMapper;
-
-    @MockitoBean
-    private JwtFilter jwtFilter;
 
     private ObjectMapper objectMapper;
     private Notification notification;
@@ -72,8 +70,8 @@ class NotificationControllerTest {
         when(notificationMapper.toResponseDTO(any())).thenCallRealMethod();
 
         mockMvc.perform(post("/api/sportshop/notifications/receive")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(event)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(event)))
                 .andExpect(status().isCreated());
     }
 
@@ -155,6 +153,7 @@ class NotificationControllerTest {
     @DisplayName("GET /type/{type}: USER sin ADMIN retorna 403")
     @WithMockUser(roles = "USER")
     void getByType_sinAdmin() throws Exception {
+        when(notificationUseCase.getNotificationsByType(any())).thenReturn(List.of());
         mockMvc.perform(get("/api/sportshop/notifications/type/PRODUCT_CREATED"))
                 .andExpect(status().isForbidden());
     }

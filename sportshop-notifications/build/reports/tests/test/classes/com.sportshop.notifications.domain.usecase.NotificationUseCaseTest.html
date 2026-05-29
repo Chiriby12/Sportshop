@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - NotificationUseCase - Tests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>NotificationUseCase - Tests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.sportshop.notifications.domain.usecase.html">com.sportshop.notifications.domain.usecase</a> &gt; NotificationUseCaseTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">36</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.156s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">getAllNotifications: retorna lista completa</td>
+<td class="success">getAll_ok()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAllNotifications: retorna lista vacía cuando no hay notificaciones</td>
+<td class="success">getAll_vacia()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationById: ID cero lanza error</td>
+<td class="success">getById_idCero()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationById: ID negativo lanza error</td>
+<td class="success">getById_idNegativo()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationById: ID null lanza error</td>
+<td class="success">getById_idNull()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationById: no existe lanza error</td>
+<td class="success">getById_noExiste()</td>
+<td class="success">0.024s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationById: retorna notificación existente</td>
+<td class="success">getById_ok()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsBySourceService: retorna notificaciones del servicio</td>
+<td class="success">getBySource_ok()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsBySourceService: servicio vacío lanza error</td>
+<td class="success">getBySource_vacio()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByStatus: estado inválido lanza error</td>
+<td class="success">getByStatus_invalido()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByStatus: estado null lanza error</td>
+<td class="success">getByStatus_null()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByStatus: READ funciona correctamente</td>
+<td class="success">getByStatus_read()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByStatus: RECEIVED funciona correctamente</td>
+<td class="success">getByStatus_received()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByStatus: estado vacío lanza error</td>
+<td class="success">getByStatus_vacio()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByType: convierte a mayúsculas</td>
+<td class="success">getByType_mayus()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByType: tipo null lanza error</td>
+<td class="success">getByType_null()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByType: retorna notificaciones del tipo</td>
+<td class="success">getByType_ok()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByType: tipo vacío lanza error</td>
+<td class="success">getByType_vacio()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByUser: usuario null lanza error</td>
+<td class="success">getByUser_null()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByUser: retorna notificaciones del usuario</td>
+<td class="success">getByUser_ok()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNotificationsByUser: usuario vacío lanza error</td>
+<td class="success">getByUser_vacio()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">markAsRead: ID negativo lanza error</td>
+<td class="success">markAsRead_idNegativo()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">markAsRead: ID null lanza error</td>
+<td class="success">markAsRead_idNull()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">markAsRead: notificación no existe lanza error</td>
+<td class="success">markAsRead_noExiste()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">markAsRead: marca correctamente como leída</td>
+<td class="success">markAsRead_ok()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: email falla silenciosamente sin afectar el flujo</td>
+<td class="success">receiveEvent_emailFalla_noAfectaFlujo()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: evento null lanza error</td>
+<td class="success">receiveEvent_eventoNull()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: mensaje null lanza error</td>
+<td class="success">receiveEvent_mensajeNull()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: mensaje vacío lanza error</td>
+<td class="success">receiveEvent_mensajeVacio()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: persiste y envía email correctamente</td>
+<td class="success">receiveEvent_ok()</td>
+<td class="success">0.021s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: performedBy null usa 'system'</td>
+<td class="success">receiveEvent_performedByNull()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: asigna sourceService = catalog-service</td>
+<td class="success">receiveEvent_sourceService()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: asigna status = RECEIVED</td>
+<td class="success">receiveEvent_status()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: tipo null lanza error</td>
+<td class="success">receiveEvent_tipoNull()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: tipo se convierte a String del enum</td>
+<td class="success">receiveEvent_tipoString()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">receiveEvent: title null usa nombre del tipo</td>
+<td class="success">receiveEvent_titleNull()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 29/05/2026, 5:08:33 p. m.</p>
+</div>
+</div>
+</body>
+</html>

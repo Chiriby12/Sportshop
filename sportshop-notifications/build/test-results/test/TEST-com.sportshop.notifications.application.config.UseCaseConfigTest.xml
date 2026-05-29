@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="UseCaseConfig - Test de Cobertura Total (Notificaciones)" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T22:08:30.605Z" hostname="SEBASGL" time="0.273">
+  <properties/>
+  <testcase name="Debe instanciar NotificationUseCase correctamente" classname="com.sportshop.notifications.application.config.UseCaseConfigTest" time="0.273"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="NotificationUseCase - Tests" tests="36" skipped="0" failures="0" errors="0" timestamp="2026-05-29T22:08:30.884Z" hostname="SEBASGL" time="0.177">
+  <properties/>
+  <testcase name="getNotificationById: ID cero lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.01"/>
+  <testcase name="getNotificationById: ID null lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="markAsRead: ID negativo lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="getNotificationsBySourceService: servicio vacío lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.004"/>
+  <testcase name="getNotificationsByUser: usuario vacío lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.004"/>
+  <testcase name="getNotificationById: no existe lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.024"/>
+  <testcase name="receiveEvent: persiste y envía email correctamente" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.021"/>
+  <testcase name="getNotificationById: ID negativo lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="receiveEvent: performedBy null usa 'system'" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="receiveEvent: tipo null lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="receiveEvent: asigna status = RECEIVED" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.005"/>
+  <testcase name="getNotificationsByStatus: estado vacío lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="receiveEvent: title null usa nombre del tipo" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.005"/>
+  <testcase name="getNotificationsByStatus: RECEIVED funciona correctamente" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="receiveEvent: email falla silenciosamente sin afectar el flujo" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.007"/>
+  <testcase name="markAsRead: marca correctamente como leída" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="getNotificationsByUser: usuario null lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.004"/>
+  <testcase name="getNotificationsByStatus: estado null lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="getNotificationsByStatus: READ funciona correctamente" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="receiveEvent: asigna sourceService = catalog-service" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="markAsRead: notificación no existe lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="getNotificationsByType: tipo null lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="getNotificationsByType: convierte a mayúsculas" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="getNotificationsByType: tipo vacío lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="receiveEvent: mensaje null lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="receiveEvent: evento null lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="getAllNotifications: retorna lista vacía cuando no hay notificaciones" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="getNotificationsByType: retorna notificaciones del tipo" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.004"/>
+  <testcase name="getAllNotifications: retorna lista completa" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="getNotificationsByStatus: estado inválido lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="receiveEvent: tipo se convierte a String del enum" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="getNotificationsByUser: retorna notificaciones del usuario" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="receiveEvent: mensaje vacío lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="getNotificationById: retorna notificación existente" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.003"/>
+  <testcase name="getNotificationsBySourceService: retorna notificaciones del servicio" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <testcase name="markAsRead: ID null lanza error" classname="com.sportshop.notifications.domain.usecase.NotificationUseCaseTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

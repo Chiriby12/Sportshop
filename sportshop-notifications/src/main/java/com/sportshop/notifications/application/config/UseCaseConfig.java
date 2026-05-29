@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Configuración de casos de uso.
- * Arquitectura Hexagonal: conectamos los puertos con los adaptadores.
- */
+
 @Configuration
 public class UseCaseConfig {
 

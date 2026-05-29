@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="JwtFilter (notifications) - Tests del filtro JWT" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-29T22:08:31.526Z" hostname="SEBASGL" time="0.37">
+  <properties/>
+  <testcase name="token inválido: no lanza excepción y continúa sin autenticar" classname="com.sportshop.notifications.infraestructure.entry_points.JwtFilterTest" time="0.358"/>
+  <testcase name="token vacío después de Bearer: no lanza excepción" classname="com.sportshop.notifications.infraestructure.entry_points.JwtFilterTest" time="0.004"/>
+  <testcase name="header sin 'Bearer ': continúa sin autenticar" classname="com.sportshop.notifications.infraestructure.entry_points.JwtFilterTest" time="0.004"/>
+  <testcase name="sin header Authorization: continúa sin autenticar" classname="com.sportshop.notifications.infraestructure.entry_points.JwtFilterTest" time="0.003"/>
+  <system-out><![CDATA[2026-05-29T17:08:31.882-05:00  WARN 2464 --- [sportshop-notifications] [    Test worker] c.s.n.i.entry_points.JwtFilter           : JWT inválido en notifications: Malformed protected header JSON: Unable to deserialize: Unexpected character ('�' (code 65533 / 0xfffd)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]
+2026-05-29T17:08:31.889-05:00  WARN 2464 --- [sportshop-notifications] [    Test worker] c.s.n.i.entry_points.JwtFilter           : JWT inválido en notifications: CharSequence cannot be null or empty.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

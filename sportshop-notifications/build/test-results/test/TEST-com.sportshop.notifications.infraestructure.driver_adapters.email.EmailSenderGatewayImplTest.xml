@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="EmailSenderGatewayImpl - Tests del adaptador de email" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-29T22:08:31.247Z" hostname="SEBASGL" time="0.262">
+  <properties/>
+  <testcase name="sendEmail: no lanza excepcion si el servicio devuelve error" classname="com.sportshop.notifications.infraestructure.driver_adapters.email.EmailSenderGatewayImplTest" time="0.249"/>
+  <testcase name="sendEmail: envia correctamente cuando el servicio responde OK" classname="com.sportshop.notifications.infraestructure.driver_adapters.email.EmailSenderGatewayImplTest" time="0.007"/>
+  <testcase name="sendEmail: no lanza excepcion si ocurre error inesperado" classname="com.sportshop.notifications.infraestructure.driver_adapters.email.EmailSenderGatewayImplTest" time="0.004"/>
+  <system-out><![CDATA[2026-05-29T17:08:31.491-05:00  WARN 2464 --- [sportshop-notifications] [    Test worker] c.s.n.i.d.email.EmailSenderGatewayImpl   : No se pudo enviar email a admin@test.com via Resend: 403 Forbidden
+2026-05-29T17:08:31.504-05:00  INFO 2464 --- [sportshop-notifications] [    Test worker] c.s.n.i.d.email.EmailSenderGatewayImpl   : Email enviado a admin@test.com via Resend. Id: {"id":"abc123"}
+2026-05-29T17:08:31.509-05:00  WARN 2464 --- [sportshop-notifications] [    Test worker] c.s.n.i.d.email.EmailSenderGatewayImpl   : Error al preparar email para admin@test.com: Error inesperado
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
