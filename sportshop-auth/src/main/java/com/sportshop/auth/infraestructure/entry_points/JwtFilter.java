@@ -15,11 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Filtro de seguridad JWT.
- * Adaptador conductor (Driving Adapter): intercepta peticiones HTTP
- * y delega la validación al puerto JwtGateway del dominio.
- */
+
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {

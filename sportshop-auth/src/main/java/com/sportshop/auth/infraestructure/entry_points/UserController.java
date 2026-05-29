@@ -19,11 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Adaptador conductor (Driving Adapter) - expone los casos de uso vía HTTP REST.
- * Arquitectura Hexagonal: este controlador es el punto de entrada al hexágono.
- * Solo traduce HTTP -> dominio y dominio -> HTTP. Nunca contiene lógica de negocio.
- */
+
 @RestController
 @RequestMapping("/api/sportshop/auth")
 @RequiredArgsConstructor

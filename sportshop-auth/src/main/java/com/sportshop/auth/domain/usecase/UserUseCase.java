@@ -8,12 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-/**
- * Caso de uso principal del dominio de autenticación.
- * Arquitectura Hexagonal: este clase es el NÚCLEO del hexágono.
- * No tiene dependencias de Spring ni de infraestructura.
- * Solo interactúa con puertos (interfaces/gateways).
- */
+
 @RequiredArgsConstructor
 public class UserUseCase {
 

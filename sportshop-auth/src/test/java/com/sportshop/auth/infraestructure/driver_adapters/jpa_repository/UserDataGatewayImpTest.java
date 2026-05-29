@@ -53,7 +53,7 @@ class UserDataGatewayImpTest {
         when(jpaRepository.findById("123")).thenReturn(Optional.of(userData));
         when(mapper.toUser(userData)).thenReturn(user);
 
-        // Fix: nombre correcto del método
+
         User result = gateway.getUserForDocument("123");
 
         assertNotNull(result);
@@ -105,7 +105,7 @@ class UserDataGatewayImpTest {
     @Test
     @DisplayName("existsByDocument: retorna true si existe")
     void existsByDocument_true() {
-        // Fix: JpaRepository usa existsById, no existsByDocument
+
         when(jpaRepository.existsById("123")).thenReturn(true);
         assertTrue(jpaRepository.existsById("123"));
     }
@@ -120,7 +120,7 @@ class UserDataGatewayImpTest {
     @Test
     @DisplayName("existsByEmail: retorna true si el email ya está registrado")
     void existsByEmail_true() {
-        // Fix: existsByEmail no existe en tu gateway ni repositorio, se verifica via findByEmail
+
         when(jpaRepository.findByEmail("ana@test.com")).thenReturn(Optional.of(userData));
         assertTrue(jpaRepository.findByEmail("ana@test.com").isPresent());
     }
@@ -135,7 +135,7 @@ class UserDataGatewayImpTest {
     @Test
     @DisplayName("deleteUserForDocument: llama al repositorio con el documento correcto")
     void deleteUserForDocument_ok() {
-        // Fix: nombre correcto del método
+
         doNothing().when(jpaRepository).deleteById("123");
         gateway.deleteUserForDocument("123");
         verify(jpaRepository).deleteById("123");

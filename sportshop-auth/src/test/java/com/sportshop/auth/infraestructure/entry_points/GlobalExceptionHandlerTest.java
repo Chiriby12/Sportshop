@@ -17,7 +17,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock; // 1. Agregamos el import de Mockito
+import static org.mockito.Mockito.mock;
 
 class GlobalExceptionHandlerTest {
 
@@ -108,7 +108,7 @@ class GlobalExceptionHandlerTest {
     @Test
     @DisplayName("handleNoResource: retorna 404")
     void handleNoResource() {
-        // 2. Solución: Simulamos la excepción con mock() para no depender de su constructor
+
         NoResourceFoundException ex = mock(NoResourceFoundException.class);
 
         ResponseEntity<?> response = handler.handleNoResource(ex);

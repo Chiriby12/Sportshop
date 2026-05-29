@@ -8,11 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Adaptador conducido (Driven Adapter) - implementa el puerto UserGateway.
- * Arquitectura Hexagonal: este adaptador "habla" con la BD y traduce
- * entre el modelo de dominio (User) y la entidad JPA (UserData).
- */
+
 @Repository
 @AllArgsConstructor
 public class UserDataGatewayImp implements UserGateway {

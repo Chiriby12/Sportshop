@@ -55,7 +55,7 @@ class UserControllerTest {
                 "Clave123!", "3001234567", 25, "USER");
     }
 
-    // ══ POST /save ══════════════════════════════════════════════════════════
+
 
     @Test
     @DisplayName("POST /save: registra usuario con datos válidos")
@@ -186,7 +186,6 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.data", aMapWithSize(greaterThanOrEqualTo(2))));
     }
 
-    // ══ POST /login ══════════════════════════════════════════════════════════
 
     @Test
     @DisplayName("POST /login: login exitoso retorna token")
@@ -207,7 +206,7 @@ class UserControllerTest {
     @Test
     @DisplayName("POST /login: email vacío retorna 400")
     void login_emailVacio() throws Exception {
-        // Fix: comillas escapadas correctamente
+
         mockMvc.perform(post("/api/sportshop/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\":\"\",\"password\":\"Clave123!\"}"))
@@ -241,7 +240,7 @@ class UserControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    // ══ GET /get/{document} ════════════════════════════════════════════════
+
 
     @Test
     @WithMockUser(roles = "ADMIN")
@@ -259,8 +258,7 @@ class UserControllerTest {
     @Test
     @DisplayName("GET /get/{document}: sin token retorna 404 por excepción de dominio")
     void getUser_sinToken() throws Exception {
-        // Fix: con addFilters=false la seguridad no intercepta,
-        // el useCase lanza RuntimeException que el GlobalExceptionHandler mapea a 404
+
         when(userUseCase.getUserForDocument(any()))
                 .thenThrow(new RuntimeException("No existe un usuario con el documento: 12345678"));
 
@@ -268,7 +266,7 @@ class UserControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    // ══ DELETE /delete/{document} ═════════════════════════════════════════
+
 
     @Test
     @WithMockUser(roles = "ADMIN")
@@ -285,7 +283,7 @@ class UserControllerTest {
     @WithMockUser(roles = "USER")
     @DisplayName("DELETE /delete/{document}: USER sin permisos retorna 403")
     void deleteUser_sinPermisos() throws Exception {
-        // Estructura correcta para métodos void:
+
         doThrow(new RuntimeException("No tienes permiso"))
                 .when(userUseCase).deleteUserForDocument(any());
 

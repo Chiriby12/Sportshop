@@ -7,11 +7,7 @@ import com.sportshop.auth.domain.model.User;
 import com.sportshop.auth.infraestructure.driver_adapters.jpa_repository.UserData;
 import org.springframework.stereotype.Component;
 
-/**
- * Mapper de infraestructura.
- * Traduce entre: DTO <-> Dominio <-> Entidad JPA
- * El dominio nunca conoce ni los DTOs ni las entidades JPA.
- */
+
 @Component
 public class UserMapper {
 

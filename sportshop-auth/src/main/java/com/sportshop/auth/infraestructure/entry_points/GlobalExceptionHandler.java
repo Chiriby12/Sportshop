@@ -16,22 +16,11 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Manejador global de excepciones.
- * Transforma cualquier error en una respuesta JSON clara para el frontend,
- * indicando exactamente qué campo falló y por qué.
- */
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    /**
-     * Errores de validación de @Valid — muestra campo por campo qué falló
-     * y qué valor se rechazó. Ej:
-     * {
-     *   "password": "La contraseña debe tener mayúscula... — ingresaste: abc123",
-     *   "age": "Debes tener mínimo 18 años — ingresaste: 15"
-     * }
-     */
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationErrors(
             MethodArgumentNotValidException ex) {
@@ -49,9 +38,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    /**
-     * Body JSON malformado o vacío
-     */
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<Void>> handleJsonErrors(HttpMessageNotReadableException ex) {
         return new ResponseEntity<>(
@@ -61,9 +48,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    /**
-     * Ruta no encontrada
-     */
+
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ApiResponse<Void>> handleNoResource(NoResourceFoundException ex) {
         return new ResponseEntity<>(
@@ -73,9 +58,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    /**
-     * Acceso denegado (token sin permisos suficientes)
-     */
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiResponse<Void>> handleAccessDenied(AccessDeniedException ex) {
         return new ResponseEntity<>(
@@ -85,9 +68,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    /**
-     * Violación de constraint en BD (email o documento duplicado a nivel de BD)
-     */
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiResponse<Void>> handleDataIntegrity(DataIntegrityViolationException ex) {
         return new ResponseEntity<>(
@@ -97,9 +78,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    /**
-     * Errores de lógica de negocio lanzados desde el UseCase
-     */
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ApiResponse<Void>> handleRuntimeErrors(RuntimeException ex) {
         String mensaje = ex.getMessage();
@@ -121,9 +100,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(buildError(status, mensaje, null), status);
     }
 
-    /**
-     * Método HTTP no soportado en la ruta (ej: GET en endpoint que solo acepta POST)
-     */
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ApiResponse<Void>> handleMethodNotSupported(
             HttpRequestMethodNotSupportedException ex) {
@@ -135,9 +112,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    /**
-     * Cualquier otro error inesperado
-     */
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGeneralErrors(Exception ex) {
         return new ResponseEntity<>(

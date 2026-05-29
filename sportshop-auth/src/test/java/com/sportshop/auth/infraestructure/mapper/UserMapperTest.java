@@ -64,7 +64,7 @@ class UserMapperTest {
         UserResponseDTO result = mapper.toUserResponseDTO(user);
         assertEquals("123", result.getDocument());
         assertEquals("Juan", result.getName());
-        // La respuesta NO debe tener password
+
         assertNull(result.getClass().getDeclaredFields()[0].getAnnotation(
                 com.fasterxml.jackson.annotation.JsonProperty.class));
     }

@@ -4,10 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.sportshop.auth.domain.model.gateway.EncrypterGateway;
 import org.springframework.stereotype.Service;
 
-/**
- * Adaptador conducido para cifrado de contraseñas con BCrypt.
- * Implementa el puerto EncrypterGateway del dominio.
- */
+
 @Service
 public class EncrypterGatewayImpl implements EncrypterGateway {
 

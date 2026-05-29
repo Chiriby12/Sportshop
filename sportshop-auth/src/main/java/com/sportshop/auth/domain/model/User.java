@@ -16,5 +16,5 @@ public class User {
     private String password;
     private String telephone;
     private Integer age;
-    private String role; // USER | ADMIN
+    private String role;
 }

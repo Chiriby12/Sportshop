@@ -12,10 +12,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
-/**
- * Adaptador conducido para generación y validación de JWT.
- * Implementa el puerto JwtGateway del dominio.
- */
+
 @Service
 public class JwtGatewayImpl implements JwtGateway {
 

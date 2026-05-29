@@ -46,9 +46,7 @@ class UserUseCaseTest {
                 "ClaveSegura1!", "3001234567", 25, "USER");
     }
 
-    // ══════════════════════════════════════════════════════════════════
-    // saveUser
-    // ══════════════════════════════════════════════════════════════════
+
 
     @Test
     @DisplayName("saveUser: guarda correctamente un usuario nuevo")
@@ -114,8 +112,7 @@ class UserUseCaseTest {
     @DisplayName("saveUser: lanza error si la contraseña está vacía")
     void saveUser_passwordVacio() {
         usuario.setPassword("");
-        // Fix: quitamos los when innecesarios — la excepción se lanza
-        // antes de que el useCase llegue a llamar userGateway o encrypterGateway
+
         RuntimeException ex = assertThrows(RuntimeException.class, () -> userUseCase.saveUser(usuario));
         assertEquals("La contraseña no puede estar vacía", ex.getMessage());
     }
@@ -137,9 +134,7 @@ class UserUseCaseTest {
         assertTrue(ex.getMessage().contains("Ya existe un usuario con el email"));
     }
 
-    // ══════════════════════════════════════════════════════════════════
-    // getUserForDocument
-    // ══════════════════════════════════════════════════════════════════
+
 
     @Test
     @DisplayName("getUserForDocument: retorna usuario cuando existe")
@@ -159,9 +154,7 @@ class UserUseCaseTest {
         assertTrue(ex.getMessage().contains("No existe un usuario con el documento"));
     }
 
-    // ══════════════════════════════════════════════════════════════════
-    // getAllUsers
-    // ══════════════════════════════════════════════════════════════════
+
 
     @Test
     @DisplayName("getAllUsers: retorna lista de usuarios")
@@ -172,9 +165,7 @@ class UserUseCaseTest {
         assertEquals(1, result.size());
     }
 
-    // ══════════════════════════════════════════════════════════════════
-    // deleteUserForDocument
-    // ══════════════════════════════════════════════════════════════════
+
 
     @Test
     @DisplayName("deleteUserForDocument: elimina correctamente")
@@ -195,9 +186,7 @@ class UserUseCaseTest {
         assertTrue(ex.getMessage().contains("No existe un usuario con el documento"));
     }
 
-    // ══════════════════════════════════════════════════════════════════
-    // updateUser
-    // ══════════════════════════════════════════════════════════════════
+
 
     @Test
     @DisplayName("updateUser: actualiza correctamente con contraseña nueva")
@@ -256,9 +245,7 @@ class UserUseCaseTest {
         assertTrue(ex.getMessage().contains("No existe un usuario con el documento"));
     }
 
-    // ══════════════════════════════════════════════════════════════════
-    // loginUser
-    // ══════════════════════════════════════════════════════════════════
+
 
     @Test
     @DisplayName("loginUser: retorna token con credenciales correctas")
@@ -306,9 +293,7 @@ class UserUseCaseTest {
         assertEquals("Contraseña incorrecta", ex.getMessage());
     }
 
-    // ══════════════════════════════════════════════════════════════════
-    // UserDataGatewayImp tests
-    // ══════════════════════════════════════════════════════════════════
+
 
     @Test
     @DisplayName("UserDataGatewayImp: saveUser persiste y retorna usuario")
