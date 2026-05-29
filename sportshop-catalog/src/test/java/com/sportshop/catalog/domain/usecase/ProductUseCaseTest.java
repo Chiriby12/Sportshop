@@ -34,7 +34,7 @@ class ProductUseCaseTest {
     @BeforeEach
     void setUp() {
         productUseCase = new ProductUseCase(productGateway, eventPublisher);
-        // Fix: agregar null como segundo argumento (adminId)
+
         validProduct = new Product(1L, null, "Zapatillas Nike", "Para correr", "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("150.00"), 10, "http://img.com", true);
     }

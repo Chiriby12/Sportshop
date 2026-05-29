@@ -25,7 +25,7 @@ class ProductMapperTest {
     @Test
     @DisplayName("toDomain: debe mapear ProductData a Product correctamente")
     void toDomain_success() {
-        // Fix: agregar null como segundo argumento (adminId)
+
         ProductData data = new ProductData(1L, null, "Nike", "desc", "Nike", "RUNNING",
                 "ATLETISMO", new BigDecimal("100"), 5, "http://img", true);
 

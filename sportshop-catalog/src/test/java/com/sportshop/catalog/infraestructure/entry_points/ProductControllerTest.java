@@ -43,7 +43,7 @@ class ProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        // Fix: agregar null como segundo argumento (adminId)
+
         product = new Product(1L, null, "Zapatillas Nike", "Para correr", "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("150.00"), 10, null, true);
         responseDTO = new ProductResponseDTO(1L, "Zapatillas Nike", "Para correr", "Nike",

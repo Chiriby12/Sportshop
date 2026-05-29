@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DisplayName("UseCaseConfig - Test de Cobertura Total")
 class UseCaseConfigTest {
 
-    // 1. Mockeamos las dependencias (los puertos de salida)
+
     @Mock
     private ProductGateway productGateway;
 
@@ -28,28 +28,27 @@ class UseCaseConfigTest {
     @Mock
     private EventPublisherGateway eventPublisher;
 
-    // 2. Inyectamos los mocks en la clase de configuración
-    // Esto ejecuta el constructor implícito de UseCaseConfig (cubre la clase al 100%)
+
     @InjectMocks
     private UseCaseConfig useCaseConfig;
 
     @Test
     @DisplayName("Debe instanciar ProductUseCase correctamente")
     void productUseCase_debeRetornarInstancia() {
-        // Ejecutamos el método físico
+
         ProductUseCase productUseCase = useCaseConfig.productUseCase(productGateway, eventPublisher);
 
-        // Verificamos que no retorne null (cubre la línea del return)
+
         assertNotNull(productUseCase, "La instancia de ProductUseCase no debe ser nula");
     }
 
     @Test
     @DisplayName("Debe instanciar CartUseCase correctamente")
     void cartUseCase_debeRetornarInstancia() {
-        // Ejecutamos el método físico
+
         CartUseCase cartUseCase = useCaseConfig.cartUseCase(cartGateway, productGateway, eventPublisher);
 
-        // Verificamos que no retorne null (cubre la línea del return)
+
         assertNotNull(cartUseCase, "La instancia de CartUseCase no debe ser nula");
     }
 }

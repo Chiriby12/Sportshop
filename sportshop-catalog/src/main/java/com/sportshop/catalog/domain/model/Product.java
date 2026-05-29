@@ -7,17 +7,14 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-/**
- * Modelo de dominio puro - sin anotaciones de Spring ni JPA.
- * Arquitectura Hexagonal: núcleo del hexágono.
- */
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
     private Long id;
-    private Long adminId;       // ID del producto en sportshop-admin (para sincronización)
+    private Long adminId;
     private String name;
     private String description;
     private String brand;

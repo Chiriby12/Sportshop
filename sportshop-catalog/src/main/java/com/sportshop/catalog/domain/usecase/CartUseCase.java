@@ -11,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Caso de uso del carrito de compras.
- * Núcleo del hexágono: sin dependencias de infraestructura.
- */
+
 @RequiredArgsConstructor
 public class CartUseCase {
 
@@ -109,7 +106,7 @@ public class CartUseCase {
         if (items.isEmpty())
             throw new RuntimeException("El carrito está vacío");
 
-        // Validar stock para todos los items antes de confirmar
+
         for (CartItem item : items) {
             Product product = productGateway.findById(item.getProductId())
                     .orElseThrow(() -> new RuntimeException("El producto " + item.getProductName() + " ya no existe"));
@@ -117,14 +114,14 @@ public class CartUseCase {
                 throw new RuntimeException("Stock insuficiente para: " + product.getName());
         }
 
-        // Descontar stock
+
         for (CartItem item : items) {
             Product product = productGateway.findById(item.getProductId()).get();
             product.setStock(product.getStock() - item.getQuantity());
             productGateway.save(product);
         }
 
-        // Vaciar carrito
+
         cartGateway.deleteAllByUserDocument(userDocument);
 
         eventPublisher.publish(CatalogEvent.of(

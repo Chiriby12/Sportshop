@@ -19,10 +19,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-/**
- * Filtro JWT que valida el token generado por el microservicio de autenticación.
- * La clave secreta debe ser la MISMA que la del microservicio de auth.
- */
+
 @Component
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
@@ -57,7 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
                         null,
                         role != null ? List.of(new SimpleGrantedAuthority("ROLE_" + role)) : List.of()
                 );
-                // Guardamos el documento del usuario también en los detalles
+
                 String document = claims.get("document", String.class);
                 auth.setDetails(document);
                 SecurityContextHolder.getContext().setAuthentication(auth);

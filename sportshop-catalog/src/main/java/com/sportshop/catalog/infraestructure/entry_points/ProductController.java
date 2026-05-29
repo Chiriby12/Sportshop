@@ -19,12 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Adaptador conductor (Driving Adapter) - Catálogo de productos.
- * - GET públicos: cualquiera puede ver el catálogo sin autenticarse
- * - POST/PUT/DELETE: solo ADMIN
- * - /sync: endpoints internos llamados por sportshop-admin
- */
+
 @RestController
 @RequestMapping("/api/sportshop/catalog")
 @RequiredArgsConstructor
@@ -34,7 +29,7 @@ public class ProductController {
     private final ProductUseCase productUseCase;
     private final ProductMapper productMapper;
 
-    // ─── Endpoints PÚBLICOS ───────────────────────────────────────────────────
+
 
     @GetMapping("/products")
     @Operation(summary = "Listar productos activos", description = "Público - cualquiera puede ver el catálogo")
@@ -77,7 +72,7 @@ public class ProductController {
         return ResponseEntity.ok(ApiResponse.ok("Productos del deporte: " + sport, products));
     }
 
-    // ─── Endpoints de ADMIN (CRUD) ────────────────────────────────────────────
+
 
     @PostMapping("/products")
     @PreAuthorize("hasRole('ADMIN')")
@@ -119,7 +114,7 @@ public class ProductController {
         return ResponseEntity.ok(ApiResponse.ok("Producto " + id + " eliminado correctamente", null));
     }
 
-    // ─── Endpoints de SINCRONIZACIÓN desde admin (internos) ──────────────────
+
 
     @PostMapping("/products/sync/{adminId}")
     @Operation(summary = "Sincronizar producto desde admin", description = "Interno - llamado por sportshop-admin")

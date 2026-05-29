@@ -8,11 +8,7 @@ import com.sportshop.catalog.domain.usecase.ProductUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Configuración de inyección de dependencias hexagonal.
- * Los use cases del dominio no son Spring Beans directamente;
- * los instanciamos aquí inyectando los puertos (gateways).
- */
+
 @Configuration
 public class UseCaseConfig {
 

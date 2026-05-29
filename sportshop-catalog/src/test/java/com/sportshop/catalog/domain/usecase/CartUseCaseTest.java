@@ -36,7 +36,7 @@ class CartUseCaseTest {
     @BeforeEach
     void setUp() {
         cartUseCase = new CartUseCase(cartGateway, productGateway, eventPublisher);
-        // Fix: agregar null como segundo argumento (adminId)
+
         product = new Product(1L, null, "Guayos Adidas", "Para fútbol", "Adidas",
                 "FOOTBALL", "FUTBOL", new BigDecimal("200.00"), 5, null, true);
         cartItem = new CartItem(1L, "USR123", 1L, "Guayos Adidas", new BigDecimal("200.00"), 2);

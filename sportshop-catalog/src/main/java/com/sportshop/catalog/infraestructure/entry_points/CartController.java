@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Controlador del carrito de compras.
- * Un usuario solo puede ver/modificar SU carrito.
- */
+
 @RestController
 @RequestMapping("/api/sportshop/catalog/cart")
 @RequiredArgsConstructor

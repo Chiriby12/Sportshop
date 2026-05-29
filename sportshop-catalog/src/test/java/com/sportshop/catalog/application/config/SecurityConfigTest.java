@@ -41,10 +41,7 @@ class SecurityConfigTest {
     @MockitoBean private CartMapper cartMapper;
     @MockitoBean private JwtFilter jwtFilter;
 
-    /**
-     * Configuración de seguridad idéntica a la real pero sin depender
-     * del JwtFilter como bean — replica exactamente las mismas reglas.
-     */
+
     @Configuration
     static class TestSecurityConfig {
 

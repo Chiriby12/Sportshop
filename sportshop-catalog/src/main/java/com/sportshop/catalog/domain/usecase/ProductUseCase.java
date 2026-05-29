@@ -8,11 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-/**
- * Caso de uso del dominio de Catálogo.
- * Arquitectura Hexagonal: núcleo del hexágono. Sin dependencias de Spring ni JPA.
- * Publica eventos al microservicio de notificaciones en cada operación.
- */
+
 @RequiredArgsConstructor
 public class ProductUseCase {
 
@@ -105,7 +101,7 @@ public class ProductUseCase {
         ));
     }
 
-    // ─── Sincronización desde sportshop-admin ─────────────────────────────────
+
 
     public Product syncFromAdmin(Long adminId, Product product) {
         product.setAdminId(adminId);

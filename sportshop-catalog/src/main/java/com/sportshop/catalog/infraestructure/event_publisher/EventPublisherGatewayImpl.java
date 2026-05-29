@@ -7,11 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-/**
- * Adaptador conducido (Driven Adapter) para publicar eventos.
- * Envía el evento al microservicio de notificaciones via HTTP POST.
- * Si el servicio de notificaciones no está disponible, no falla la operación principal.
- */
+
 @Component
 @Slf4j
 public class EventPublisherGatewayImpl implements EventPublisherGateway {
@@ -33,7 +29,7 @@ public class EventPublisherGatewayImpl implements EventPublisherGateway {
                 .bodyToMono(Void.class)
                 .doOnSuccess(v -> log.info("Evento publicado: {} - {}", event.getType(), event.getTitle()))
                 .doOnError(e -> log.warn("No se pudo enviar evento al servicio de notificaciones: {}", e.getMessage()))
-                .onErrorComplete()  // No propaga el error - el evento es best-effort
+                .onErrorComplete()
                 .subscribe();
     }
 }

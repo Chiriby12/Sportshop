@@ -25,7 +25,7 @@ class EventPublisherGatewayImplTest {
         WebClient webClient                = mock(WebClient.class);
         WebClient.RequestBodyUriSpec uriSpec  = mock(WebClient.RequestBodyUriSpec.class);
         WebClient.RequestBodySpec bodySpec    = mock(WebClient.RequestBodySpec.class);
-        // Fix: bodyValue() retorna RequestHeadersSpec, no RequestBodySpec
+
         WebClient.RequestHeadersSpec headersSpec = mock(WebClient.RequestHeadersSpec.class);
         WebClient.ResponseSpec responseSpec      = mock(WebClient.ResponseSpec.class);
 

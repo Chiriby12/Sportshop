@@ -71,7 +71,7 @@ class JwtFilterTest {
     @Test
     @DisplayName("token con firma incorrecta: pasa sin autenticar")
     void tokenFirmaIncorrecta() throws Exception {
-        // JWT firmado con una clave diferente
+
         when(request.getHeader("Authorization")).thenReturn(
                 "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHRlc3QuY29tIn0.firma_incorrecta");
 
