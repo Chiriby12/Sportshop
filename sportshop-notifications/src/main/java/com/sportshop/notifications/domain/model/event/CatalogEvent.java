@@ -7,11 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-/**
- * Representa el evento que llega desde cualquier microservicio
- * (catálogo o admin). Debe contener todos los tipos posibles
- * para que Jackson pueda deserializarlos correctamente.
- */
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,7 +15,7 @@ import java.time.LocalDateTime;
 public class CatalogEvent {
 
     public enum EventType {
-        // Eventos del catálogo
+
         PRODUCT_CREATED,
         PRODUCT_UPDATED,
         PRODUCT_DELETED,
@@ -27,7 +23,7 @@ public class CatalogEvent {
         CART_ITEM_REMOVED,
         CART_ITEM_UPDATED,
         CART_PURCHASED,
-        // Eventos del admin (usuarios)
+
         USER_CREATED,
         USER_UPDATED,
         USER_DELETED,

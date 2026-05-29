@@ -9,11 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Caso de uso del dominio de Notificaciones.
- * Arquitectura Hexagonal: núcleo del hexágono.
- * Sin dependencias de Spring ni JPA.
- */
+
 @RequiredArgsConstructor
 public class NotificationUseCase {
 
@@ -40,7 +36,7 @@ public class NotificationUseCase {
 
         Notification saved = notificationGateway.save(notification);
 
-        // Enviar email al admin
+
         emailSenderGateway.sendEmail(
                 adminEmail,
                 "[SportShop] " + saved.getTitle(),

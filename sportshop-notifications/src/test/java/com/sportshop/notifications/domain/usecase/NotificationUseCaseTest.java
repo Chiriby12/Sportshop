@@ -57,7 +57,7 @@ class NotificationUseCaseTest {
         notification.setCreatedAt(LocalDateTime.now());
     }
 
-    // ── receiveEvent ──────────────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("receiveEvent: persiste y envía email correctamente")
@@ -157,13 +157,12 @@ class NotificationUseCaseTest {
         try {
             useCase.receiveEvent(event);
         } catch (RuntimeException ignored) {
-            // El useCase actualmente propaga el error del email.
-            // Este test documenta el comportamiento real y verifica que al menos guardó.
+
         }
         verify(notificationGateway).save(any());
     }
 
-    // ── getAllNotifications ───────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("getAllNotifications: retorna lista completa")
@@ -180,7 +179,7 @@ class NotificationUseCaseTest {
         assertTrue(useCase.getAllNotifications().isEmpty());
     }
 
-    // ── getNotificationById ───────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("getNotificationById: retorna notificación existente")
@@ -214,7 +213,7 @@ class NotificationUseCaseTest {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationById(99L));
     }
 
-    // ── getNotificationsByUser ────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("getNotificationsByUser: retorna notificaciones del usuario")
@@ -235,7 +234,7 @@ class NotificationUseCaseTest {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsByUser(null));
     }
 
-    // ── getNotificationsByType ────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("getNotificationsByType: retorna notificaciones del tipo")
@@ -264,7 +263,7 @@ class NotificationUseCaseTest {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsByType(null));
     }
 
-    // ── getNotificationsByStatus ──────────────────────────────────────────────
+
 
     @Test
     @DisplayName("getNotificationsByStatus: RECEIVED funciona correctamente")
@@ -300,7 +299,7 @@ class NotificationUseCaseTest {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsByStatus(null));
     }
 
-    // ── getNotificationsBySourceService ──────────────────────────────────────
+
 
     @Test
     @DisplayName("getNotificationsBySourceService: retorna notificaciones del servicio")
@@ -315,7 +314,7 @@ class NotificationUseCaseTest {
         assertThrows(RuntimeException.class, () -> useCase.getNotificationsBySourceService("  "));
     }
 
-    // ── markAsRead ────────────────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("markAsRead: marca correctamente como leída")

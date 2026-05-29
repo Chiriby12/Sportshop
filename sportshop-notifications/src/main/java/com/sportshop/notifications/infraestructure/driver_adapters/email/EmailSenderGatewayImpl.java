@@ -9,12 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Adaptador conducido - implementa el puerto EmailSenderGateway.
- * Usa la API HTTP de Resend en vez de SMTP.
- * Arquitectura Hexagonal: el dominio nunca ve esta clase, solo el puerto (interfaz).
- * Resend usa HTTPS (puerto 443) que Railway nunca bloquea.
- */
+
 @Component
 @Slf4j
 public class EmailSenderGatewayImpl implements EmailSenderGateway {

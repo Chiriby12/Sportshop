@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Adaptador conducido (Driven Adapter) - Persistencia en PostgreSQL.
- * Arquitectura Hexagonal: implementa el puerto NotificationGateway.
- */
+
 @Repository
 @RequiredArgsConstructor
 public class NotificationGatewayImpl implements NotificationGateway {

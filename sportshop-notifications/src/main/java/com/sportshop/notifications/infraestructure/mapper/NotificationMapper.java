@@ -5,10 +5,7 @@ import com.sportshop.notifications.domain.model.Notification;
 import com.sportshop.notifications.infraestructure.driver_adapters.jpa_repository.NotificationData;
 import org.springframework.stereotype.Component;
 
-/**
- * Mapper entre capas.
- * Arquitectura Hexagonal: traduce entre el modelo de dominio y la entidad JPA / DTO.
- */
+
 @Component
 public class NotificationMapper {
 

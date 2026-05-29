@@ -5,10 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-/**
- * Entidad JPA - Adaptador conducido (Driven Adapter).
- * Arquitectura Hexagonal: capa de infraestructura, fuera del hexágono.
- */
+
 @Entity
 @Table(name = "notifications")
 @Getter

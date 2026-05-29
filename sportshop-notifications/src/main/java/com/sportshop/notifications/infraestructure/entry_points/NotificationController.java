@@ -17,15 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Adaptador conductor (Driving Adapter) - Endpoints de notificaciones.
- *
- * Flujo automático:
- *  1. catalog-service crea/actualiza/elimina un producto o el usuario agrega al carrito
- *  2. EventPublisherGatewayImpl del catálogo hace POST /api/sportshop/notifications/receive
- *  3. Este endpoint persiste la notificación en la BD
- *  4. El frontend consulta GET /api/sportshop/notifications para mostrarlas en pantalla
- */
+
 @RestController
 @RequestMapping("/api/sportshop/notifications")
 @RequiredArgsConstructor
@@ -35,10 +27,7 @@ public class NotificationController {
     private final NotificationUseCase notificationUseCase;
     private final NotificationMapper notificationMapper;
 
-    /**
-     * Endpoint público - recibe eventos automáticos de otros microservicios.
-     * Llamado por: catalog-service (EventPublisherGatewayImpl)
-     */
+
     @PostMapping("/receive")
     @Operation(
         summary = "Recibir evento (interno)",
@@ -53,9 +42,7 @@ public class NotificationController {
         );
     }
 
-    /**
-     * Listar todas las notificaciones - solo ADMIN.
-     */
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     @SecurityRequirement(name = "bearerAuth")
@@ -66,9 +53,7 @@ public class NotificationController {
         return ResponseEntity.ok(ApiResponse.ok("Notificaciones encontradas", notifications));
     }
 
-    /**
-     * Obtener notificación por ID - ADMIN o USER autenticado.
-     */
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @SecurityRequirement(name = "bearerAuth")
@@ -78,10 +63,7 @@ public class NotificationController {
         return ResponseEntity.ok(ApiResponse.ok("Notificación encontrada", notificationMapper.toResponseDTO(n)));
     }
 
-    /**
-     * Notificaciones de un usuario específico (por documento o email).
-     * Un USER solo debería ver las suyas; ADMIN puede ver de cualquiera.
-     */
+
     @GetMapping("/user/{performedBy}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @SecurityRequirement(name = "bearerAuth")
@@ -93,9 +75,7 @@ public class NotificationController {
         return ResponseEntity.ok(ApiResponse.ok("Notificaciones del usuario: " + performedBy, notifications));
     }
 
-    /**
-     * Filtrar por tipo de evento.
-     */
+
     @GetMapping("/type/{type}")
     @PreAuthorize("hasRole('ADMIN')")
     @SecurityRequirement(name = "bearerAuth")
@@ -107,9 +87,7 @@ public class NotificationController {
         return ResponseEntity.ok(ApiResponse.ok("Notificaciones de tipo: " + type, notifications));
     }
 
-    /**
-     * Filtrar por estado: RECEIVED o READ.
-     */
+
     @GetMapping("/status/{status}")
     @PreAuthorize("hasRole('ADMIN')")
     @SecurityRequirement(name = "bearerAuth")
@@ -121,9 +99,7 @@ public class NotificationController {
         return ResponseEntity.ok(ApiResponse.ok("Notificaciones con estado: " + status, notifications));
     }
 
-    /**
-     * Marcar notificación como leída.
-     */
+
     @PatchMapping("/{id}/read")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @SecurityRequirement(name = "bearerAuth")

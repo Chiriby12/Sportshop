@@ -19,10 +19,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-/**
- * Filtro JWT - valida el mismo token generado por sportshop-auth.
- * La clave secreta debe coincidir con la del microservicio de autenticación.
- */
+
 @Component
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
