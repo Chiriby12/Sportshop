@@ -25,9 +25,9 @@ public class EventPublisherGatewayImpl implements EventPublisherGateway {
 
     @Override
     public void publish(AdminEvent event) {
-        // Mapeamos AdminEvent a un Map con los campos que CatalogEvent espera
+
         Map<String, Object> payload = new HashMap<>();
-        payload.put("type", event.getType().name());        // String puro, no enum
+        payload.put("type", event.getType().name());
         payload.put("title", event.getTitle());
         payload.put("message", event.getMessage());
         payload.put("performedBy", event.getPerformedBy());

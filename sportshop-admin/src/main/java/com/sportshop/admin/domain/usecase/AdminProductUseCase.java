@@ -9,11 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-/**
- * Caso de uso del dominio - Gestión de productos por el ADMIN.
- * Arquitectura Hexagonal: núcleo del hexágono.
- * Sin dependencias de Spring, JPA, HTTP ni ningún framework externo.
- */
+
 @RequiredArgsConstructor
 public class AdminProductUseCase {
 
@@ -21,9 +17,7 @@ public class AdminProductUseCase {
     private final EventPublisherGateway eventPublisher;
     private final CatalogSyncGateway catalogSync;
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Crear
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public AdminProduct createProduct(AdminProduct product, String adminDocument) {
         validarProducto(product);
@@ -44,9 +38,7 @@ public class AdminProductUseCase {
         return saved;
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Consultas
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public AdminProduct getProductById(Long id) {
         if (id == null || id <= 0)
@@ -76,9 +68,7 @@ public class AdminProductUseCase {
         return productGateway.findBySport(sport);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Actualizar
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public AdminProduct updateProduct(Long id, AdminProduct product, String adminDocument) {
         if (!productGateway.existsById(id))
@@ -106,9 +96,7 @@ public class AdminProductUseCase {
         return updated;
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Eliminar
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public void deleteProduct(Long id, String adminDocument) {
         AdminProduct product = productGateway.findById(id)
@@ -127,9 +115,7 @@ public class AdminProductUseCase {
         catalogSync.delete(id);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Validaciones privadas
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     private void validarProducto(AdminProduct product) {
         if (product.getName() == null || product.getName().isBlank())

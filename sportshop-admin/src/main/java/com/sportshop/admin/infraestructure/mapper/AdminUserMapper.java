@@ -5,11 +5,7 @@ import com.sportshop.admin.application.dto.AdminUserUpdateDTO;
 import com.sportshop.admin.domain.model.AdminUser;
 import org.springframework.stereotype.Component;
 
-/**
- * Mapper entre DTOs y el modelo de dominio AdminUser.
- * Ya no necesita mapear a/desde JPA entity porque la persistencia
- * la maneja sportshop-auth via HTTP.
- */
+
 @Component
 public class AdminUserMapper {
 

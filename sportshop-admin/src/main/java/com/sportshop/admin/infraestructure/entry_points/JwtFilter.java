@@ -19,10 +19,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-/**
- * Filtro JWT - valida el token generado por el microservicio de autenticación.
- * Misma secret que auth y catalog.
- */
+
 @Component
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
@@ -55,7 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 var auth = new UsernamePasswordAuthenticationToken(
                         email,
-                        token,  // guardamos el token raw como credentials
+                        token,
                         role != null ? List.of(new SimpleGrantedAuthority("ROLE_" + role)) : List.of()
                 );
                 auth.setDetails(document);

@@ -17,11 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Adaptador conductor (Driving Adapter) - CRUD de productos para el Admin.
- * Arquitectura Hexagonal: punto de entrada al hexágono vía HTTP.
- * Todos los endpoints requieren rol ADMIN.
- */
+
 @RestController
 @RequestMapping("/api/sportshop/admin/products")
 @RequiredArgsConstructor
@@ -94,7 +90,7 @@ public class AdminProductController {
         return ResponseEntity.ok(ApiResponse.ok("Producto " + id + " eliminado correctamente", null));
     }
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────
+
 
     private AdminProduct dtoToDomain(AdminProductRequestDTO dto) {
         AdminProduct p = new AdminProduct();

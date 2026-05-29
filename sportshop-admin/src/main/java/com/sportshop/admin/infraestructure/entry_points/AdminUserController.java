@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Adaptador conductor (Driving Adapter) - CRUD de usuarios para el Admin.
- * Delega la persistencia a sportshop-auth via AuthUserGatewayImpl.
- */
+
 @RestController
 @RequestMapping("/api/sportshop/admin/users")
 @RequiredArgsConstructor

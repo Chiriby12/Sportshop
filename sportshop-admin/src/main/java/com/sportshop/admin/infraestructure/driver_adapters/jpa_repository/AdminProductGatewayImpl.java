@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Adaptador conducido - implementa el puerto AdminProductGateway.
- */
+
 @Repository
 @RequiredArgsConstructor
 public class AdminProductGatewayImpl implements AdminProductGateway {

@@ -5,9 +5,7 @@ import com.sportshop.admin.domain.model.AdminProduct;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Puerto de salida (Output Port) para productos - Arquitectura Hexagonal.
- */
+
 public interface AdminProductGateway {
     AdminProduct save(AdminProduct product);
     Optional<AdminProduct> findById(Long id);

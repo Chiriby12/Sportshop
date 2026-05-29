@@ -33,7 +33,7 @@ class AdminUserUseCaseTest {
         user = new AdminUser("12345678", "Ana García", "ana@test.com", "3001234567", 25, "USER", true);
     }
 
-    // ══════════ createUser ══════════
+
 
     @Test
     @DisplayName("createUser: crea usuario correctamente")
@@ -128,7 +128,7 @@ class AdminUserUseCaseTest {
         assertTrue(ex.getMessage().contains("Ya existe un usuario con el email"));
     }
 
-    // ══════════ getUserByDocument ══════════
+
 
     @Test
     @DisplayName("getUserByDocument: retorna usuario existente")
@@ -155,7 +155,7 @@ class AdminUserUseCaseTest {
         assertEquals("El documento no puede estar vacío", ex.getMessage());
     }
 
-    // ══════════ getAllUsers ══════════
+
 
     @Test
     @DisplayName("getAllUsers: retorna lista de usuarios")
@@ -165,7 +165,7 @@ class AdminUserUseCaseTest {
         assertEquals(1, result.size());
     }
 
-    // ══════════ getUsersByRole ══════════
+
 
     @Test
     @DisplayName("getUsersByRole: filtra por rol USER")
@@ -197,7 +197,7 @@ class AdminUserUseCaseTest {
         assertTrue(ex.getMessage().contains("Rol inválido"));
     }
 
-    // ══════════ updateUser ══════════
+
 
     @Test
     @DisplayName("updateUser: actualiza correctamente")
@@ -242,7 +242,7 @@ class AdminUserUseCaseTest {
         assertTrue(ex.getMessage().contains("Rol inválido"));
     }
 
-    // ══════════ changeUserRole ══════════
+
 
     @Test
     @DisplayName("changeUserRole: cambia rol correctamente")
@@ -289,7 +289,7 @@ class AdminUserUseCaseTest {
         assertTrue(ex.getMessage().contains("No existe un usuario con documento"));
     }
 
-    // ══════════ deleteUser ══════════
+
 
     @Test
     @DisplayName("deleteUser: elimina correctamente")

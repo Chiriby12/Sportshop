@@ -17,14 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Test del adaptador AuthUserGatewayImpl.
- * Verifica el comportamiento del gateway cuando los métodos
- * retornan resultados esperados (usando mocks del WebClient internamente).
- *
- * Nota: El WebClient real no se prueba aquí — eso corresponde
- * a pruebas de integración. Aquí validamos la lógica del adaptador.
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("AuthUserGatewayImpl - Tests del adaptador HTTP hacia sportshop-auth")
 class AdminUserGatewayImplTest {

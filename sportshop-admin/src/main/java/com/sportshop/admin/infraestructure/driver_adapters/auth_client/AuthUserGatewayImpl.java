@@ -16,11 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Adaptador conducido - delega todas las operaciones de usuarios
- * al microservicio sportshop-auth (puerto 8080).
- * El admin no tiene tabla propia de usuarios — auth es la fuente de verdad.
- */
+
 @Component
 @Slf4j
 public class AuthUserGatewayImpl implements AdminUserGateway {
@@ -150,7 +146,7 @@ public class AuthUserGatewayImpl implements AdminUserGateway {
         return findByEmail(email).isPresent();
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+
 
     private String obtenerToken() {
         var auth = SecurityContextHolder.getContext().getAuthentication();

@@ -54,7 +54,7 @@ class AuthUserGatewayImplTest {
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
-    // ─── Helpers para construir respuestas simuladas ──────────────────────────
+
 
     private Map<String, Object> buildUserMap() {
         Map<String, Object> data = new HashMap<>();
@@ -73,13 +73,13 @@ class AuthUserGatewayImplTest {
         return response;
     }
 
-    // ─── save → create (usuario nuevo) ───────────────────────────────────────
+
 
     @Test
     @DisplayName("save: crea usuario nuevo cuando no existe (existsByDocument = false)")
     @SuppressWarnings("unchecked")
     void save_create_success() {
-        // GET → findByDocument → null data → existsByDocument = false
+
         when(webClient.get()).thenReturn(requestHeadersUriSpec);
         when(requestHeadersUriSpec.uri(anyString(), any(Object[].class))).thenReturn(requestHeadersSpec);
         when(requestHeadersSpec.header(anyString(), anyString())).thenReturn(requestHeadersSpec);
@@ -87,7 +87,7 @@ class AuthUserGatewayImplTest {
         when(responseSpec.bodyToMono(any(ParameterizedTypeReference.class)))
                 .thenReturn(Mono.just(buildResponse(null)));
 
-        // POST → create
+
         WebClient.RequestBodyUriSpec postUri = mock(WebClient.RequestBodyUriSpec.class);
         WebClient.RequestBodySpec postBody = mock(WebClient.RequestBodySpec.class);
         WebClient.RequestHeadersSpec postHeaders = mock(WebClient.RequestHeadersSpec.class);
@@ -110,7 +110,7 @@ class AuthUserGatewayImplTest {
     @DisplayName("save: actualiza usuario cuando ya existe (existsByDocument = true)")
     @SuppressWarnings("unchecked")
     void save_update_success() {
-        // GET → findByDocument → retorna usuario → existsByDocument = true
+
         WebClient.RequestHeadersUriSpec getUri = mock(WebClient.RequestHeadersUriSpec.class);
         WebClient.RequestHeadersSpec getHeaders = mock(WebClient.RequestHeadersSpec.class);
         WebClient.ResponseSpec getResponse = mock(WebClient.ResponseSpec.class);
@@ -122,7 +122,7 @@ class AuthUserGatewayImplTest {
         when(getResponse.bodyToMono(any(ParameterizedTypeReference.class)))
                 .thenReturn(Mono.just(buildResponse(buildUserMap())));
 
-        // PUT → update
+
         WebClient.RequestBodyUriSpec putUri = mock(WebClient.RequestBodyUriSpec.class);
         WebClient.RequestBodySpec putBody = mock(WebClient.RequestBodySpec.class);
         WebClient.RequestHeadersSpec putHeaders = mock(WebClient.RequestHeadersSpec.class);
@@ -142,7 +142,7 @@ class AuthUserGatewayImplTest {
         assertThat(result.getDocument()).isEqualTo("12345678");
     }
 
-    // ─── findByDocument ───────────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("findByDocument: retorna usuario cuando existe")
@@ -209,7 +209,7 @@ class AuthUserGatewayImplTest {
         assertThat(result).isEmpty();
     }
 
-    // ─── findAll ──────────────────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("findAll: retorna lista de usuarios")
@@ -260,7 +260,7 @@ class AuthUserGatewayImplTest {
         assertThat(result).isEmpty();
     }
 
-    // ─── findByEmail ──────────────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("findByEmail: retorna usuario cuando coincide email")
@@ -294,7 +294,7 @@ class AuthUserGatewayImplTest {
         assertThat(result).isEmpty();
     }
 
-    // ─── findByRole ───────────────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("findByRole: filtra usuarios por rol")
@@ -328,7 +328,7 @@ class AuthUserGatewayImplTest {
         assertThat(result).isEmpty();
     }
 
-    // ─── deleteByDocument ─────────────────────────────────────────────────────
+
 
     @Test
     @DisplayName("deleteByDocument: ejecuta DELETE correctamente")
@@ -344,7 +344,7 @@ class AuthUserGatewayImplTest {
         assertThatCode(() -> gateway.deleteByDocument("12345678")).doesNotThrowAnyException();
     }
 
-    // ─── existsByDocument / existsByEmail ─────────────────────────────────────
+
 
     @Test
     @DisplayName("existsByDocument: retorna true si existe")
@@ -402,7 +402,7 @@ class AuthUserGatewayImplTest {
         assertThat(gateway.existsByEmail("otro@test.com")).isFalse();
     }
 
-    // ─── obtenerToken sin credenciales ────────────────────────────────────────
+
 
     @Test
     @DisplayName("findAll: funciona sin token en contexto de seguridad")
@@ -422,7 +422,7 @@ class AuthUserGatewayImplTest {
         assertThat(result).hasSize(1);
     }
 
-    // ─── mapToAdminUser edge cases ────────────────────────────────────────────
+
 
     @Test
     @DisplayName("findAll: mapea correctamente cuando age no es Number")

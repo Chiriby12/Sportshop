@@ -5,10 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-/**
- * Entidad JPA - adaptador conducido del hexágono.
- * Tabla en el esquema admin de PostgreSQL.
- */
+
 @Entity
 @Table(name = "admin_products")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor

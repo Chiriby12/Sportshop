@@ -7,11 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-/**
- * Evento de dominio que el admin publica al microservicio de notificaciones.
- * Estructura idéntica al CatalogEvent del catálogo para que notifications
- * pueda deserializarlo sin cambios.
- */
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,11 +15,11 @@ import java.time.LocalDateTime;
 public class AdminEvent {
 
     public enum EventType {
-        // Eventos de productos (admin CRUD)
+
         PRODUCT_CREATED,
         PRODUCT_UPDATED,
         PRODUCT_DELETED,
-        // Eventos de usuarios (admin CRUD)
+
         USER_CREATED,
         USER_UPDATED,
         USER_DELETED,
@@ -33,7 +29,7 @@ public class AdminEvent {
     private EventType type;
     private String title;
     private String message;
-    private String performedBy;   // documento del admin que ejecutó la acción
+    private String performedBy;
     private Object payload;
     private LocalDateTime timestamp;
 

@@ -9,10 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Map;
 
-/**
- * Adaptador conducido — replica productos en sportshop-catalog via HTTP.
- * Opera en best-effort: si catalog no responde, no falla la operación del admin.
- */
+
 @Component
 @Slf4j
 public class CatalogSyncGatewayImpl implements CatalogSyncGateway {

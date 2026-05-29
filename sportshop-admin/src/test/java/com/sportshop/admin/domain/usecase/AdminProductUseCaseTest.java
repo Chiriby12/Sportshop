@@ -39,7 +39,7 @@ class AdminProductUseCaseTest {
                 new BigDecimal("85000"), 50, "https://img.com/cam.jpg", true);
     }
 
-    // ══════════ createProduct ══════════
+
 
     @Test
     @DisplayName("createProduct: crea correctamente")
@@ -142,7 +142,7 @@ class AdminProductUseCaseTest {
         assertEquals("La marca no puede estar vacía", ex.getMessage());
     }
 
-    // ══════════ getProductById ══════════
+
 
     @Test
     @DisplayName("getProductById: retorna producto existente")
@@ -178,7 +178,7 @@ class AdminProductUseCaseTest {
         assertEquals("El ID debe ser un número positivo", ex.getMessage());
     }
 
-    // ══════════ getAllProducts ══════════
+
 
     @Test
     @DisplayName("getAllProducts: retorna lista")
@@ -188,7 +188,7 @@ class AdminProductUseCaseTest {
         assertEquals(1, result.size());
     }
 
-    // ══════════ getActiveProducts ══════════
+
 
     @Test
     @DisplayName("getActiveProducts: retorna solo activos")
@@ -198,7 +198,7 @@ class AdminProductUseCaseTest {
         assertFalse(result.isEmpty());
     }
 
-    // ══════════ getProductsByCategory ══════════
+
 
     @Test
     @DisplayName("getProductsByCategory: filtra correctamente")
@@ -216,7 +216,7 @@ class AdminProductUseCaseTest {
         assertEquals("La categoría no puede estar vacía", ex.getMessage());
     }
 
-    // ══════════ getProductsBySport ══════════
+
 
     @Test
     @DisplayName("getProductsBySport: filtra correctamente")
@@ -234,7 +234,7 @@ class AdminProductUseCaseTest {
         assertEquals("El deporte no puede estar vacío", ex.getMessage());
     }
 
-    // ══════════ updateProduct ══════════
+
 
     @Test
     @DisplayName("updateProduct: actualiza correctamente")
@@ -280,7 +280,7 @@ class AdminProductUseCaseTest {
         assertEquals("El stock no puede ser negativo", ex.getMessage());
     }
 
-    // ══════════ deleteProduct ══════════
+
 
     @Test
     @DisplayName("deleteProduct: elimina correctamente")

@@ -7,13 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-/**
- * Entidad de dominio - Producto gestionado por el Admin.
- * Núcleo del hexágono. Sin Spring, sin JPA.
- *
- * El microservicio admin tiene su propio CRUD de productos
- * Entidad del producto manejada desde el microservicio admin.
- */
+
 @Getter
 @Setter
 @AllArgsConstructor

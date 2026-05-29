@@ -8,12 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-/**
- * Caso de uso del dominio - Gestión de usuarios por el ADMIN.
- * Arquitectura Hexagonal: NÚCLEO del hexágono.
- * Sin dependencias de Spring, JPA, HTTP ni ningún framework externo.
- * Solo depende de los puertos (interfaces) del dominio.
- */
+
 @RequiredArgsConstructor
 public class AdminUserUseCase {
 
@@ -22,9 +17,7 @@ public class AdminUserUseCase {
 
     private static final List<String> ROLES_VALIDOS = List.of("USER", "ADMIN");
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Crear usuario
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public AdminUser createUser(AdminUser user, String adminDocument) {
         validarUsuario(user);
@@ -50,9 +43,7 @@ public class AdminUserUseCase {
         return saved;
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Consultas
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public AdminUser getUserByDocument(String document) {
         if (document == null || document.isBlank())
@@ -77,9 +68,7 @@ public class AdminUserUseCase {
         return userGateway.findByRole(roleUp);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Actualizar usuario
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public AdminUser updateUser(String document, AdminUser updatedUser, String adminDocument) {
         if (!userGateway.existsByDocument(document))
@@ -91,7 +80,7 @@ public class AdminUserUseCase {
         if (updatedUser.getRole() != null && !ROLES_VALIDOS.contains(updatedUser.getRole().toUpperCase()))
             throw new RuntimeException("Rol inválido. Use: USER o ADMIN");
 
-        // Recuperar el usuario existente y fusionar los cambios
+
         AdminUser existing = userGateway.findByDocument(document).get();
         existing.setName(updatedUser.getName());
         existing.setTelephone(updatedUser.getTelephone());
@@ -112,9 +101,7 @@ public class AdminUserUseCase {
         return saved;
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Cambiar rol
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public AdminUser changeUserRole(String document, String newRole, String adminDocument) {
         if (newRole == null || newRole.isBlank())
@@ -142,9 +129,7 @@ public class AdminUserUseCase {
         return saved;
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Eliminar usuario
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     public void deleteUser(String document, String adminDocument) {
         AdminUser user = userGateway.findByDocument(document)
@@ -161,9 +146,7 @@ public class AdminUserUseCase {
         ));
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Validaciones privadas
-    // ─────────────────────────────────────────────────────────────────────────
+
 
     private void validarUsuario(AdminUser user) {
         if (user.getDocument() == null || user.getDocument().isBlank())
