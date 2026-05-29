@@ -2,14 +2,14 @@ spring:
   application:
     name: sportshop-notifications
   datasource:
-    url: jdbc:postgresql://localhost:5432/sportshop?currentSchema=notifications
-    username: postgres
-    password: 123
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/sportshop?currentSchema=notifications}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:123}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     open-in-view: false
     properties:
       hibernate:
@@ -19,13 +19,27 @@ spring:
     user:
       name: disabled
       password: disabled
-
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: ${MAIL_USERNAME:lionxyz87@gmail.com}
+    password: ${MAIL_PASSWORD:envqgqfbsitnbamt}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+        debug: false
 server:
-  port: 8083
+  port: ${PORT:8083}
 
 jwt:
-  secret: "3f8a2b1c9d7e4f6a0b5c8d2e1f7a3b4c9d6e5f8a2b1c0d7e4f3a6b5c8d9e2f1a"
+  secret: ${JWT_SECRET:3f8a2b1c9d7e4f6a0b5c8d2e1f7a3b4c9d6e5f8a2b1c0d7e4f3a6b5c8d9e2f1a}
   expiration-ms: 3600000
+
+notification:
+  admin-email: ${NOTIFICATION_ADMIN_EMAIL:sebasgonzalez014@gmail.com}
 
 springdoc:
   api-docs:
