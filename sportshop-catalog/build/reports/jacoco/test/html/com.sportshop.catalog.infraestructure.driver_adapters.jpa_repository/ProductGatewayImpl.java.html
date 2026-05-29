@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductGatewayImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-catalog</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.catalog.infraestructure.driver_adapters.jpa_repository</a> &gt; <span class="el_source">ProductGatewayImpl.java</span></div><h1>ProductGatewayImpl.java</h1><pre class="source lang-java linenums">package com.sportshop.catalog.infraestructure.driver_adapters.jpa_repository;
+
+import com.sportshop.catalog.domain.model.Product;
+import com.sportshop.catalog.domain.model.gateway.ProductGateway;
+import com.sportshop.catalog.infraestructure.mapper.ProductMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+@RequiredArgsConstructor
+public class ProductGatewayImpl implements ProductGateway {
+
+    private final ProductJpaRepository jpaRepository;
+    private final ProductMapper mapper;
+
+    @Override
+    public Product save(Product product) {
+<span class="fc" id="L21">        return mapper.toDomain(jpaRepository.save(mapper.toData(product)));</span>
+    }
+
+    @Override
+    public Optional&lt;Product&gt; findById(Long id) {
+<span class="fc" id="L26">        return jpaRepository.findById(id).map(mapper::toDomain);</span>
+    }
+
+    @Override
+    public List&lt;Product&gt; findAll() {
+<span class="fc" id="L31">        return jpaRepository.findAll().stream().map(mapper::toDomain).toList();</span>
+    }
+
+    @Override
+    public List&lt;Product&gt; findByCategory(String category) {
+<span class="fc" id="L36">        return jpaRepository.findByCategory(category).stream().map(mapper::toDomain).toList();</span>
+    }
+
+    @Override
+    public List&lt;Product&gt; findBySport(String sport) {
+<span class="fc" id="L41">        return jpaRepository.findBySport(sport).stream().map(mapper::toDomain).toList();</span>
+    }
+
+    @Override
+    public List&lt;Product&gt; findActive() {
+<span class="fc" id="L46">        return jpaRepository.findByActiveTrue().stream().map(mapper::toDomain).toList();</span>
+    }
+
+    @Override
+    public void deleteById(Long id) {
+<span class="fc" id="L51">        jpaRepository.deleteById(id);</span>
+<span class="fc" id="L52">    }</span>
+
+    @Override
+    public boolean existsById(Long id) {
+<span class="fc" id="L56">        return jpaRepository.existsById(id);</span>
+    }
+
+    @Override
+    public Optional&lt;Product&gt; findByAdminId(Long adminId) {
+<span class="nc" id="L61">        return jpaRepository.findByAdminId(adminId).map(mapper::toDomain);</span>
+    }
+
+    @Override
+    public void deleteByAdminId(Long adminId) {
+<span class="nc" id="L66">        jpaRepository.findByAdminId(adminId).ifPresent(p -&gt; jpaRepository.deleteById(p.getId()));</span>
+<span class="nc" id="L67">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

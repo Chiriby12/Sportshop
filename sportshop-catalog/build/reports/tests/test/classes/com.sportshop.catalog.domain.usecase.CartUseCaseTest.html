@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - CartUseCase - Pruebas del dominio del carrito</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>CartUseCase - Pruebas del dominio del carrito</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.sportshop.catalog.domain.usecase.html">com.sportshop.catalog.domain.usecase</a> &gt; CartUseCaseTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">24</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.618s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">addToCart: debe fallar si documento es vacío</td>
+<td class="success">addToCart_emptyDocument()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addToCart: debe fallar si producto está inactivo</td>
+<td class="success">addToCart_inactiveProduct()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addToCart: debe fallar si no hay suficiente stock</td>
+<td class="success">addToCart_insufficientStock()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addToCart: debe fallar si documento es null</td>
+<td class="success">addToCart_nullDocument()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addToCart: debe fallar si cantidad es null</td>
+<td class="success">addToCart_nullQuantity()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addToCart: debe fallar si producto no existe</td>
+<td class="success">addToCart_productNotFound()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addToCart: debe agregar ítem y publicar evento</td>
+<td class="success">addToCart_success()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addToCart: debe fallar si cantidad es 0</td>
+<td class="success">addToCart_zeroQuantity()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getCart: debe fallar si documento es vacío</td>
+<td class="success">getCart_emptyDocument()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getCart: debe fallar si documento es null</td>
+<td class="success">getCart_nullDocument()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getCart: debe retornar los ítems del usuario</td>
+<td class="success">getCart_success()</td>
+<td class="success">0.044s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">purchaseCart: debe fallar si carrito está vacío</td>
+<td class="success">purchaseCart_emptyCart()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">purchaseCart: debe fallar si no hay stock suficiente al comprar</td>
+<td class="success">purchaseCart_insufficientStockAtPurchase()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">purchaseCart: debe fallar si el producto ya no existe al comprar</td>
+<td class="success">purchaseCart_productGone()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">purchaseCart: debe comprar, descontar stock y publicar evento</td>
+<td class="success">purchaseCart_success()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">removeFromCart: debe fallar si ítem no existe</td>
+<td class="success">removeFromCart_notFound()</td>
+<td class="success">0.485s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">removeFromCart: debe eliminar y publicar evento</td>
+<td class="success">removeFromCart_success()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">removeFromCart: debe fallar si el ítem no es del usuario</td>
+<td class="success">removeFromCart_wrongUser()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateCartItem: debe fallar si stock insuficiente</td>
+<td class="success">updateCartItem_insufficientStock()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateCartItem: debe fallar si ítem no existe</td>
+<td class="success">updateCartItem_itemNotFound()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateCartItem: debe fallar si producto asociado ya no existe</td>
+<td class="success">updateCartItem_productGone()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateCartItem: debe actualizar cantidad y publicar evento</td>
+<td class="success">updateCartItem_success()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateCartItem: debe fallar si el ítem pertenece a otro usuario</td>
+<td class="success">updateCartItem_wrongUser()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateCartItem: debe fallar si cantidad es 0</td>
+<td class="success">updateCartItem_zeroQuantity()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 29/05/2026, 4:13:38 p. m.</p>
+</div>
+</div>
+</body>
+</html>

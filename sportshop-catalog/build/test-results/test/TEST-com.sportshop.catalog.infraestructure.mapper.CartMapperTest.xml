@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CartMapper - Tests de mapeo del carrito" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:37.754Z" hostname="SEBASGL" time="0.014">
+  <properties/>
+  <testcase name="toResponseDTO: retorna null si domain es null" classname="com.sportshop.catalog.infraestructure.mapper.CartMapperTest" time="0.001"/>
+  <testcase name="toData: retorna null si domain es null" classname="com.sportshop.catalog.infraestructure.mapper.CartMapperTest" time="0.0"/>
+  <testcase name="toDomain: retorna null si data es null" classname="com.sportshop.catalog.infraestructure.mapper.CartMapperTest" time="0.0"/>
+  <testcase name="toData: mapea CartItem a CartItemData" classname="com.sportshop.catalog.infraestructure.mapper.CartMapperTest" time="0.001"/>
+  <testcase name="toResponseDTO: mapea CartItem a CartResponseDTO con subtotal calculado" classname="com.sportshop.catalog.infraestructure.mapper.CartMapperTest" time="0.004"/>
+  <testcase name="CartResponseDTO.getSubtotal: retorna ZERO si unitPrice es null" classname="com.sportshop.catalog.infraestructure.mapper.CartMapperTest" time="0.001"/>
+  <testcase name="toDomain: mapea CartItemData a CartItem" classname="com.sportshop.catalog.infraestructure.mapper.CartMapperTest" time="0.002"/>
+  <testcase name="CartResponseDTO.getSubtotal: retorna ZERO si quantity es null" classname="com.sportshop.catalog.infraestructure.mapper.CartMapperTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

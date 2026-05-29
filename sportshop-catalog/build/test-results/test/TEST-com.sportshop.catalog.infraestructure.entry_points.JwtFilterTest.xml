@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="JwtFilter (catalog) - Tests del filtro JWT" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:36.750Z" hostname="SEBASGL" time="0.724">
+  <properties/>
+  <testcase name="token completamente inválido: pasa sin autenticar y no lanza excepción" classname="com.sportshop.catalog.infraestructure.entry_points.JwtFilterTest" time="0.692"/>
+  <testcase name="header sin 'Bearer ': pasa sin autenticar" classname="com.sportshop.catalog.infraestructure.entry_points.JwtFilterTest" time="0.005"/>
+  <testcase name="token con firma incorrecta: pasa sin autenticar" classname="com.sportshop.catalog.infraestructure.entry_points.JwtFilterTest" time="0.022"/>
+  <testcase name="sin header Authorization: pasa el filtro sin autenticar" classname="com.sportshop.catalog.infraestructure.entry_points.JwtFilterTest" time="0.003"/>
+  <system-out><![CDATA[2026-05-29T16:13:37.438-05:00  WARN 10008 --- [    Test worker] c.s.c.i.entry_points.JwtFilter           : JWT inválido en catálogo: Malformed protected header JSON: Unable to deserialize: Unrecognized token 'z': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 2]
+2026-05-29T16:13:37.469-05:00  WARN 10008 --- [    Test worker] c.s.c.i.entry_points.JwtFilter           : JWT inválido en catálogo: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

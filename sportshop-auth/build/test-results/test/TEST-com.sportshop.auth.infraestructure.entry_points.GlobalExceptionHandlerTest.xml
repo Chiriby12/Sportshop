@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:33.029Z" hostname="SEBASGL" time="0.112">
+<testsuite name="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-05-29T20:31:34.531Z" hostname="SEBASGL" time="0.111">
   <properties/>
-  <testcase name="handleNoResource: retorna 404" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.081"/>
+  <testcase name="handleNoResource: retorna 404" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.087"/>
   <testcase name="handleGeneralErrors: retorna 500" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.001"/>
-  <testcase name="handleRuntimeErrors: contraseña incorrecta retorna 401" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.001"/>
-  <testcase name="handleDataIntegrity: retorna 400" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.001"/>
-  <testcase name="handleMethodNotSupported: retorna 405" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.002"/>
-  <testcase name="handleRuntimeErrors: permiso retorna 403" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.001"/>
-  <testcase name="handleRuntimeErrors: Ya existe retorna 400" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.0"/>
-  <testcase name="handleValidationErrors: retorna 400 con mapa de campos" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.018"/>
+  <testcase name="handleRuntimeErrors: contraseña incorrecta retorna 401" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.0"/>
+  <testcase name="handleDataIntegrity: retorna 400" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.0"/>
+  <testcase name="handleMethodNotSupported: retorna 405" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.001"/>
+  <testcase name="handleRuntimeErrors: permiso retorna 403" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.0"/>
+  <testcase name="handleRuntimeErrors: Ya existe retorna 400" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.001"/>
+  <testcase name="handleValidationErrors: retorna 400 con mapa de campos" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.015"/>
   <testcase name="handleAccessDenied: retorna 403" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.0"/>
-  <testcase name="handleJsonErrors: retorna 400" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.002"/>
+  <testcase name="handleJsonErrors: retorna 400" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.0"/>
   <testcase name="handleRuntimeErrors: otro error retorna 404" classname="com.sportshop.auth.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

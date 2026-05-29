@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.sportshop.auth.infraestructure.mapper.UserMapperTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:35.218Z" hostname="SEBASGL" time="0.003">
+<testsuite name="com.sportshop.auth.infraestructure.mapper.UserMapperTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-29T20:31:36.148Z" hostname="SEBASGL" time="0.002">
   <properties/>
-  <testcase name="toUserFromDTO: convierte UserRequestDTO a User" classname="com.sportshop.auth.infraestructure.mapper.UserMapperTest" time="0.001"/>
+  <testcase name="toUserFromDTO: convierte UserRequestDTO a User" classname="com.sportshop.auth.infraestructure.mapper.UserMapperTest" time="0.0"/>
   <testcase name="toUser: convierte UserData a User correctamente" classname="com.sportshop.auth.infraestructure.mapper.UserMapperTest" time="0.0"/>
-  <testcase name="toUserFromUpdateDTO: convierte UserUpdateDTO a User" classname="com.sportshop.auth.infraestructure.mapper.UserMapperTest" time="0.001"/>
+  <testcase name="toUserFromUpdateDTO: convierte UserUpdateDTO a User" classname="com.sportshop.auth.infraestructure.mapper.UserMapperTest" time="0.0"/>
   <testcase name="toUserData: convierte User a UserData correctamente" classname="com.sportshop.auth.infraestructure.mapper.UserMapperTest" time="0.001"/>
   <testcase name="toUserResponseDTO: convierte User a DTO de respuesta sin password" classname="com.sportshop.auth.infraestructure.mapper.UserMapperTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

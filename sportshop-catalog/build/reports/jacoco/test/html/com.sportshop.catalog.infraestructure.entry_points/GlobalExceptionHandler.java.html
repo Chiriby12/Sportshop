@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-catalog</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.catalog.infraestructure.entry_points</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package com.sportshop.catalog.infraestructure.entry_points;
+
+import com.sportshop.catalog.application.dto.ApiResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.stream.Collectors;
+
+@RestControllerAdvice
+<span class="fc" id="L15">public class GlobalExceptionHandler {</span>
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleRuntime(RuntimeException e) {
+<span class="fc" id="L19">        return ResponseEntity.badRequest().body(ApiResponse.error(400, e.getMessage()));</span>
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleValidation(MethodArgumentNotValidException e) {
+<span class="fc" id="L24">        String errors = e.getBindingResult().getFieldErrors().stream()</span>
+<span class="fc" id="L25">                .map(FieldError::getDefaultMessage)</span>
+<span class="fc" id="L26">                .collect(Collectors.joining(&quot;, &quot;));</span>
+<span class="fc" id="L27">        return ResponseEntity.badRequest().body(ApiResponse.error(400, &quot;Validación: &quot; + errors));</span>
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleForbidden(AccessDeniedException e) {
+<span class="fc" id="L32">        return ResponseEntity.status(HttpStatus.FORBIDDEN)</span>
+<span class="fc" id="L33">                .body(ApiResponse.error(403, &quot;No tienes permisos para realizar esta acción&quot;));</span>
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; handleGeneral(Exception e) {
+<span class="nc" id="L38">        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
+<span class="nc" id="L39">                .body(ApiResponse.error(500, &quot;Error interno del servidor: &quot; + e.getMessage()));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

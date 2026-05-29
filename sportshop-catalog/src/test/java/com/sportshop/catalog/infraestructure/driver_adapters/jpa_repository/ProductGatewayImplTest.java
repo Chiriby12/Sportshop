@@ -31,9 +31,10 @@ class ProductGatewayImplTest {
 
     @BeforeEach
     void setUp() {
-        product = new Product(1L, "Camiseta Nike", "desc", "Nike",
+        // Fix: agregar null como segundo argumento (adminId)
+        product = new Product(1L, null, "Camiseta Nike", "desc", "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("85000"), 50, "url", true);
-        productData = new ProductData(1L, "Camiseta Nike", "desc", "Nike",
+        productData = new ProductData(1L, null, "Camiseta Nike", "desc", "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("85000"), 50, "url", true);
     }
 

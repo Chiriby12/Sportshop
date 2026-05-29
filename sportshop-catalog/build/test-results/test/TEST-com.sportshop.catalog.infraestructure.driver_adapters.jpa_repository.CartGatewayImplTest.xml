@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CartGatewayImpl - Tests del adaptador JPA del carrito" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:32.677Z" hostname="SEBASGL" time="0.191">
+  <properties/>
+  <testcase name="findById: retorna Optional vacío cuando no existe" classname="com.sportshop.catalog.infraestructure.driver_adapters.jpa_repository.CartGatewayImplTest" time="0.156"/>
+  <testcase name="deleteAllByUserDocument: vacía el carrito de un usuario" classname="com.sportshop.catalog.infraestructure.driver_adapters.jpa_repository.CartGatewayImplTest" time="0.008"/>
+  <testcase name="findByUserDocument: retorna ítems del carrito de un usuario" classname="com.sportshop.catalog.infraestructure.driver_adapters.jpa_repository.CartGatewayImplTest" time="0.013"/>
+  <testcase name="findById: retorna Optional con el ítem cuando existe" classname="com.sportshop.catalog.infraestructure.driver_adapters.jpa_repository.CartGatewayImplTest" time="0.005"/>
+  <testcase name="deleteById: elimina el ítem por ID" classname="com.sportshop.catalog.infraestructure.driver_adapters.jpa_repository.CartGatewayImplTest" time="0.003"/>
+  <testcase name="save: guarda y retorna dominio mapeado" classname="com.sportshop.catalog.infraestructure.driver_adapters.jpa_repository.CartGatewayImplTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

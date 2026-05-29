@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="OpenApiConfig - Test de Configuración" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:31.604Z" hostname="SEBASGL" time="0.002">
+<testsuite name="OpenApiConfig - Test de Configuración" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T20:31:33.249Z" hostname="SEBASGL" time="0.003">
   <properties/>
-  <testcase name="Debe cargar la configuración de OpenAPI en el contexto de Spring" classname="com.sportshop.auth.application.config.OpenApiConfigTest" time="0.002"/>
+  <testcase name="Debe cargar la configuración de OpenAPI en el contexto de Spring" classname="com.sportshop.auth.application.config.OpenApiConfigTest" time="0.003"/>
   <system-out><![CDATA[
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -12,9 +12,9 @@
 
  :: Spring Boot ::                (v3.4.5)
 
-2026-05-29T01:41:31.598-05:00  INFO 15676 --- [sportshop-auth] [    Test worker] c.s.a.a.config.OpenApiConfigTest         : Starting OpenApiConfigTest using Java 21.0.10 with PID 15676 (started by sebas in C:\SportShop\sportshop-auth)
-2026-05-29T01:41:31.598-05:00  INFO 15676 --- [sportshop-auth] [    Test worker] c.s.a.a.config.OpenApiConfigTest         : No active profile set, falling back to 1 default profile: "default"
-2026-05-29T01:41:31.603-05:00  INFO 15676 --- [sportshop-auth] [    Test worker] c.s.a.a.config.OpenApiConfigTest         : Started OpenApiConfigTest in 0.023 seconds (process running for 13.987)
+2026-05-29T15:31:33.232-05:00  INFO 27720 --- [sportshop-auth] [    Test worker] c.s.a.a.config.OpenApiConfigTest         : Starting OpenApiConfigTest using Java 21.0.10 with PID 27720 (started by sebas in C:\SportShop\sportshop-auth)
+2026-05-29T15:31:33.236-05:00  INFO 27720 --- [sportshop-auth] [    Test worker] c.s.a.a.config.OpenApiConfigTest         : No active profile set, falling back to 1 default profile: "default"
+2026-05-29T15:31:33.247-05:00  INFO 27720 --- [sportshop-auth] [    Test worker] c.s.a.a.config.OpenApiConfigTest         : Started OpenApiConfigTest in 0.034 seconds (process running for 14.572)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

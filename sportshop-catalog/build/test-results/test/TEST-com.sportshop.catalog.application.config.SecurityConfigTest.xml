@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SecurityConfig — Tests de seguridad del catálogo" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:30.599Z" hostname="SEBASGL" time="0.329">
+  <properties/>
+  <testcase name="Swagger UI es accesible sin token" classname="com.sportshop.catalog.application.config.SecurityConfigTest" time="0.26"/>
+  <testcase name="GET /api-docs es accesible sin token" classname="com.sportshop.catalog.application.config.SecurityConfigTest" time="0.02"/>
+  <testcase name="POST /products requiere autenticación — retorna 401 sin token" classname="com.sportshop.catalog.application.config.SecurityConfigTest" time="0.017"/>
+  <testcase name="GET /products es público — no requiere token" classname="com.sportshop.catalog.application.config.SecurityConfigTest" time="0.012"/>
+  <testcase name="POST /cart requiere autenticación — retorna 401 sin token" classname="com.sportshop.catalog.application.config.SecurityConfigTest" time="0.009"/>
+  <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-29T16:13:22.890-05:00  INFO 10008 --- [    Test worker] c.s.c.a.config.SecurityConfigTest        : Starting SecurityConfigTest using Java 21.0.10 with PID 10008 (started by sebas in C:\SportShop\sportshop-catalog)
+2026-05-29T16:13:22.899-05:00  INFO 10008 --- [    Test worker] c.s.c.a.config.SecurityConfigTest        : No active profile set, falling back to 1 default profile: "default"
+2026-05-29T16:13:27.085-05:00  INFO 10008 --- [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-05-29T16:13:30.063-05:00  INFO 10008 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-05-29T16:13:30.064-05:00  INFO 10008 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-05-29T16:13:30.067-05:00  INFO 10008 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2026-05-29T16:13:30.571-05:00  INFO 10008 --- [    Test worker] c.s.c.a.config.SecurityConfigTest        : Started SecurityConfigTest in 9.97 seconds (process running for 17.46)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

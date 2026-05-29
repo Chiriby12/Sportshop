@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CartUseCase - Pruebas del dominio del carrito" tests="24" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:31.368Z" hostname="SEBASGL" time="0.637">
+  <properties/>
+  <testcase name="removeFromCart: debe fallar si ítem no existe" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.485"/>
+  <testcase name="updateCartItem: debe fallar si el ítem pertenece a otro usuario" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.008"/>
+  <testcase name="addToCart: debe fallar si documento es null" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.003"/>
+  <testcase name="addToCart: debe fallar si cantidad es 0" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.003"/>
+  <testcase name="addToCart: debe fallar si no hay suficiente stock" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.004"/>
+  <testcase name="removeFromCart: debe fallar si el ítem no es del usuario" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.003"/>
+  <testcase name="removeFromCart: debe eliminar y publicar evento" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.007"/>
+  <testcase name="addToCart: debe agregar ítem y publicar evento" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.007"/>
+  <testcase name="purchaseCart: debe comprar, descontar stock y publicar evento" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.008"/>
+  <testcase name="addToCart: debe fallar si producto no existe" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.004"/>
+  <testcase name="getCart: debe retornar los ítems del usuario" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.044"/>
+  <testcase name="updateCartItem: debe fallar si stock insuficiente" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.005"/>
+  <testcase name="updateCartItem: debe fallar si producto asociado ya no existe" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.004"/>
+  <testcase name="addToCart: debe fallar si producto está inactivo" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.004"/>
+  <testcase name="getCart: debe fallar si documento es null" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.002"/>
+  <testcase name="updateCartItem: debe fallar si cantidad es 0" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.002"/>
+  <testcase name="getCart: debe fallar si documento es vacío" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.002"/>
+  <testcase name="purchaseCart: debe fallar si carrito está vacío" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.003"/>
+  <testcase name="addToCart: debe fallar si cantidad es null" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.002"/>
+  <testcase name="addToCart: debe fallar si documento es vacío" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.003"/>
+  <testcase name="updateCartItem: debe actualizar cantidad y publicar evento" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.005"/>
+  <testcase name="purchaseCart: debe fallar si el producto ya no existe al comprar" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.004"/>
+  <testcase name="updateCartItem: debe fallar si ítem no existe" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.003"/>
+  <testcase name="purchaseCart: debe fallar si no hay stock suficiente al comprar" classname="com.sportshop.catalog.domain.usecase.CartUseCaseTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

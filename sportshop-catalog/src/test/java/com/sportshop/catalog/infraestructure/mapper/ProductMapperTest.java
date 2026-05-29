@@ -25,7 +25,8 @@ class ProductMapperTest {
     @Test
     @DisplayName("toDomain: debe mapear ProductData a Product correctamente")
     void toDomain_success() {
-        ProductData data = new ProductData(1L, "Nike", "desc", "Nike", "RUNNING",
+        // Fix: agregar null como segundo argumento (adminId)
+        ProductData data = new ProductData(1L, null, "Nike", "desc", "Nike", "RUNNING",
                 "ATLETISMO", new BigDecimal("100"), 5, "http://img", true);
 
         Product result = mapper.toDomain(data);
@@ -44,7 +45,7 @@ class ProductMapperTest {
     @Test
     @DisplayName("toData: debe mapear Product a ProductData correctamente")
     void toData_success() {
-        Product p = new Product(1L, "Nike", "desc", "Nike", "RUNNING",
+        Product p = new Product(1L, null, "Nike", "desc", "Nike", "RUNNING",
                 "ATLETISMO", new BigDecimal("100"), 5, "http://img", true);
 
         ProductData result = mapper.toData(p);
@@ -62,7 +63,7 @@ class ProductMapperTest {
     @Test
     @DisplayName("toData: active null por defecto se pone true")
     void toData_nullActive_defaultsToTrue() {
-        Product p = new Product(1L, "Nike", null, null, null, null,
+        Product p = new Product(1L, null, "Nike", null, null, null, null,
                 new BigDecimal("100"), 5, null, null);
 
         ProductData result = mapper.toData(p);
@@ -102,7 +103,7 @@ class ProductMapperTest {
     @Test
     @DisplayName("toResponseDTO: mapea correctamente")
     void toResponseDTO_success() {
-        Product p = new Product(1L, "Nike", "desc", "Nike", "RUNNING",
+        Product p = new Product(1L, null, "Nike", "desc", "Nike", "RUNNING",
                 "ATLETISMO", new BigDecimal("100"), 5, null, true);
 
         ProductResponseDTO result = mapper.toResponseDTO(p);

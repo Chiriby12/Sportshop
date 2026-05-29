@@ -2,15 +2,22 @@ package com.sportshop.catalog;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.springframework.boot.SpringApplication;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
-@DisplayName("CatalogApplication — Test de clase principal")
+@DisplayName("CatalogApplication - Test de Cobertura Rápida")
 class CatalogApplicationTests {
 
+
+
     @Test
-    @DisplayName("La clase CatalogApplication se instancia sin errores")
-    void contextLoads() {
-        assertDoesNotThrow(() -> new CatalogApplication());
+    @DisplayName("Debe ejecutar el método main de la aplicación aislando el contexto")
+    void mainMethodTest() {
+
+        try (MockedStatic<SpringApplication> springApplicationMock = Mockito.mockStatic(SpringApplication.class)) {
+            CatalogApplication.main(new String[]{});
+            springApplicationMock.verify(() -> SpringApplication.run(CatalogApplication.class, new String[]{}));
+        }
     }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:35.223Z" hostname="SEBASGL" time="1.846">
+<testsuite name="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-29T20:31:36.152Z" hostname="SEBASGL" time="1.823">
   <properties/>
-  <testcase name="matches: contraseña incorrecta retorna false" classname="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" time="0.666"/>
-  <testcase name="encrypt: dos hashes del mismo texto son distintos (salt)" classname="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" time="0.481"/>
-  <testcase name="matches: contraseña correcta retorna true" classname="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" time="0.466"/>
-  <testcase name="encrypt: genera hash distinto al texto plano" classname="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" time="0.231"/>
+  <testcase name="matches: contraseña incorrecta retorna false" classname="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" time="0.668"/>
+  <testcase name="encrypt: dos hashes del mismo texto son distintos (salt)" classname="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" time="0.468"/>
+  <testcase name="matches: contraseña correcta retorna true" classname="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" time="0.458"/>
+  <testcase name="encrypt: genera hash distinto al texto plano" classname="com.sportshop.auth.infraestructure.security_encrypter.EncrypterGatewayImplTest" time="0.228"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

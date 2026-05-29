@@ -43,15 +43,14 @@ class ProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        product = new Product(1L, "Zapatillas Nike", "Para correr", "Nike",
+        // Fix: agregar null como segundo argumento (adminId)
+        product = new Product(1L, null, "Zapatillas Nike", "Para correr", "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("150.00"), 10, null, true);
         responseDTO = new ProductResponseDTO(1L, "Zapatillas Nike", "Para correr", "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("150.00"), 10, null, true);
         requestDTO = new ProductRequestDTO("Zapatillas Nike", "Para correr", "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("150.00"), 10, null, true);
     }
-
-    // ─── GET público - sin auth ──────────────────────────────────────────────
 
     @Test
     @DisplayName("GET /products - público, retorna productos activos")
@@ -105,8 +104,6 @@ class ProductControllerTest {
         mockMvc.perform(get("/api/sportshop/catalog/products/sport/FUTBOL"))
                 .andExpect(status().isOk());
     }
-
-    // ─── ADMIN endpoints ─────────────────────────────────────────────────────
 
     @Test
     @DisplayName("GET /products/all - ADMIN obtiene todos los productos")
@@ -199,7 +196,6 @@ class ProductControllerTest {
     @WithMockUser(roles = "ADMIN")
     void createProduct_invalidBody_400() throws Exception {
         ProductRequestDTO invalid = new ProductRequestDTO();
-        // missing required fields
 
         mockMvc.perform(post("/api/sportshop/catalog/products")
                         .contentType(MediaType.APPLICATION_JSON)

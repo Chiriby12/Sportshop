@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ProductController - Tests de integración HTTP" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:37.497Z" hostname="SEBASGL" time="0.256">
+  <properties/>
+  <testcase name="POST /products - sin autenticación retorna 401" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.023"/>
+  <testcase name="GET /products/{id} - público, retorna producto por id" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.016"/>
+  <testcase name="DELETE /products/{id} - USER no puede eliminar" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.01"/>
+  <testcase name="GET /products/category/{cat} - público" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.031"/>
+  <testcase name="GET /products - público, retorna productos activos" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.011"/>
+  <testcase name="POST /products - ADMIN crea producto" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.046"/>
+  <testcase name="GET /products/{id} - lanza error si no existe" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.011"/>
+  <testcase name="GET /products/all - ADMIN obtiene todos los productos" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.013"/>
+  <testcase name="GET /products/all - USER no puede ver todos los productos" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.01"/>
+  <testcase name="PUT /products/{id} - ADMIN actualiza producto" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.017"/>
+  <testcase name="POST /products - USER no puede crear productos" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.012"/>
+  <testcase name="GET /products/sport/{sport} - público" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.012"/>
+  <testcase name="POST /products - validación falla con cuerpo inválido" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.013"/>
+  <testcase name="DELETE /products/{id} - ADMIN elimina producto" classname="com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest" time="0.011"/>
+  <system-out><![CDATA[2026-05-29T16:13:37.478-05:00  INFO 10008 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest]: ProductControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-29T16:13:37.491-05:00  INFO 10008 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.sportshop.catalog.CatalogApplication for test class com.sportshop.catalog.infraestructure.entry_points.ProductControllerTest
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

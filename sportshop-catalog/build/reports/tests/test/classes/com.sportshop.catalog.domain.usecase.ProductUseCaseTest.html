@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - ProductUseCase - Pruebas del dominio</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>ProductUseCase - Pruebas del dominio</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.sportshop.catalog.domain.usecase.html">com.sportshop.catalog.domain.usecase</a> &gt; ProductUseCaseTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">25</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.089s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">createProduct: debe fallar si el nombre está vacío</td>
+<td class="success">createProduct_emptyName_throwsException()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createProduct: debe fallar si el precio es 0 o negativo</td>
+<td class="success">createProduct_invalidPrice_throwsException()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createProduct: debe fallar si el stock es negativo</td>
+<td class="success">createProduct_negativeStock_throwsException()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createProduct: debe fallar si el nombre es null</td>
+<td class="success">createProduct_nullName_throwsException()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createProduct: debe fallar si el precio es null</td>
+<td class="success">createProduct_nullPrice_throwsException()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createProduct: debe fallar si el stock es null</td>
+<td class="success">createProduct_nullStock_throwsException()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createProduct: debe asignar active=true si no se especifica</td>
+<td class="success">createProduct_setsActiveTrueByDefault()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createProduct: debe crear producto correctamente y publicar evento</td>
+<td class="success">createProduct_success()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteProduct: debe fallar si el producto no existe</td>
+<td class="success">deleteProduct_notFound()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteProduct: debe eliminar y publicar evento</td>
+<td class="success">deleteProduct_success()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getActiveProducts: debe retornar solo activos</td>
+<td class="success">getActiveProducts_returnsActive()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAllProducts: debe retornar lista completa</td>
+<td class="success">getAllProducts_returnsList()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductById: debe retornar el producto si existe</td>
+<td class="success">getProductById_found()</td>
+<td class="success">0.021s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductById: debe lanzar excepción si no existe</td>
+<td class="success">getProductById_notFound()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductsByCategory: debe fallar con categoría vacía</td>
+<td class="success">getProductsByCategory_emptyCategory()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductsByCategory: debe fallar con categoría null</td>
+<td class="success">getProductsByCategory_nullCategory()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductsByCategory: debe retornar productos de la categoría</td>
+<td class="success">getProductsByCategory_success()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductsBySport: debe fallar con deporte vacío</td>
+<td class="success">getProductsBySport_empty()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductsBySport: debe fallar con deporte null</td>
+<td class="success">getProductsBySport_null()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductsBySport: debe retornar productos del deporte</td>
+<td class="success">getProductsBySport_success()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateProduct: debe fallar si el precio es inválido</td>
+<td class="success">updateProduct_invalidPrice()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateProduct: debe fallar si el stock es negativo</td>
+<td class="success">updateProduct_invalidStock()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateProduct: debe fallar si el producto no existe</td>
+<td class="success">updateProduct_notFound()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateProduct: precio null y stock null deben ser permitidos en update</td>
+<td class="success">updateProduct_nullPriceAndStock_allowed()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateProduct: debe actualizar correctamente y publicar evento</td>
+<td class="success">updateProduct_success()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 29/05/2026, 4:13:38 p. m.</p>
+</div>
+</div>
+</body>
+</html>

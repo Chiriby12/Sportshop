@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-catalog</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.catalog.domain.usecase</a> &gt; <span class="el_source">ProductUseCase.java</span></div><h1>ProductUseCase.java</h1><pre class="source lang-java linenums">package com.sportshop.catalog.domain.usecase;
+
+import com.sportshop.catalog.domain.model.Product;
+import com.sportshop.catalog.domain.model.event.CatalogEvent;
+import com.sportshop.catalog.domain.model.gateway.EventPublisherGateway;
+import com.sportshop.catalog.domain.model.gateway.ProductGateway;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
+/**
+ * Caso de uso del dominio de Catálogo.
+ * Arquitectura Hexagonal: núcleo del hexágono. Sin dependencias de Spring ni JPA.
+ * Publica eventos al microservicio de notificaciones en cada operación.
+ */
+@RequiredArgsConstructor
+public class ProductUseCase {
+
+    private final ProductGateway productGateway;
+    private final EventPublisherGateway eventPublisher;
+
+    public Product createProduct(Product product, String adminDocument) {
+<span class="fc bfc" id="L23" title="All 4 branches covered.">        if (product.getName() == null || product.getName().trim().isEmpty())</span>
+<span class="fc" id="L24">            throw new RuntimeException(&quot;El nombre del producto no puede estar vacío&quot;);</span>
+<span class="fc bfc" id="L25" title="All 4 branches covered.">        if (product.getPrice() == null || product.getPrice().doubleValue() &lt;= 0)</span>
+<span class="fc" id="L26">            throw new RuntimeException(&quot;El precio debe ser mayor a 0&quot;);</span>
+<span class="fc bfc" id="L27" title="All 4 branches covered.">        if (product.getStock() == null || product.getStock() &lt; 0)</span>
+<span class="fc" id="L28">            throw new RuntimeException(&quot;El stock no puede ser negativo&quot;);</span>
+
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (product.getActive() == null) product.setActive(true);</span>
+
+<span class="fc" id="L32">        Product saved = productGateway.save(product);</span>
+
+<span class="fc" id="L34">        eventPublisher.publish(CatalogEvent.of(</span>
+                CatalogEvent.EventType.PRODUCT_CREATED,
+                &quot;Nuevo producto creado&quot;,
+<span class="fc" id="L37">                &quot;El admin creó el producto: &quot; + saved.getName(),</span>
+                adminDocument,
+                saved
+        ));
+
+<span class="fc" id="L42">        return saved;</span>
+    }
+
+    public Product getProductById(Long id) {
+<span class="fc" id="L46">        return productGateway.findById(id)</span>
+<span class="fc" id="L47">                .orElseThrow(() -&gt; new RuntimeException(&quot;No existe un producto con id: &quot; + id));</span>
+    }
+
+    public List&lt;Product&gt; getAllProducts() {
+<span class="fc" id="L51">        return productGateway.findAll();</span>
+    }
+
+    public List&lt;Product&gt; getActiveProducts() {
+<span class="fc" id="L55">        return productGateway.findActive();</span>
+    }
+
+    public List&lt;Product&gt; getProductsByCategory(String category) {
+<span class="fc bfc" id="L59" title="All 4 branches covered.">        if (category == null || category.trim().isEmpty())</span>
+<span class="fc" id="L60">            throw new RuntimeException(&quot;La categoría no puede estar vacía&quot;);</span>
+<span class="fc" id="L61">        return productGateway.findByCategory(category);</span>
+    }
+
+    public List&lt;Product&gt; getProductsBySport(String sport) {
+<span class="fc bfc" id="L65" title="All 4 branches covered.">        if (sport == null || sport.trim().isEmpty())</span>
+<span class="fc" id="L66">            throw new RuntimeException(&quot;El deporte no puede estar vacío&quot;);</span>
+<span class="fc" id="L67">        return productGateway.findBySport(sport);</span>
+    }
+
+    public Product updateProduct(Long id, Product product, String adminDocument) {
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (!productGateway.existsById(id))</span>
+<span class="fc" id="L72">            throw new RuntimeException(&quot;No existe un producto con id: &quot; + id);</span>
+
+<span class="fc bfc" id="L74" title="All 4 branches covered.">        if (product.getPrice() != null &amp;&amp; product.getPrice().doubleValue() &lt;= 0)</span>
+<span class="fc" id="L75">            throw new RuntimeException(&quot;El precio debe ser mayor a 0&quot;);</span>
+<span class="fc bfc" id="L76" title="All 4 branches covered.">        if (product.getStock() != null &amp;&amp; product.getStock() &lt; 0)</span>
+<span class="fc" id="L77">            throw new RuntimeException(&quot;El stock no puede ser negativo&quot;);</span>
+
+<span class="fc" id="L79">        product.setId(id);</span>
+<span class="fc" id="L80">        Product updated = productGateway.save(product);</span>
+
+<span class="fc" id="L82">        eventPublisher.publish(CatalogEvent.of(</span>
+                CatalogEvent.EventType.PRODUCT_UPDATED,
+                &quot;Producto actualizado&quot;,
+<span class="fc" id="L85">                &quot;El admin actualizó el producto: &quot; + updated.getName(),</span>
+                adminDocument,
+                updated
+        ));
+
+<span class="fc" id="L90">        return updated;</span>
+    }
+
+    public void deleteProduct(Long id, String adminDocument) {
+<span class="fc" id="L94">        Product product = productGateway.findById(id)</span>
+<span class="fc" id="L95">                .orElseThrow(() -&gt; new RuntimeException(&quot;No existe un producto con id: &quot; + id));</span>
+
+<span class="fc" id="L97">        productGateway.deleteById(id);</span>
+
+<span class="fc" id="L99">        eventPublisher.publish(CatalogEvent.of(</span>
+                CatalogEvent.EventType.PRODUCT_DELETED,
+                &quot;Producto eliminado&quot;,
+<span class="fc" id="L102">                &quot;El admin eliminó el producto: &quot; + product.getName(),</span>
+                adminDocument,
+                product
+        ));
+<span class="fc" id="L106">    }</span>
+
+    // ─── Sincronización desde sportshop-admin ─────────────────────────────────
+
+    public Product syncFromAdmin(Long adminId, Product product) {
+<span class="nc" id="L111">        product.setAdminId(adminId);</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (product.getActive() == null) product.setActive(true);</span>
+<span class="nc" id="L113">        return productGateway.findByAdminId(adminId)</span>
+<span class="nc" id="L114">                .map(existing -&gt; {</span>
+<span class="nc" id="L115">                    product.setId(existing.getId());</span>
+<span class="nc" id="L116">                    return productGateway.save(product);</span>
+                })
+<span class="nc" id="L118">                .orElseGet(() -&gt; productGateway.save(product));</span>
+    }
+
+    public void deleteByAdminId(Long adminId) {
+<span class="nc" id="L122">        productGateway.findByAdminId(adminId)</span>
+<span class="nc" id="L123">                .ifPresent(p -&gt; productGateway.deleteById(p.getId()));</span>
+<span class="nc" id="L124">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

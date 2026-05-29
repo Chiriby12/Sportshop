@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="UseCaseConfig - Test de Cobertura Unitario" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:32.601Z" hostname="SEBASGL" time="0.125">
+<testsuite name="UseCaseConfig - Test de Cobertura Unitario" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T20:31:34.148Z" hostname="SEBASGL" time="0.11">
   <properties/>
-  <testcase name="Debe retornar la instancia de UserUseCase al invocar el método directamente" classname="com.sportshop.auth.application.config.UseCaseConfigTest" time="0.125"/>
+  <testcase name="Debe retornar la instancia de UserUseCase al invocar el método directamente" classname="com.sportshop.auth.application.config.UseCaseConfigTest" time="0.11"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

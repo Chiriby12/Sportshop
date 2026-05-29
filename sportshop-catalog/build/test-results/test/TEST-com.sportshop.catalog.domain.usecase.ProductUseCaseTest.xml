@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ProductUseCase - Pruebas del dominio" tests="25" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:32.008Z" hostname="SEBASGL" time="0.103">
+  <properties/>
+  <testcase name="getAllProducts: debe retornar lista completa" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="updateProduct: debe fallar si el precio es inválido" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="updateProduct: debe fallar si el stock es negativo" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="createProduct: debe fallar si el stock es negativo" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="getProductById: debe retornar el producto si existe" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.021"/>
+  <testcase name="createProduct: debe fallar si el nombre es null" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="getProductsByCategory: debe fallar con categoría null" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="createProduct: debe fallar si el nombre está vacío" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="getProductById: debe lanzar excepción si no existe" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="getProductsByCategory: debe retornar productos de la categoría" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.001"/>
+  <testcase name="createProduct: debe fallar si el precio es 0 o negativo" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="createProduct: debe fallar si el stock es null" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="deleteProduct: debe fallar si el producto no existe" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="deleteProduct: debe eliminar y publicar evento" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="updateProduct: debe fallar si el producto no existe" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="createProduct: debe crear producto correctamente y publicar evento" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.008"/>
+  <testcase name="createProduct: debe asignar active=true si no se especifica" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="getProductsBySport: debe retornar productos del deporte" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="getActiveProducts: debe retornar solo activos" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.006"/>
+  <testcase name="createProduct: debe fallar si el precio es null" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="updateProduct: debe actualizar correctamente y publicar evento" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="getProductsBySport: debe fallar con deporte vacío" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="updateProduct: precio null y stock null deben ser permitidos en update" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <testcase name="getProductsBySport: debe fallar con deporte null" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.002"/>
+  <testcase name="getProductsByCategory: debe fallar con categoría vacía" classname="com.sportshop.catalog.domain.usecase.ProductUseCaseTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

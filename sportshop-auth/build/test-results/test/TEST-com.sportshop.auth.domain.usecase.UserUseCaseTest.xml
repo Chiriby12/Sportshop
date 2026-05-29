@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.sportshop.auth.domain.usecase.UserUseCaseTest" tests="30" skipped="0" failures="0" errors="0" timestamp="2026-05-29T06:41:32.732Z" hostname="SEBASGL" time="0.261">
+<testsuite name="com.sportshop.auth.domain.usecase.UserUseCaseTest" tests="30" skipped="0" failures="0" errors="0" timestamp="2026-05-29T20:31:34.263Z" hostname="SEBASGL" time="0.232">
   <properties/>
-  <testcase name="saveUser: lanza error si la contraseña está vacía" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.139"/>
-  <testcase name="deleteUserForDocument: elimina correctamente" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.008"/>
+  <testcase name="saveUser: lanza error si la contraseña está vacía" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.118"/>
+  <testcase name="deleteUserForDocument: elimina correctamente" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.007"/>
   <testcase name="UserDataGatewayImp: getUserByEmail retorna usuario cuando existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.005"/>
-  <testcase name="UserDataGatewayImp: getAllUsers retorna lista" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.007"/>
-  <testcase name="saveUser: guarda correctamente un usuario nuevo" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
-  <testcase name="loginUser: lanza error si contraseña incorrecta" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
-  <testcase name="updateUser: conserva contraseña anterior si no se envía" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
+  <testcase name="UserDataGatewayImp: getAllUsers retorna lista" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.005"/>
+  <testcase name="saveUser: guarda correctamente un usuario nuevo" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
+  <testcase name="loginUser: lanza error si contraseña incorrecta" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
+  <testcase name="updateUser: conserva contraseña anterior si no se envía" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
   <testcase name="saveUser: lanza error si el email es null" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
-  <testcase name="updateUser: lanza error si el usuario no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.005"/>
-  <testcase name="getUserForDocument: lanza error cuando no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
-  <testcase name="saveUser: asigna rol USER por defecto cuando el rol es vacío" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
+  <testcase name="updateUser: lanza error si el usuario no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
+  <testcase name="getUserForDocument: lanza error cuando no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
+  <testcase name="saveUser: asigna rol USER por defecto cuando el rol es vacío" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
   <testcase name="UserDataGatewayImp: deleteUserForDocument llama al repositorio" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
-  <testcase name="deleteUserForDocument: lanza error si no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.002"/>
-  <testcase name="updateUser: actualiza correctamente con contraseña nueva" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.002"/>
-  <testcase name="saveUser: lanza error si el documento ya existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
+  <testcase name="deleteUserForDocument: lanza error si no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
+  <testcase name="updateUser: actualiza correctamente con contraseña nueva" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.005"/>
+  <testcase name="saveUser: lanza error si el documento ya existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
   <testcase name="updateUser: lanza error si documentos no coinciden" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
-  <testcase name="UserDataGatewayImp: getUserForDocument retorna null cuando no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
+  <testcase name="UserDataGatewayImp: getUserForDocument retorna null cuando no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.005"/>
   <testcase name="saveUser: lanza error si el email ya existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
-  <testcase name="loginUser: retorna token con credenciales correctas" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
-  <testcase name="UserDataGatewayImp: saveUser persiste y retorna usuario" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.005"/>
+  <testcase name="loginUser: retorna token con credenciales correctas" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
+  <testcase name="UserDataGatewayImp: saveUser persiste y retorna usuario" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.004"/>
   <testcase name="loginUser: lanza error si usuario no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
-  <testcase name="getUserForDocument: retorna usuario cuando existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.001"/>
-  <testcase name="UserDataGatewayImp: getUserByEmail retorna null cuando no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.002"/>
+  <testcase name="getUserForDocument: retorna usuario cuando existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.002"/>
+  <testcase name="UserDataGatewayImp: getUserByEmail retorna null cuando no existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
   <testcase name="UserDataGatewayImp: getUserForDocument retorna usuario cuando existe" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
-  <testcase name="getAllUsers: retorna lista de usuarios" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.005"/>
-  <testcase name="loginUser: lanza error si email vacío" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.002"/>
+  <testcase name="getAllUsers: retorna lista de usuarios" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
+  <testcase name="loginUser: lanza error si email vacío" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
   <testcase name="saveUser: asigna rol USER por defecto cuando el rol es null" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
   <testcase name="saveUser: lanza error si el email está vacío" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.002"/>
-  <testcase name="updateUser: conserva contraseña anterior si está vacía" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
-  <testcase name="loginUser: lanza error si password vacío" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.003"/>
+  <testcase name="updateUser: conserva contraseña anterior si está vacía" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.001"/>
+  <testcase name="loginUser: lanza error si password vacío" classname="com.sportshop.auth.domain.usecase.UserUseCaseTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

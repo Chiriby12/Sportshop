@@ -30,19 +30,17 @@ class CartUseCaseTest {
     @Mock private EventPublisherGateway eventPublisher;
 
     private CartUseCase cartUseCase;
-
     private Product product;
     private CartItem cartItem;
 
     @BeforeEach
     void setUp() {
         cartUseCase = new CartUseCase(cartGateway, productGateway, eventPublisher);
-        product = new Product(1L, "Guayos Adidas", "Para fútbol", "Adidas",
+        // Fix: agregar null como segundo argumento (adminId)
+        product = new Product(1L, null, "Guayos Adidas", "Para fútbol", "Adidas",
                 "FOOTBALL", "FUTBOL", new BigDecimal("200.00"), 5, null, true);
         cartItem = new CartItem(1L, "USR123", 1L, "Guayos Adidas", new BigDecimal("200.00"), 2);
     }
-
-    // ─── addToCart ───────────────────────────────────────────────────────────
 
     @Test
     @DisplayName("addToCart: debe agregar ítem y publicar evento")
@@ -119,8 +117,6 @@ class CartUseCaseTest {
                 .hasMessageContaining("Stock");
     }
 
-    // ─── getCart ─────────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("getCart: debe retornar los ítems del usuario")
     void getCart_success() {
@@ -145,8 +141,6 @@ class CartUseCaseTest {
         assertThatThrownBy(() -> cartUseCase.getCart(null))
                 .isInstanceOf(RuntimeException.class);
     }
-
-    // ─── updateCartItem ──────────────────────────────────────────────────────
 
     @Test
     @DisplayName("updateCartItem: debe actualizar cantidad y publicar evento")
@@ -182,7 +176,7 @@ class CartUseCaseTest {
     @Test
     @DisplayName("updateCartItem: debe fallar si el ítem pertenece a otro usuario")
     void updateCartItem_wrongUser() {
-        when(cartGateway.findById(1L)).thenReturn(Optional.of(cartItem)); // cartItem.userDocument = USR123
+        when(cartGateway.findById(1L)).thenReturn(Optional.of(cartItem));
 
         assertThatThrownBy(() -> cartUseCase.updateCartItem(1L, 2, "OTRO_USER"))
                 .isInstanceOf(RuntimeException.class)
@@ -211,8 +205,6 @@ class CartUseCaseTest {
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("ya no existe");
     }
-
-    // ─── removeFromCart ──────────────────────────────────────────────────────
 
     @Test
     @DisplayName("removeFromCart: debe eliminar y publicar evento")
@@ -245,8 +237,6 @@ class CartUseCaseTest {
                 .hasMessageContaining("permiso");
     }
 
-    // ─── purchaseCart ────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("purchaseCart: debe comprar, descontar stock y publicar evento")
     void purchaseCart_success() {
@@ -256,8 +246,8 @@ class CartUseCaseTest {
 
         cartUseCase.purchaseCart("USR123");
 
-        verify(productGateway, times(2)).findById(1L); // validation + descontar
-        verify(productGateway).save(argThat(p -> p.getStock() == 3)); // 5 - 2
+        verify(productGateway, times(2)).findById(1L);
+        verify(productGateway).save(argThat(p -> p.getStock() == 3));
         verify(cartGateway).deleteAllByUserDocument("USR123");
         verify(eventPublisher).publish(argThat(e -> e.getType() == CatalogEvent.EventType.CART_PURCHASED));
     }
@@ -275,7 +265,7 @@ class CartUseCaseTest {
     @Test
     @DisplayName("purchaseCart: debe fallar si no hay stock suficiente al comprar")
     void purchaseCart_insufficientStockAtPurchase() {
-        product.setStock(1);  // solo 1 pero carrito pide 2
+        product.setStock(1);
         when(cartGateway.findByUserDocument("USR123")).thenReturn(List.of(cartItem));
         when(productGateway.findById(1L)).thenReturn(Optional.of(product));
 

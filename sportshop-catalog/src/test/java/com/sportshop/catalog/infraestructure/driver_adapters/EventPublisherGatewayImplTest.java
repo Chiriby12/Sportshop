@@ -18,36 +18,33 @@ import static org.mockito.Mockito.*;
 class EventPublisherGatewayImplTest {
 
     @Test
-    @DisplayName("publish: debe enviar el evento sin propagar errores (best-effort)")
+    @DisplayName("publish: no propaga errores si el servicio de notificaciones falla")
     @SuppressWarnings("unchecked")
     void publish_doesNotThrowOnError() {
-        // Arrange: WebClient que simula un error de red
-        WebClient.Builder builder = mock(WebClient.Builder.class);
-        WebClient webClient = mock(WebClient.class);
-        WebClient.RequestBodyUriSpec uriSpec = mock(WebClient.RequestBodyUriSpec.class);
-        WebClient.RequestBodySpec bodySpec = mock(WebClient.RequestBodySpec.class);
-        WebClient.ResponseSpec responseSpec = mock(WebClient.ResponseSpec.class);
+        WebClient.Builder builder          = mock(WebClient.Builder.class);
+        WebClient webClient                = mock(WebClient.class);
+        WebClient.RequestBodyUriSpec uriSpec  = mock(WebClient.RequestBodyUriSpec.class);
+        WebClient.RequestBodySpec bodySpec    = mock(WebClient.RequestBodySpec.class);
+        // Fix: bodyValue() retorna RequestHeadersSpec, no RequestBodySpec
+        WebClient.RequestHeadersSpec headersSpec = mock(WebClient.RequestHeadersSpec.class);
+        WebClient.ResponseSpec responseSpec      = mock(WebClient.ResponseSpec.class);
 
         when(builder.baseUrl(any())).thenReturn(builder);
         when(builder.build()).thenReturn(webClient);
         when(webClient.post()).thenReturn(uriSpec);
         when(uriSpec.uri(anyString())).thenReturn(bodySpec);
-        when(bodySpec.bodyValue(any())).thenReturn(bodySpec);
-        when(bodySpec.retrieve()).thenReturn(responseSpec);
+        when(bodySpec.bodyValue(any())).thenReturn(headersSpec);   // Fix aquí
+        when(headersSpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.bodyToMono(Void.class))
                 .thenReturn(Mono.error(new RuntimeException("Connection refused")));
 
-        EventPublisherGatewayImpl publisher = new EventPublisherGatewayImpl(builder, "http://localhost:9999");
+        EventPublisherGatewayImpl publisher =
+                new EventPublisherGatewayImpl(builder, "http://localhost:9999");
 
         CatalogEvent event = CatalogEvent.of(
                 CatalogEvent.EventType.PRODUCT_CREATED,
-                "Test",
-                "Test message",
-                "ADMIN001",
-                null
-        );
+                "Test", "Test message", "ADMIN001", null);
 
-        // No debe lanzar excepción aunque el servicio de notificaciones falle
         assertThatCode(() -> publisher.publish(event)).doesNotThrowAnyException();
     }
 
@@ -56,11 +53,7 @@ class EventPublisherGatewayImplTest {
     void catalogEvent_of_createsCorrectly() {
         CatalogEvent event = CatalogEvent.of(
                 CatalogEvent.EventType.CART_PURCHASED,
-                "Compra",
-                "Compra realizada",
-                "USR001",
-                "payload"
-        );
+                "Compra", "Compra realizada", "USR001", "payload");
 
         assertThat(event.getType()).isEqualTo(CatalogEvent.EventType.CART_PURCHASED);
         assertThat(event.getTitle()).isEqualTo("Compra");

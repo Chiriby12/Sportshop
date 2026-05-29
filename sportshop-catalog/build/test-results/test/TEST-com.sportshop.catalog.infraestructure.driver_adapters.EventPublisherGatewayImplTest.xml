@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="EventPublisherGatewayImpl - Tests del publicador de eventos" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:32.113Z" hostname="SEBASGL" time="0.548">
+  <properties/>
+  <testcase name="CatalogEvent.of: crea evento con timestamp y tipo correcto" classname="com.sportshop.catalog.infraestructure.driver_adapters.EventPublisherGatewayImplTest" time="0.007"/>
+  <testcase name="publish: no propaga errores si el servicio de notificaciones falla" classname="com.sportshop.catalog.infraestructure.driver_adapters.EventPublisherGatewayImplTest" time="0.54"/>
+  <system-out><![CDATA[2026-05-29T16:13:32.648-05:00  WARN 10008 --- [    Test worker] c.s.c.i.e.EventPublisherGatewayImpl      : No se pudo enviar evento al servicio de notificaciones: Connection refused
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

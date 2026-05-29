@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CartController - Tests de integración HTTP" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:34.499Z" hostname="SEBASGL" time="1.475">
+  <properties/>
+  <testcase name="POST /cart - validación falla con body inválido" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.901"/>
+  <testcase name="POST /cart/purchase - compra el carrito completo" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.434"/>
+  <testcase name="POST /cart - usuario agrega producto al carrito" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.042"/>
+  <testcase name="GET /cart - sin autenticación retorna 401" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.01"/>
+  <testcase name="POST /cart/purchase - sin auth retorna 401" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.008"/>
+  <testcase name="DELETE /cart/{id} - elimina ítem del carrito" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.012"/>
+  <testcase name="GET /cart - usuario autenticado ve su carrito" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.029"/>
+  <testcase name="GET /cart - ADMIN también puede ver el carrito" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.011"/>
+  <testcase name="PUT /cart/{id} - actualiza cantidad de un ítem" classname="com.sportshop.catalog.infraestructure.entry_points.CartControllerTest" time="0.013"/>
+  <system-out><![CDATA[2026-05-29T16:13:32.995-05:00  INFO 10008 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.sportshop.catalog.infraestructure.entry_points.CartControllerTest]: CartControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-29T16:13:33.154-05:00  INFO 10008 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.sportshop.catalog.CatalogApplication for test class com.sportshop.catalog.infraestructure.entry_points.CartControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-29T16:13:33.209-05:00  INFO 10008 --- [    Test worker] c.s.c.i.entry_points.CartControllerTest  : Starting CartControllerTest using Java 21.0.10 with PID 10008 (started by sebas in C:\SportShop\sportshop-catalog)
+2026-05-29T16:13:33.209-05:00  INFO 10008 --- [    Test worker] c.s.c.i.entry_points.CartControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2026-05-29T16:13:34.091-05:00  INFO 10008 --- [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-05-29T16:13:34.479-05:00  INFO 10008 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-05-29T16:13:34.479-05:00  INFO 10008 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-05-29T16:13:34.480-05:00  INFO 10008 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-05-29T16:13:34.496-05:00  INFO 10008 --- [    Test worker] c.s.c.i.entry_points.CartControllerTest  : Started CartControllerTest in 1.336 seconds (process running for 21.384)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

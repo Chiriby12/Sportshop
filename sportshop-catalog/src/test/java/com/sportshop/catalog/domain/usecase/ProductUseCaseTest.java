@@ -29,17 +29,15 @@ class ProductUseCaseTest {
     @Mock private EventPublisherGateway eventPublisher;
 
     private ProductUseCase productUseCase;
-
     private Product validProduct;
 
     @BeforeEach
     void setUp() {
         productUseCase = new ProductUseCase(productGateway, eventPublisher);
-        validProduct = new Product(1L, "Zapatillas Nike", "Para correr", "Nike",
+        // Fix: agregar null como segundo argumento (adminId)
+        validProduct = new Product(1L, null, "Zapatillas Nike", "Para correr", "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("150.00"), 10, "http://img.com", true);
     }
-
-    // ─── createProduct ──────────────────────────────────────────────────────
 
     @Test
     @DisplayName("createProduct: debe crear producto correctamente y publicar evento")
@@ -123,8 +121,6 @@ class ProductUseCaseTest {
                 .hasMessageContaining("stock");
     }
 
-    // ─── getProductById ──────────────────────────────────────────────────────
-
     @Test
     @DisplayName("getProductById: debe retornar el producto si existe")
     void getProductById_found() {
@@ -146,8 +142,6 @@ class ProductUseCaseTest {
                 .hasMessageContaining("99");
     }
 
-    // ─── getAllProducts ──────────────────────────────────────────────────────
-
     @Test
     @DisplayName("getAllProducts: debe retornar lista completa")
     void getAllProducts_returnsList() {
@@ -158,8 +152,6 @@ class ProductUseCaseTest {
         assertThat(results).hasSize(1);
     }
 
-    // ─── getActiveProducts ───────────────────────────────────────────────────
-
     @Test
     @DisplayName("getActiveProducts: debe retornar solo activos")
     void getActiveProducts_returnsActive() {
@@ -169,8 +161,6 @@ class ProductUseCaseTest {
 
         assertThat(results).allMatch(Product::getActive);
     }
-
-    // ─── getProductsByCategory ───────────────────────────────────────────────
 
     @Test
     @DisplayName("getProductsByCategory: debe retornar productos de la categoría")
@@ -197,8 +187,6 @@ class ProductUseCaseTest {
                 .isInstanceOf(RuntimeException.class);
     }
 
-    // ─── getProductsBySport ──────────────────────────────────────────────────
-
     @Test
     @DisplayName("getProductsBySport: debe retornar productos del deporte")
     void getProductsBySport_success() {
@@ -223,8 +211,6 @@ class ProductUseCaseTest {
         assertThatThrownBy(() -> productUseCase.getProductsBySport(null))
                 .isInstanceOf(RuntimeException.class);
     }
-
-    // ─── updateProduct ───────────────────────────────────────────────────────
 
     @Test
     @DisplayName("updateProduct: debe actualizar correctamente y publicar evento")
@@ -282,8 +268,6 @@ class ProductUseCaseTest {
         assertThatCode(() -> productUseCase.updateProduct(1L, validProduct, "ADMIN001"))
                 .doesNotThrowAnyException();
     }
-
-    // ─── deleteProduct ───────────────────────────────────────────────────────
 
     @Test
     @DisplayName("deleteProduct: debe eliminar y publicar evento")

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ProductMapper - Tests de mapeo" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-05-29T21:13:37.771Z" hostname="SEBASGL" time="0.01">
+  <properties/>
+  <testcase name="toResponseDTO: retorna null si domain es null" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.001"/>
+  <testcase name="toData: active null por defecto se pone true" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.001"/>
+  <testcase name="toData: retorna null si domain es null" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.001"/>
+  <testcase name="toDomain: retorna null si data es null" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.001"/>
+  <testcase name="fromRequestDTO: mapea correctamente" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.001"/>
+  <testcase name="toData: debe mapear Product a ProductData correctamente" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.0"/>
+  <testcase name="toResponseDTO: mapea correctamente" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.001"/>
+  <testcase name="toDomain: debe mapear ProductData a Product correctamente" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.0"/>
+  <testcase name="fromRequestDTO: retorna null si dto es null" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.0"/>
+  <testcase name="fromRequestDTO: active null por defecto es true" classname="com.sportshop.catalog.infraestructure.mapper.ProductMapperTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

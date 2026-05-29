@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-catalog</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.catalog.infraestructure.entry_points</a> &gt; <span class="el_source">ProductController.java</span></div><h1>ProductController.java</h1><pre class="source lang-java linenums">package com.sportshop.catalog.infraestructure.entry_points;
+
+import com.sportshop.catalog.application.dto.ApiResponse;
+import com.sportshop.catalog.application.dto.ProductRequestDTO;
+import com.sportshop.catalog.application.dto.ProductResponseDTO;
+import com.sportshop.catalog.domain.model.Product;
+import com.sportshop.catalog.domain.usecase.ProductUseCase;
+import com.sportshop.catalog.infraestructure.mapper.ProductMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * Adaptador conductor (Driving Adapter) - Catálogo de productos.
+ * - GET públicos: cualquiera puede ver el catálogo sin autenticarse
+ * - POST/PUT/DELETE: solo ADMIN
+ * - /sync: endpoints internos llamados por sportshop-admin
+ */
+@RestController
+@RequestMapping(&quot;/api/sportshop/catalog&quot;)
+@RequiredArgsConstructor
+@Tag(name = &quot;Catálogo&quot;, description = &quot;Endpoints para gestión y consulta de productos&quot;)
+public class ProductController {
+
+    private final ProductUseCase productUseCase;
+    private final ProductMapper productMapper;
+
+    // ─── Endpoints PÚBLICOS ───────────────────────────────────────────────────
+
+    @GetMapping(&quot;/products&quot;)
+    @Operation(summary = &quot;Listar productos activos&quot;, description = &quot;Público - cualquiera puede ver el catálogo&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;ProductResponseDTO&gt;&gt;&gt; getActiveProducts() {
+<span class="fc" id="L42">        List&lt;ProductResponseDTO&gt; products = productUseCase.getActiveProducts()</span>
+<span class="fc" id="L43">                .stream().map(productMapper::toResponseDTO).toList();</span>
+<span class="fc" id="L44">        return ResponseEntity.ok(ApiResponse.ok(&quot;Productos encontrados&quot;, products));</span>
+    }
+
+    @GetMapping(&quot;/products/all&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Listar TODOS los productos&quot;, description = &quot;Solo ADMIN - incluye inactivos&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;ProductResponseDTO&gt;&gt;&gt; getAllProducts() {
+<span class="fc" id="L52">        List&lt;ProductResponseDTO&gt; products = productUseCase.getAllProducts()</span>
+<span class="fc" id="L53">                .stream().map(productMapper::toResponseDTO).toList();</span>
+<span class="fc" id="L54">        return ResponseEntity.ok(ApiResponse.ok(&quot;Todos los productos encontrados&quot;, products));</span>
+    }
+
+    @GetMapping(&quot;/products/{id}&quot;)
+    @Operation(summary = &quot;Obtener producto por ID&quot;, description = &quot;Público&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;ProductResponseDTO&gt;&gt; getProductById(@PathVariable Long id) {
+<span class="fc" id="L60">        Product product = productUseCase.getProductById(id);</span>
+<span class="fc" id="L61">        return ResponseEntity.ok(ApiResponse.ok(&quot;Producto encontrado&quot;, productMapper.toResponseDTO(product)));</span>
+    }
+
+    @GetMapping(&quot;/products/category/{category}&quot;)
+    @Operation(summary = &quot;Productos por categoría&quot;, description = &quot;Público&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;ProductResponseDTO&gt;&gt;&gt; getByCategory(@PathVariable String category) {
+<span class="fc" id="L67">        List&lt;ProductResponseDTO&gt; products = productUseCase.getProductsByCategory(category)</span>
+<span class="fc" id="L68">                .stream().map(productMapper::toResponseDTO).toList();</span>
+<span class="fc" id="L69">        return ResponseEntity.ok(ApiResponse.ok(&quot;Productos de categoría: &quot; + category, products));</span>
+    }
+
+    @GetMapping(&quot;/products/sport/{sport}&quot;)
+    @Operation(summary = &quot;Productos por deporte&quot;, description = &quot;Público&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;ProductResponseDTO&gt;&gt;&gt; getBySport(@PathVariable String sport) {
+<span class="fc" id="L75">        List&lt;ProductResponseDTO&gt; products = productUseCase.getProductsBySport(sport)</span>
+<span class="fc" id="L76">                .stream().map(productMapper::toResponseDTO).toList();</span>
+<span class="fc" id="L77">        return ResponseEntity.ok(ApiResponse.ok(&quot;Productos del deporte: &quot; + sport, products));</span>
+    }
+
+    // ─── Endpoints de ADMIN (CRUD) ────────────────────────────────────────────
+
+    @PostMapping(&quot;/products&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Crear producto&quot;, description = &quot;Solo ADMIN&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;ProductResponseDTO&gt;&gt; createProduct(
+            @Valid @RequestBody ProductRequestDTO dto,
+            Authentication auth) {
+<span class="fc" id="L89">        String adminDoc = getDocumentFromAuth(auth);</span>
+<span class="fc" id="L90">        Product product = productUseCase.createProduct(productMapper.fromRequestDTO(dto), adminDoc);</span>
+<span class="fc" id="L91">        return new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L92">                ApiResponse.created(&quot;Producto creado exitosamente&quot;, productMapper.toResponseDTO(product)),</span>
+                HttpStatus.CREATED
+        );
+    }
+
+    @PutMapping(&quot;/products/{id}&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Actualizar producto&quot;, description = &quot;Solo ADMIN&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;ProductResponseDTO&gt;&gt; updateProduct(
+            @PathVariable Long id,
+            @Valid @RequestBody ProductRequestDTO dto,
+            Authentication auth) {
+<span class="fc" id="L105">        String adminDoc = getDocumentFromAuth(auth);</span>
+<span class="fc" id="L106">        Product product = productUseCase.updateProduct(id, productMapper.fromRequestDTO(dto), adminDoc);</span>
+<span class="fc" id="L107">        return ResponseEntity.ok(ApiResponse.ok(&quot;Producto actualizado exitosamente&quot;, productMapper.toResponseDTO(product)));</span>
+    }
+
+    @DeleteMapping(&quot;/products/{id}&quot;)
+    @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+    @SecurityRequirement(name = &quot;bearerAuth&quot;)
+    @Operation(summary = &quot;Eliminar producto&quot;, description = &quot;Solo ADMIN&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; deleteProduct(
+            @PathVariable Long id,
+            Authentication auth) {
+<span class="fc" id="L117">        String adminDoc = getDocumentFromAuth(auth);</span>
+<span class="fc" id="L118">        productUseCase.deleteProduct(id, adminDoc);</span>
+<span class="fc" id="L119">        return ResponseEntity.ok(ApiResponse.ok(&quot;Producto &quot; + id + &quot; eliminado correctamente&quot;, null));</span>
+    }
+
+    // ─── Endpoints de SINCRONIZACIÓN desde admin (internos) ──────────────────
+
+    @PostMapping(&quot;/products/sync/{adminId}&quot;)
+    @Operation(summary = &quot;Sincronizar producto desde admin&quot;, description = &quot;Interno - llamado por sportshop-admin&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;ProductResponseDTO&gt;&gt; syncProduct(
+            @PathVariable Long adminId,
+            @RequestBody ProductRequestDTO dto) {
+<span class="nc" id="L129">        Product product = productUseCase.syncFromAdmin(adminId, productMapper.fromRequestDTO(dto));</span>
+<span class="nc" id="L130">        return ResponseEntity.ok(ApiResponse.ok(&quot;Producto sincronizado&quot;, productMapper.toResponseDTO(product)));</span>
+    }
+
+    @DeleteMapping(&quot;/products/sync/{adminId}&quot;)
+    @Operation(summary = &quot;Eliminar producto sincronizado&quot;, description = &quot;Interno - llamado por sportshop-admin&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; deleteSyncedProduct(@PathVariable Long adminId) {
+<span class="nc" id="L136">        productUseCase.deleteByAdminId(adminId);</span>
+<span class="nc" id="L137">        return ResponseEntity.ok(ApiResponse.ok(&quot;Producto sincronizado eliminado&quot;, null));</span>
+    }
+
+    private String getDocumentFromAuth(Authentication auth) {
+<span class="pc bpc" id="L141" title="2 of 4 branches missed.">        if (auth != null &amp;&amp; auth.getDetails() instanceof String doc) return doc;</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        if (auth != null) return auth.getName();</span>
+<span class="nc" id="L143">        return &quot;unknown&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
