@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AdminProductController - Tests de endpoints de productos" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:16.592Z" hostname="SEBASGL" time="0.334">
+  <properties/>
+  <testcase name="GET /products/sport/{sport}: filtra por deporte" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.118"/>
+  <testcase name="GET /products/{id}: retorna producto por ID" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.009"/>
+  <testcase name="GET /products/{id}: producto no existe retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.009"/>
+  <testcase name="GET /products/category/{category}: categoría inválida retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.006"/>
+  <testcase name="DELETE /products/{id}: USER sin permisos retorna 403" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.008"/>
+  <testcase name="GET /products/category/{category}: filtra por categoría" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.006"/>
+  <testcase name="DELETE /products/{id}: producto no existe retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.007"/>
+  <testcase name="PUT /products/{id}: producto no existe retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.088"/>
+  <testcase name="GET /products: USER sin permisos retorna 403" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.006"/>
+  <testcase name="POST /products: USER sin permisos retorna 403" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.008"/>
+  <testcase name="PUT /products/{id}: USER sin permisos retorna 403" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.007"/>
+  <testcase name="POST /products: error en validación de negocio retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.008"/>
+  <testcase name="DELETE /products/{id}: elimina producto correctamente" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.006"/>
+  <testcase name="POST /products: crea producto correctamente - ADMIN" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.009"/>
+  <testcase name="GET /products/active: lista solo productos activos" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.007"/>
+  <testcase name="POST /products: sin token retorna 401" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.004"/>
+  <testcase name="GET /products: lista todos los productos incluye inactivos" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.006"/>
+  <testcase name="PUT /products/{id}: actualiza producto correctamente" classname="com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest" time="0.008"/>
+  <system-out><![CDATA[2026-05-29T00:37:16.303-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest]: AdminProductControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-29T00:37:16.328-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.sportshop.admin.AdminApplication for test class com.sportshop.admin.infraestructure.entry_points.AdminProductControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-29T00:37:16.351-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.e.AdminProductControllerTest     : Starting AdminProductControllerTest using Java 21.0.10 with PID 26792 (started by sebas in C:\SportShop\sportshop-admin)
+2026-05-29T00:37:16.351-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.e.AdminProductControllerTest     : No active profile set, falling back to 1 default profile: "default"
+2026-05-29T00:37:16.492-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-05-29T00:37:16.584-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-05-29T00:37:16.584-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-05-29T00:37:16.584-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-05-29T00:37:16.591-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.e.AdminProductControllerTest     : Started AdminProductControllerTest in 0.259 seconds (process running for 18.604)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SecurityConfig — Tests de seguridad del admin" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:13.504Z" hostname="SEBASGL" time="0.78">
+  <properties/>
+  <testcase name="Swagger UI es accesible sin token" classname="com.sportshop.admin.application.config.SecurityConfigTest" time="0.159"/>
+  <testcase name="GET /api/sportshop/admin/users sin token retorna 401" classname="com.sportshop.admin.application.config.SecurityConfigTest" time="0.007"/>
+  <testcase name="GET /api-docs es accesible sin token" classname="com.sportshop.admin.application.config.SecurityConfigTest" time="0.6"/>
+  <testcase name="GET /api/sportshop/admin/products sin token retorna 401" classname="com.sportshop.admin.application.config.SecurityConfigTest" time="0.007"/>
+  <system-out><![CDATA[00:37:01.112 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.sportshop.admin.application.config.SecurityConfigTest]: SecurityConfigTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:37:01.499 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.sportshop.admin.AdminApplication for test class com.sportshop.admin.application.config.SecurityConfigTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-29T00:37:02.659-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.a.config.SecurityConfigTest        : Starting SecurityConfigTest using Java 21.0.10 with PID 26792 (started by sebas in C:\SportShop\sportshop-admin)
+2026-05-29T00:37:02.662-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.a.config.SecurityConfigTest        : No active profile set, falling back to 1 default profile: "default"
+2026-05-29T00:37:04.355-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-29T00:37:04.662-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 289 ms. Found 1 JPA repository interface.
+2026-05-29T00:37:07.161-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-29T00:37:07.338-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.13.Final
+2026-05-29T00:37:07.478-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-29T00:37:07.928-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-29T00:37:08.033-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-29T00:37:08.632-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4aefbfc
+2026-05-29T00:37:08.636-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-29T00:37:08.729-05:00  WARN 26792 --- [sportshop-admin] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-29T00:37:08.772-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 18.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-29T00:37:10.756-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-29T00:37:10.847-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-29T00:37:12.235-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-05-29T00:37:13.401-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-05-29T00:37:13.402-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-05-29T00:37:13.403-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-05-29T00:37:13.483-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.a.config.SecurityConfigTest        : Started SecurityConfigTest in 11.606 seconds (process running for 15.497)
+2026-05-29T00:37:14.230-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 529 ms
+]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\sebas\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.15.11\a38b16385e867f59a641330f0362ebe742788ed8\byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

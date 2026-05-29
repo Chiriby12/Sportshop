@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="JwtFilter (admin) - Tests del filtro JWT" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:17.340Z" hostname="SEBASGL" time="0.367">
+  <properties/>
+  <testcase name="token malformado: no lanza excepción" classname="com.sportshop.admin.infraestructure.entry_points.JwtFilterTest" time="0.358"/>
+  <testcase name="token inválido: no lanza excepción y continúa sin autenticar" classname="com.sportshop.admin.infraestructure.entry_points.JwtFilterTest" time="0.005"/>
+  <testcase name="header sin 'Bearer ': continúa sin autenticar" classname="com.sportshop.admin.infraestructure.entry_points.JwtFilterTest" time="0.001"/>
+  <testcase name="sin header Authorization: continúa la cadena sin autenticar" classname="com.sportshop.admin.infraestructure.entry_points.JwtFilterTest" time="0.001"/>
+  <system-out><![CDATA[2026-05-29T00:37:17.697-05:00  WARN 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.entry_points.JwtFilter           : JWT inválido en admin: Invalid compact JWT string: Compact JWSs must contain exactly 2 period characters, and compact JWEs must contain exactly 4.  Found: 0
+2026-05-29T00:37:17.703-05:00  WARN 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.entry_points.JwtFilter           : JWT inválido en admin: Malformed protected header JSON: Unable to deserialize: Unexpected character ('�' (code 65533 / 0xfffd)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminUserUseCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-admin</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.admin.domain.usecase</a> &gt; <span class="el_source">AdminUserUseCase.java</span></div><h1>AdminUserUseCase.java</h1><pre class="source lang-java linenums">package com.sportshop.admin.domain.usecase;
+
+import com.sportshop.admin.domain.model.AdminUser;
+import com.sportshop.admin.domain.model.event.AdminEvent;
+import com.sportshop.admin.domain.model.gateway.AdminUserGateway;
+import com.sportshop.admin.domain.model.gateway.EventPublisherGateway;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
+/**
+ * Caso de uso del dominio - Gestión de usuarios por el ADMIN.
+ * Arquitectura Hexagonal: NÚCLEO del hexágono.
+ * Sin dependencias de Spring, JPA, HTTP ni ningún framework externo.
+ * Solo depende de los puertos (interfaces) del dominio.
+ */
+@RequiredArgsConstructor
+public class AdminUserUseCase {
+
+    private final AdminUserGateway userGateway;
+    private final EventPublisherGateway eventPublisher;
+
+<span class="fc" id="L23">    private static final List&lt;String&gt; ROLES_VALIDOS = List.of(&quot;USER&quot;, &quot;ADMIN&quot;);</span>
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Crear usuario
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public AdminUser createUser(AdminUser user, String adminDocument) {
+<span class="fc" id="L30">        validarUsuario(user);</span>
+
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (userGateway.existsByDocument(user.getDocument()))</span>
+<span class="fc" id="L33">            throw new RuntimeException(&quot;Ya existe un usuario con el documento: &quot; + user.getDocument());</span>
+
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (userGateway.existsByEmail(user.getEmail()))</span>
+<span class="fc" id="L36">            throw new RuntimeException(&quot;Ya existe un usuario con el email: &quot; + user.getEmail());</span>
+
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (user.getActive() == null) user.setActive(true);</span>
+
+<span class="fc" id="L40">        AdminUser saved = userGateway.save(user);</span>
+
+<span class="fc" id="L42">        eventPublisher.publish(AdminEvent.of(</span>
+                AdminEvent.EventType.USER_CREATED,
+                &quot;Nuevo usuario creado&quot;,
+<span class="fc" id="L45">                &quot;El admin creó el usuario: &quot; + saved.getName() + &quot; (&quot; + saved.getEmail() + &quot;)&quot;,</span>
+                adminDocument,
+                saved
+        ));
+
+<span class="fc" id="L50">        return saved;</span>
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Consultas
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public AdminUser getUserByDocument(String document) {
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">        if (document == null || document.isBlank())</span>
+<span class="fc" id="L59">            throw new RuntimeException(&quot;El documento no puede estar vacío&quot;);</span>
+
+<span class="fc" id="L61">        return userGateway.findByDocument(document)</span>
+<span class="fc" id="L62">                .orElseThrow(() -&gt; new RuntimeException(&quot;No existe un usuario con documento: &quot; + document));</span>
+    }
+
+    public List&lt;AdminUser&gt; getAllUsers() {
+<span class="fc" id="L66">        return userGateway.findAll();</span>
+    }
+
+    public List&lt;AdminUser&gt; getUsersByRole(String role) {
+<span class="pc bpc" id="L70" title="1 of 4 branches missed.">        if (role == null || role.isBlank())</span>
+<span class="fc" id="L71">            throw new RuntimeException(&quot;El rol no puede estar vacío&quot;);</span>
+
+<span class="fc" id="L73">        String roleUp = role.toUpperCase();</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (!ROLES_VALIDOS.contains(roleUp))</span>
+<span class="fc" id="L75">            throw new RuntimeException(&quot;Rol inválido. Use: USER o ADMIN&quot;);</span>
+
+<span class="fc" id="L77">        return userGateway.findByRole(roleUp);</span>
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Actualizar usuario
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public AdminUser updateUser(String document, AdminUser updatedUser, String adminDocument) {
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (!userGateway.existsByDocument(document))</span>
+<span class="fc" id="L86">            throw new RuntimeException(&quot;No existe un usuario con documento: &quot; + document);</span>
+
+<span class="pc bpc" id="L88" title="1 of 4 branches missed.">        if (updatedUser.getName() == null || updatedUser.getName().isBlank())</span>
+<span class="fc" id="L89">            throw new RuntimeException(&quot;El nombre no puede estar vacío&quot;);</span>
+
+<span class="pc bpc" id="L91" title="1 of 4 branches missed.">        if (updatedUser.getRole() != null &amp;&amp; !ROLES_VALIDOS.contains(updatedUser.getRole().toUpperCase()))</span>
+<span class="fc" id="L92">            throw new RuntimeException(&quot;Rol inválido. Use: USER o ADMIN&quot;);</span>
+
+        // Recuperar el usuario existente y fusionar los cambios
+<span class="fc" id="L95">        AdminUser existing = userGateway.findByDocument(document).get();</span>
+<span class="fc" id="L96">        existing.setName(updatedUser.getName());</span>
+<span class="fc" id="L97">        existing.setTelephone(updatedUser.getTelephone());</span>
+<span class="fc" id="L98">        existing.setAge(updatedUser.getAge());</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if (updatedUser.getActive() != null) existing.setActive(updatedUser.getActive());</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (updatedUser.getRole() != null) existing.setRole(updatedUser.getRole().toUpperCase());</span>
+
+<span class="fc" id="L102">        AdminUser saved = userGateway.save(existing);</span>
+
+<span class="fc" id="L104">        eventPublisher.publish(AdminEvent.of(</span>
+                AdminEvent.EventType.USER_UPDATED,
+                &quot;Usuario actualizado&quot;,
+<span class="fc" id="L107">                &quot;El admin actualizó el usuario: &quot; + saved.getName() + &quot; (&quot; + document + &quot;)&quot;,</span>
+                adminDocument,
+                saved
+        ));
+
+<span class="fc" id="L112">        return saved;</span>
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Cambiar rol
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public AdminUser changeUserRole(String document, String newRole, String adminDocument) {
+<span class="pc bpc" id="L120" title="1 of 4 branches missed.">        if (newRole == null || newRole.isBlank())</span>
+<span class="fc" id="L121">            throw new RuntimeException(&quot;El nuevo rol no puede estar vacío&quot;);</span>
+
+<span class="fc" id="L123">        String roleUp = newRole.toUpperCase();</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (!ROLES_VALIDOS.contains(roleUp))</span>
+<span class="fc" id="L125">            throw new RuntimeException(&quot;Rol inválido. Use: USER o ADMIN&quot;);</span>
+
+<span class="fc" id="L127">        AdminUser user = userGateway.findByDocument(document)</span>
+<span class="fc" id="L128">                .orElseThrow(() -&gt; new RuntimeException(&quot;No existe un usuario con documento: &quot; + document));</span>
+
+<span class="fc" id="L130">        String oldRole = user.getRole();</span>
+<span class="fc" id="L131">        user.setRole(roleUp);</span>
+<span class="fc" id="L132">        AdminUser saved = userGateway.save(user);</span>
+
+<span class="fc" id="L134">        eventPublisher.publish(AdminEvent.of(</span>
+                AdminEvent.EventType.USER_ROLE_CHANGED,
+                &quot;Rol de usuario cambiado&quot;,
+<span class="fc" id="L137">                &quot;El admin cambió el rol de &quot; + saved.getName() + &quot; de &quot; + oldRole + &quot; a &quot; + roleUp,</span>
+                adminDocument,
+                saved
+        ));
+
+<span class="fc" id="L142">        return saved;</span>
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Eliminar usuario
+    // ─────────────────────────────────────────────────────────────────────────
+
+    public void deleteUser(String document, String adminDocument) {
+<span class="fc" id="L150">        AdminUser user = userGateway.findByDocument(document)</span>
+<span class="fc" id="L151">                .orElseThrow(() -&gt; new RuntimeException(&quot;No existe un usuario con documento: &quot; + document));</span>
+
+<span class="fc" id="L153">        userGateway.deleteByDocument(document);</span>
+
+<span class="fc" id="L155">        eventPublisher.publish(AdminEvent.of(</span>
+                AdminEvent.EventType.USER_DELETED,
+                &quot;Usuario eliminado&quot;,
+<span class="fc" id="L158">                &quot;El admin eliminó al usuario: &quot; + user.getName() + &quot; (&quot; + document + &quot;)&quot;,</span>
+                adminDocument,
+                user
+        ));
+<span class="fc" id="L162">    }</span>
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Validaciones privadas
+    // ─────────────────────────────────────────────────────────────────────────
+
+    private void validarUsuario(AdminUser user) {
+<span class="fc bfc" id="L169" title="All 4 branches covered.">        if (user.getDocument() == null || user.getDocument().isBlank())</span>
+<span class="fc" id="L170">            throw new RuntimeException(&quot;El documento no puede estar vacío&quot;);</span>
+
+<span class="pc bpc" id="L172" title="1 of 4 branches missed.">        if (user.getName() == null || user.getName().isBlank())</span>
+<span class="fc" id="L173">            throw new RuntimeException(&quot;El nombre no puede estar vacío&quot;);</span>
+
+<span class="pc bpc" id="L175" title="1 of 4 branches missed.">        if (user.getEmail() == null || user.getEmail().isBlank())</span>
+<span class="fc" id="L176">            throw new RuntimeException(&quot;El email no puede estar vacío&quot;);</span>
+
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        if (!user.getEmail().contains(&quot;@&quot;))</span>
+<span class="fc" id="L179">            throw new RuntimeException(&quot;El email no tiene un formato válido&quot;);</span>
+
+<span class="pc bpc" id="L181" title="1 of 4 branches missed.">        if (user.getRole() != null &amp;&amp; !ROLES_VALIDOS.contains(user.getRole().toUpperCase()))</span>
+<span class="fc" id="L182">            throw new RuntimeException(&quot;Rol inválido. Use: USER o ADMIN&quot;);</span>
+<span class="fc" id="L183">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

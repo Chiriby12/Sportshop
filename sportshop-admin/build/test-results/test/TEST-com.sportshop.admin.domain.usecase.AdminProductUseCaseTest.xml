@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" tests="26" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:15.410Z" hostname="SEBASGL" time="0.139">
+  <properties/>
+  <testcase name="getProductById: retorna producto existente" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.06"/>
+  <testcase name="getProductById: error si no existe" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.006"/>
+  <testcase name="updateProduct: error si precio inválido en update" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.002"/>
+  <testcase name="deleteProduct: error si no existe" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.013"/>
+  <testcase name="updateProduct: error si no existe" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.003"/>
+  <testcase name="createProduct: error si stock negativo" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.003"/>
+  <testcase name="getProductById: error si ID cero" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.003"/>
+  <testcase name="getProductById: error si ID null" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.002"/>
+  <testcase name="createProduct: error si nombre vacío" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <testcase name="createProduct: error si precio cero" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <testcase name="createProduct: error si precio null" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.003"/>
+  <testcase name="getProductsByCategory: filtra correctamente" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.002"/>
+  <testcase name="createProduct: asigna active=true por defecto" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.005"/>
+  <testcase name="deleteProduct: elimina correctamente" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.005"/>
+  <testcase name="createProduct: crea correctamente" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.003"/>
+  <testcase name="getActiveProducts: retorna solo activos" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.002"/>
+  <testcase name="getProductsByCategory: error si categoría vacía" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.002"/>
+  <testcase name="createProduct: error si precio negativo" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <testcase name="createProduct: error si stock null" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <testcase name="updateProduct: error si stock negativo en update" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.002"/>
+  <testcase name="getProductsBySport: error si deporte vacío" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <testcase name="getProductsBySport: filtra correctamente" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <testcase name="createProduct: error si nombre null" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <testcase name="getAllProducts: retorna lista" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.003"/>
+  <testcase name="createProduct: error si marca vacía" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <testcase name="updateProduct: actualiza correctamente" classname="com.sportshop.admin.domain.usecase.AdminProductUseCaseTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

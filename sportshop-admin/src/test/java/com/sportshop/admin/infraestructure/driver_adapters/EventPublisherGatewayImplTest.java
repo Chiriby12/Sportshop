@@ -11,29 +11,35 @@ import reactor.core.publisher.Mono;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class EventPublisherGatewayImplTest {
 
-    @Test
-    @DisplayName("publish: envía evento correctamente y no falla si el servicio responde")
-    void publish_exitoso() {
+    private EventPublisherGatewayImpl buildPublisher(WebClient.ResponseSpec responseSpec) {
         WebClient.Builder builder = mock(WebClient.Builder.class);
         WebClient webClient = mock(WebClient.class);
         WebClient.RequestBodyUriSpec uriSpec = mock(WebClient.RequestBodyUriSpec.class);
-        WebClient.RequestBodySpec bodySpec = mock(WebClient.RequestBodySpec.class);
-        WebClient.ResponseSpec responseSpec = mock(WebClient.ResponseSpec.class);
+        WebClient.RequestHeadersSpec headersSpec = mock(WebClient.RequestHeadersSpec.class);
 
         when(builder.baseUrl(any())).thenReturn(builder);
         when(builder.build()).thenReturn(webClient);
         when(webClient.post()).thenReturn(uriSpec);
-        when(uriSpec.uri(anyString())).thenReturn(bodySpec);
-        when(bodySpec.bodyValue(any())).thenReturn(bodySpec);
-        when(bodySpec.retrieve()).thenReturn(responseSpec);
+        when(uriSpec.uri(anyString())).thenReturn(uriSpec);
+        when(uriSpec.bodyValue(any())).thenReturn(headersSpec);
+        when(headersSpec.retrieve()).thenReturn(responseSpec);
+
+        return new EventPublisherGatewayImpl(builder, "http://localhost:8083");
+    }
+
+    @Test
+    @DisplayName("publish: envía evento correctamente y no falla si el servicio responde")
+    void publish_exitoso() {
+        WebClient.ResponseSpec responseSpec = mock(WebClient.ResponseSpec.class);
         when(responseSpec.bodyToMono(Void.class)).thenReturn(Mono.empty());
 
-        EventPublisherGatewayImpl publisher = new EventPublisherGatewayImpl(builder, "http://localhost:8083");
+        EventPublisherGatewayImpl publisher = buildPublisher(responseSpec);
 
         AdminEvent event = AdminEvent.of(
                 AdminEvent.EventType.USER_CREATED,
@@ -46,29 +52,17 @@ class EventPublisherGatewayImplTest {
     @Test
     @DisplayName("publish: no lanza excepción si el servicio de notificaciones no está disponible")
     void publish_fallaServicioNotificaciones() {
-        WebClient.Builder builder = mock(WebClient.Builder.class);
-        WebClient webClient = mock(WebClient.class);
-        WebClient.RequestBodyUriSpec uriSpec = mock(WebClient.RequestBodyUriSpec.class);
-        WebClient.RequestBodySpec bodySpec = mock(WebClient.RequestBodySpec.class);
         WebClient.ResponseSpec responseSpec = mock(WebClient.ResponseSpec.class);
-
-        when(builder.baseUrl(any())).thenReturn(builder);
-        when(builder.build()).thenReturn(webClient);
-        when(webClient.post()).thenReturn(uriSpec);
-        when(uriSpec.uri(anyString())).thenReturn(bodySpec);
-        when(bodySpec.bodyValue(any())).thenReturn(bodySpec);
-        when(bodySpec.retrieve()).thenReturn(responseSpec);
         when(responseSpec.bodyToMono(Void.class))
                 .thenReturn(Mono.error(new RuntimeException("Conexión rechazada")));
 
-        EventPublisherGatewayImpl publisher = new EventPublisherGatewayImpl(builder, "http://localhost:8083");
+        EventPublisherGatewayImpl publisher = buildPublisher(responseSpec);
 
         AdminEvent event = AdminEvent.of(
                 AdminEvent.EventType.PRODUCT_DELETED,
                 "Delete", "Producto eliminado", "admin", null
         );
 
-        // No debe propagar el error - es best-effort
         assertDoesNotThrow(() -> publisher.publish(event));
     }
 

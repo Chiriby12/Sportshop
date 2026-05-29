@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CatalogSyncGatewayImpl - Tests del adaptador de sincronizacion con catalogo" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:15.621Z" hostname="SEBASGL" time="0.326">
+  <properties/>
+  <testcase name="createOrUpdate: sincroniza correctamente cuando catalog responde OK" classname="com.sportshop.admin.infraestructure.driver_adapters.CatalogSyncGatewayImplTest" time="0.286"/>
+  <testcase name="createOrUpdate: no lanza excepcion si catalog no esta disponible" classname="com.sportshop.admin.infraestructure.driver_adapters.CatalogSyncGatewayImplTest" time="0.007"/>
+  <testcase name="delete: elimina correctamente cuando catalog responde OK" classname="com.sportshop.admin.infraestructure.driver_adapters.CatalogSyncGatewayImplTest" time="0.025"/>
+  <testcase name="createOrUpdate: producto con campos null no lanza excepcion" classname="com.sportshop.admin.infraestructure.driver_adapters.CatalogSyncGatewayImplTest" time="0.003"/>
+  <testcase name="delete: no lanza excepcion si catalog no esta disponible" classname="com.sportshop.admin.infraestructure.driver_adapters.CatalogSyncGatewayImplTest" time="0.002"/>
+  <system-out><![CDATA[2026-05-29T00:37:15.907-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.d.c.CatalogSyncGatewayImpl       : Producto 1 sincronizado en catalog
+2026-05-29T00:37:15.914-05:00  WARN 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.d.c.CatalogSyncGatewayImpl       : No se pudo sincronizar producto 1 en catalog: Connection refused
+2026-05-29T00:37:15.941-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.d.c.CatalogSyncGatewayImpl       : Producto 1 eliminado de catalog
+2026-05-29T00:37:15.944-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.d.c.CatalogSyncGatewayImpl       : Producto 2 sincronizado en catalog
+2026-05-29T00:37:15.947-05:00  WARN 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.d.c.CatalogSyncGatewayImpl       : No se pudo eliminar producto 1 de catalog: Connection refused
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

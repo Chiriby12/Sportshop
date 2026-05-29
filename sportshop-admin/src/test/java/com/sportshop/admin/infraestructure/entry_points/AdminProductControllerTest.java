@@ -1,8 +1,8 @@
 package com.sportshop.admin.infraestructure.entry_points;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sportshop.admin.application.config.OpenApiConfig;
 import com.sportshop.admin.application.config.SecurityConfig;
-import com.sportshop.admin.application.config.UseCaseConfig;
 import com.sportshop.admin.application.dto.AdminProductRequestDTO;
 import com.sportshop.admin.domain.model.AdminProduct;
 import com.sportshop.admin.domain.usecase.AdminProductUseCase;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AdminProductController.class)
-@Import({SecurityConfig.class, UseCaseConfig.class, AdminProductMapper.class})
+@Import({SecurityConfig.class, OpenApiConfig.class, JwtFilter.class})
 @DisplayName("AdminProductController - Tests de endpoints de productos")
 class AdminProductControllerTest {
 
@@ -39,9 +39,6 @@ class AdminProductControllerTest {
 
     @MockitoBean
     private AdminProductMapper productMapper;
-
-    @MockitoBean
-    private JwtFilter jwtFilter;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -59,8 +56,6 @@ class AdminProductControllerTest {
                 "Nike", "RUNNING", "ATLETISMO",
                 new BigDecimal("85000"), 50, "https://img.com/cam.jpg", true);
     }
-
-    // ══════════ POST /api/sportshop/admin/products ══════════
 
     @Test
     @WithMockUser(roles = "ADMIN")
@@ -107,8 +102,6 @@ class AdminProductControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // ══════════ GET /api/sportshop/admin/products ══════════
-
     @Test
     @WithMockUser(roles = "ADMIN")
     @DisplayName("GET /products: lista todos los productos incluye inactivos")
@@ -128,8 +121,6 @@ class AdminProductControllerTest {
                 .andExpect(status().isForbidden());
     }
 
-    // ══════════ GET /api/sportshop/admin/products/active ══════════
-
     @Test
     @WithMockUser(roles = "ADMIN")
     @DisplayName("GET /products/active: lista solo productos activos")
@@ -140,8 +131,6 @@ class AdminProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").isArray());
     }
-
-    // ══════════ GET /api/sportshop/admin/products/{id} ══════════
 
     @Test
     @WithMockUser(roles = "ADMIN")
@@ -166,8 +155,6 @@ class AdminProductControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // ══════════ GET /api/sportshop/admin/products/category/{category} ══════════
-
     @Test
     @WithMockUser(roles = "ADMIN")
     @DisplayName("GET /products/category/{category}: filtra por categoría")
@@ -190,8 +177,6 @@ class AdminProductControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    // ══════════ GET /api/sportshop/admin/products/sport/{sport} ══════════
-
     @Test
     @WithMockUser(roles = "ADMIN")
     @DisplayName("GET /products/sport/{sport}: filtra por deporte")
@@ -202,8 +187,6 @@ class AdminProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").isArray());
     }
-
-    // ══════════ PUT /api/sportshop/admin/products/{id} ══════════
 
     @Test
     @WithMockUser(roles = "ADMIN")
@@ -240,8 +223,6 @@ class AdminProductControllerTest {
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isForbidden());
     }
-
-    // ══════════ DELETE /api/sportshop/admin/products/{id} ══════════
 
     @Test
     @WithMockUser(roles = "ADMIN")

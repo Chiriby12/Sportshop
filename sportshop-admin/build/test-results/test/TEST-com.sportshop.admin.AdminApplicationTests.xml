@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AdminApplication — Test de clase principal" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:00.462Z" hostname="SEBASGL" time="0.061">
+  <properties/>
+  <testcase name="La clase AdminApplication se instancia sin errores" classname="com.sportshop.admin.AdminApplicationTests" time="0.061"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AdminProductGatewayImpl - Tests del adaptador JPA de productos admin" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:16.165Z" hostname="SEBASGL" time="0.12">
+  <properties/>
+  <testcase name="findById: retorna Optional vacío cuando no existe" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.094"/>
+  <testcase name="findAll: retorna lista completa mapeada" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.009"/>
+  <testcase name="existsById: retorna true si existe" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.001"/>
+  <testcase name="findBySport: filtra por deporte correctamente" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.001"/>
+  <testcase name="findById: retorna Optional con producto cuando existe" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.001"/>
+  <testcase name="deleteById: delega al repositorio correctamente" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.001"/>
+  <testcase name="findActive: retorna solo productos activos" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.003"/>
+  <testcase name="existsById: retorna false si no existe" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.001"/>
+  <testcase name="findByCategory: filtra por categoría correctamente" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.002"/>
+  <testcase name="save: guarda y retorna dominio mapeado" classname="com.sportshop.admin.infraestructure.driver_adapters.jpa_repository.AdminProductGatewayImplTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

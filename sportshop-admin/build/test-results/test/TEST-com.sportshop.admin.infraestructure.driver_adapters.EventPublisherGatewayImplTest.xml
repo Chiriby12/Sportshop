@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sportshop.admin.infraestructure.driver_adapters.EventPublisherGatewayImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:15.948Z" hostname="SEBASGL" time="0.024">
+  <properties/>
+  <testcase name="AdminEvent.of: crea evento con timestamp" classname="com.sportshop.admin.infraestructure.driver_adapters.EventPublisherGatewayImplTest" time="0.003"/>
+  <testcase name="publish: no lanza excepción si el servicio de notificaciones no está disponible" classname="com.sportshop.admin.infraestructure.driver_adapters.EventPublisherGatewayImplTest" time="0.017"/>
+  <testcase name="publish: envía evento correctamente y no falla si el servicio responde" classname="com.sportshop.admin.infraestructure.driver_adapters.EventPublisherGatewayImplTest" time="0.003"/>
+  <system-out><![CDATA[2026-05-29T00:37:15.968-05:00  WARN 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.e.EventPublisherGatewayImpl      : No se pudo enviar evento al servicio de notificaciones: Conexión rechazada
+2026-05-29T00:37:15.972-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.e.EventPublisherGatewayImpl      : Evento admin publicado: USER_CREATED - Test
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

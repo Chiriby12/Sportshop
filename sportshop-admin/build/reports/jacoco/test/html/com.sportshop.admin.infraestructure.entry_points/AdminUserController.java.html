@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminUserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-admin</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.admin.infraestructure.entry_points</a> &gt; <span class="el_source">AdminUserController.java</span></div><h1>AdminUserController.java</h1><pre class="source lang-java linenums">package com.sportshop.admin.infraestructure.entry_points;
+
+import com.sportshop.admin.application.dto.*;
+import com.sportshop.admin.domain.model.AdminUser;
+import com.sportshop.admin.domain.usecase.AdminUserUseCase;
+import com.sportshop.admin.infraestructure.mapper.AdminUserMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * Adaptador conductor (Driving Adapter) - CRUD de usuarios para el Admin.
+ * Delega la persistencia a sportshop-auth via AuthUserGatewayImpl.
+ */
+@RestController
+@RequestMapping(&quot;/api/sportshop/admin/users&quot;)
+@RequiredArgsConstructor
+@PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+@SecurityRequirement(name = &quot;bearerAuth&quot;)
+@Tag(name = &quot;Admin - Usuarios&quot;, description = &quot;CRUD completo de usuarios. Solo ADMIN. Persiste en sportshop-auth.&quot;)
+public class AdminUserController {
+
+    private final AdminUserUseCase userUseCase;
+    private final AdminUserMapper userMapper;
+
+    @PostMapping
+    @Operation(summary = &quot;Crear usuario&quot;,
+               description = &quot;Crea el usuario en sportshop-auth. Contraseña temporal: SportShop2025!&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;AdminUser&gt;&gt; createUser(
+            @Valid @RequestBody AdminUserRequestDTO dto,
+            Authentication auth) {
+<span class="fc" id="L41">        AdminUser saved = userUseCase.createUser(userMapper.toDomain(dto), getDocument(auth));</span>
+<span class="fc" id="L42">        return new ResponseEntity&lt;&gt;(ApiResponse.created(&quot;Usuario creado exitosamente&quot;, saved), HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping
+    @Operation(summary = &quot;Listar todos los usuarios&quot;, description = &quot;Lee desde sportshop-auth&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;AdminUser&gt;&gt;&gt; getAllUsers() {
+<span class="fc" id="L48">        return ResponseEntity.ok(ApiResponse.ok(&quot;Usuarios encontrados&quot;, userUseCase.getAllUsers()));</span>
+    }
+
+    @GetMapping(&quot;/{document}&quot;)
+    @Operation(summary = &quot;Obtener usuario por documento&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;AdminUser&gt;&gt; getUserByDocument(@PathVariable String document) {
+<span class="fc" id="L54">        return ResponseEntity.ok(ApiResponse.ok(&quot;Usuario encontrado&quot;, userUseCase.getUserByDocument(document)));</span>
+    }
+
+    @GetMapping(&quot;/role/{role}&quot;)
+    @Operation(summary = &quot;Usuarios por rol&quot;, description = &quot;Filtra por USER o ADMIN&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;AdminUser&gt;&gt;&gt; getUsersByRole(@PathVariable String role) {
+<span class="fc" id="L60">        return ResponseEntity.ok(ApiResponse.ok(&quot;Usuarios con rol &quot; + role, userUseCase.getUsersByRole(role)));</span>
+    }
+
+    @PutMapping(&quot;/{document}&quot;)
+    @Operation(summary = &quot;Actualizar usuario&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;AdminUser&gt;&gt; updateUser(
+            @PathVariable String document,
+            @Valid @RequestBody AdminUserUpdateDTO dto,
+            Authentication auth) {
+<span class="fc" id="L69">        AdminUser updated = userUseCase.updateUser(</span>
+<span class="fc" id="L70">                document, userMapper.toDomainFromUpdate(document, dto), getDocument(auth));</span>
+<span class="fc" id="L71">        return ResponseEntity.ok(ApiResponse.ok(&quot;Usuario actualizado exitosamente&quot;, updated));</span>
+    }
+
+    @PatchMapping(&quot;/{document}/role&quot;)
+    @Operation(summary = &quot;Cambiar rol de usuario&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;AdminUser&gt;&gt; changeRole(
+            @PathVariable String document,
+            @RequestParam String role,
+            Authentication auth) {
+<span class="fc" id="L80">        AdminUser updated = userUseCase.changeUserRole(document, role, getDocument(auth));</span>
+<span class="fc" id="L81">        return ResponseEntity.ok(ApiResponse.ok(&quot;Rol actualizado a &quot; + role, updated));</span>
+    }
+
+    @DeleteMapping(&quot;/{document}&quot;)
+    @Operation(summary = &quot;Eliminar usuario&quot;, description = &quot;Elimina de sportshop-auth&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; deleteUser(
+            @PathVariable String document,
+            Authentication auth) {
+<span class="fc" id="L89">        userUseCase.deleteUser(document, getDocument(auth));</span>
+<span class="fc" id="L90">        return ResponseEntity.ok(ApiResponse.ok(&quot;Usuario &quot; + document + &quot; eliminado correctamente&quot;, null));</span>
+    }
+
+    private String getDocument(Authentication auth) {
+<span class="pc bpc" id="L94" title="4 of 6 branches missed.">        if (auth != null &amp;&amp; auth.getDetails() instanceof String doc &amp;&amp; !doc.isBlank()) return doc;</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if (auth != null) return auth.getName();</span>
+<span class="nc" id="L96">        return &quot;unknown-admin&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

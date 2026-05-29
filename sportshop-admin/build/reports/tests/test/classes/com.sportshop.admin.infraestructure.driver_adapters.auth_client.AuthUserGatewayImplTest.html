@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - AuthUserGatewayImpl - Tests del adaptador de usuarios</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>AuthUserGatewayImpl - Tests del adaptador de usuarios</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.sportshop.admin.infraestructure.driver_adapters.auth_client.html">com.sportshop.admin.infraestructure.driver_adapters.auth_client</a> &gt; AuthUserGatewayImplTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">20</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.181s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">deleteByDocument: ejecuta DELETE correctamente</td>
+<td class="success">deleteByDocument_success()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">existsByDocument: retorna false si no existe</td>
+<td class="success">existsByDocument_false()</td>
+<td class="success">0.079s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">existsByDocument: retorna true si existe</td>
+<td class="success">existsByDocument_true()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">existsByEmail: retorna false si no existe</td>
+<td class="success">existsByEmail_false()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">existsByEmail: retorna true si existe</td>
+<td class="success">existsByEmail_true()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findAll: mapea correctamente cuando age no es Number</td>
+<td class="success">findAll_ageNotNumber()</td>
+<td class="success">0.034s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findAll: retorna lista vacía en error de conexión</td>
+<td class="success">findAll_connectionError()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findAll: retorna lista vacía cuando data es null</td>
+<td class="success">findAll_nullData()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findAll: funciona sin token en contexto de seguridad</td>
+<td class="success">findAll_sinToken()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findAll: retorna lista de usuarios</td>
+<td class="success">findAll_success()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByDocument: retorna usuario cuando existe</td>
+<td class="success">findByDocument_found()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByDocument: retorna empty en error genérico</td>
+<td class="success">findByDocument_genericError()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByDocument: retorna empty cuando no existe (404)</td>
+<td class="success">findByDocument_notFound()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByDocument: retorna empty cuando response data es null</td>
+<td class="success">findByDocument_nullData()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByEmail: retorna usuario cuando coincide email</td>
+<td class="success">findByEmail_found()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByEmail: retorna empty cuando no coincide email</td>
+<td class="success">findByEmail_notFound()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByRole: retorna vacío si no hay usuarios con ese rol</td>
+<td class="success">findByRole_noMatch()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByRole: filtra usuarios por rol</td>
+<td class="success">findByRole_success()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">save: crea usuario nuevo cuando no existe (existsByDocument = false)</td>
+<td class="success">save_create_success()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">save: actualiza usuario cuando ya existe (existsByDocument = true)</td>
+<td class="success">save_update_success()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2026-05-29T00:37:16.109-05:00  WARN 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.d.a.AuthUserGatewayImpl          : Error listando usuarios desde auth: Connection refused
+2026-05-29T00:37:16.158-05:00  WARN 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.d.a.AuthUserGatewayImpl          : Error consultando usuario 12345678 en auth: Connection refused
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 29/05/2026, 12:37:18 a. m.</p>
+</div>
+</div>
+</body>
+</html>

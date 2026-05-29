@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:15.552Z" hostname="SEBASGL" time="0.067">
+  <properties/>
+  <testcase name="createUser: crea usuario correctamente" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.006"/>
+  <testcase name="createUser: error si email vacío" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="changeUserRole: cambia rol correctamente" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.003"/>
+  <testcase name="updateUser: error si rol inválido en update" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="getUsersByRole: error si rol inválido" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="getUserByDocument: error si no existe" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="deleteUser: elimina correctamente" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="updateUser: error si nombre vacío" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="changeUserRole: acepta minúsculas" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.003"/>
+  <testcase name="updateUser: actualiza correctamente" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="getUsersByRole: error si rol vacío" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="getUserByDocument: retorna usuario existente" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="changeUserRole: error si rol vacío" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="deleteUser: error si no existe" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="changeUserRole: error si rol inválido" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.0"/>
+  <testcase name="updateUser: error si usuario no existe" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="getUsersByRole: filtra por rol USER" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.003"/>
+  <testcase name="changeUserRole: error si usuario no existe" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="createUser: error si documento ya existe" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.003"/>
+  <testcase name="createUser: error si documento null" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="createUser: error si rol inválido" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="getUserByDocument: error si documento vacío" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="getUsersByRole: acepta minúsculas" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="createUser: error si nombre vacío" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="createUser: error si email ya existe" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.003"/>
+  <testcase name="getAllUsers: retorna lista de usuarios" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.002"/>
+  <testcase name="createUser: error si documento vacío" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="createUser: error si email sin @" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <testcase name="createUser: asigna active=true si viene null" classname="com.sportshop.admin.domain.usecase.AdminUserUseCaseTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminProductController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-admin</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.admin.infraestructure.entry_points</a> &gt; <span class="el_source">AdminProductController.java</span></div><h1>AdminProductController.java</h1><pre class="source lang-java linenums">package com.sportshop.admin.infraestructure.entry_points;
+
+import com.sportshop.admin.application.dto.*;
+import com.sportshop.admin.domain.model.AdminProduct;
+import com.sportshop.admin.domain.usecase.AdminProductUseCase;
+import com.sportshop.admin.infraestructure.mapper.AdminProductMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * Adaptador conductor (Driving Adapter) - CRUD de productos para el Admin.
+ * Arquitectura Hexagonal: punto de entrada al hexágono vía HTTP.
+ * Todos los endpoints requieren rol ADMIN.
+ */
+@RestController
+@RequestMapping(&quot;/api/sportshop/admin/products&quot;)
+@RequiredArgsConstructor
+@PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+@SecurityRequirement(name = &quot;bearerAuth&quot;)
+@Tag(name = &quot;Admin - Productos&quot;, description = &quot;CRUD completo de productos del catálogo. Solo ADMIN.&quot;)
+public class AdminProductController {
+
+    private final AdminProductUseCase productUseCase;
+    private final AdminProductMapper productMapper;
+
+    @PostMapping
+    @Operation(summary = &quot;Crear producto&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;AdminProduct&gt;&gt; createProduct(
+            @Valid @RequestBody AdminProductRequestDTO dto,
+            Authentication auth) {
+<span class="fc" id="L41">        AdminProduct product = dtoToDomain(dto);</span>
+<span class="fc" id="L42">        AdminProduct saved = productUseCase.createProduct(product, getDocument(auth));</span>
+<span class="fc" id="L43">        return new ResponseEntity&lt;&gt;(ApiResponse.created(&quot;Producto creado exitosamente&quot;, saved), HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping
+    @Operation(summary = &quot;Listar todos los productos (incluye inactivos)&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;AdminProduct&gt;&gt;&gt; getAllProducts() {
+<span class="fc" id="L49">        return ResponseEntity.ok(ApiResponse.ok(&quot;Productos encontrados&quot;, productUseCase.getAllProducts()));</span>
+    }
+
+    @GetMapping(&quot;/active&quot;)
+    @Operation(summary = &quot;Listar productos activos&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;AdminProduct&gt;&gt;&gt; getActiveProducts() {
+<span class="fc" id="L55">        return ResponseEntity.ok(ApiResponse.ok(&quot;Productos activos encontrados&quot;, productUseCase.getActiveProducts()));</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Obtener producto por ID&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;AdminProduct&gt;&gt; getProductById(@PathVariable Long id) {
+<span class="fc" id="L61">        return ResponseEntity.ok(ApiResponse.ok(&quot;Producto encontrado&quot;, productUseCase.getProductById(id)));</span>
+    }
+
+    @GetMapping(&quot;/category/{category}&quot;)
+    @Operation(summary = &quot;Productos por categoría&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;AdminProduct&gt;&gt;&gt; getByCategory(@PathVariable String category) {
+<span class="fc" id="L67">        return ResponseEntity.ok(ApiResponse.ok(&quot;Productos de categoría: &quot; + category,</span>
+<span class="fc" id="L68">                productUseCase.getProductsByCategory(category)));</span>
+    }
+
+    @GetMapping(&quot;/sport/{sport}&quot;)
+    @Operation(summary = &quot;Productos por deporte&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;List&lt;AdminProduct&gt;&gt;&gt; getBySport(@PathVariable String sport) {
+<span class="fc" id="L74">        return ResponseEntity.ok(ApiResponse.ok(&quot;Productos del deporte: &quot; + sport,</span>
+<span class="fc" id="L75">                productUseCase.getProductsBySport(sport)));</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Actualizar producto completo&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;AdminProduct&gt;&gt; updateProduct(
+            @PathVariable Long id,
+            @Valid @RequestBody AdminProductRequestDTO dto,
+            Authentication auth) {
+<span class="fc" id="L84">        AdminProduct updated = productUseCase.updateProduct(id, dtoToDomain(dto), getDocument(auth));</span>
+<span class="fc" id="L85">        return ResponseEntity.ok(ApiResponse.ok(&quot;Producto actualizado exitosamente&quot;, updated));</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Eliminar producto&quot;)
+    public ResponseEntity&lt;ApiResponse&lt;Void&gt;&gt; deleteProduct(
+            @PathVariable Long id,
+            Authentication auth) {
+<span class="fc" id="L93">        productUseCase.deleteProduct(id, getDocument(auth));</span>
+<span class="fc" id="L94">        return ResponseEntity.ok(ApiResponse.ok(&quot;Producto &quot; + id + &quot; eliminado correctamente&quot;, null));</span>
+    }
+
+    // ─── Helpers ─────────────────────────────────────────────────────────────
+
+    private AdminProduct dtoToDomain(AdminProductRequestDTO dto) {
+<span class="fc" id="L100">        AdminProduct p = new AdminProduct();</span>
+<span class="fc" id="L101">        p.setName(dto.getName());</span>
+<span class="fc" id="L102">        p.setDescription(dto.getDescription());</span>
+<span class="fc" id="L103">        p.setBrand(dto.getBrand());</span>
+<span class="fc" id="L104">        p.setCategory(dto.getCategory());</span>
+<span class="fc" id="L105">        p.setSport(dto.getSport());</span>
+<span class="fc" id="L106">        p.setPrice(dto.getPrice());</span>
+<span class="fc" id="L107">        p.setStock(dto.getStock());</span>
+<span class="fc" id="L108">        p.setImageUrl(dto.getImageUrl());</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        p.setActive(dto.getActive() != null ? dto.getActive() : true);</span>
+<span class="fc" id="L110">        return p;</span>
+    }
+
+    private String getDocument(Authentication auth) {
+<span class="pc bpc" id="L114" title="4 of 6 branches missed.">        if (auth != null &amp;&amp; auth.getDetails() instanceof String doc &amp;&amp; !doc.isBlank()) return doc;</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (auth != null) return auth.getName();</span>
+<span class="nc" id="L116">        return &quot;unknown-admin&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

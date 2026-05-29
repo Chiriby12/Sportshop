@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AdminUserMapper - Tests" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:17.715Z" hostname="SEBASGL" time="0.004">
+  <properties/>
+  <testcase name="toDomain(RequestDTO): mapea todos los campos correctamente" classname="com.sportshop.admin.infraestructure.mapper.AdminUserMapperTest" time="0.0"/>
+  <testcase name="toDomainFromUpdate: null retorna null" classname="com.sportshop.admin.infraestructure.mapper.AdminUserMapperTest" time="0.0"/>
+  <testcase name="toDomainFromUpdate: campos opcionales null se conservan null" classname="com.sportshop.admin.infraestructure.mapper.AdminUserMapperTest" time="0.001"/>
+  <testcase name="toDomainFromUpdate: mapea campos de actualización" classname="com.sportshop.admin.infraestructure.mapper.AdminUserMapperTest" time="0.001"/>
+  <testcase name="toDomain(RequestDTO): role null asigna USER por defecto" classname="com.sportshop.admin.infraestructure.mapper.AdminUserMapperTest" time="0.0"/>
+  <testcase name="toDomain(RequestDTO): null retorna null" classname="com.sportshop.admin.infraestructure.mapper.AdminUserMapperTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

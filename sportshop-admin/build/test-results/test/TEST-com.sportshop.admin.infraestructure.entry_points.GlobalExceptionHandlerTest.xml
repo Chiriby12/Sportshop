@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="GlobalExceptionHandler (admin) - Tests del manejador de errores" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:17.336Z" hostname="SEBASGL" time="0.003">
+  <properties/>
+  <testcase name="handleValidation: retorna 400 con los mensajes de validación concatenados" classname="com.sportshop.admin.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.002"/>
+  <testcase name="handleRuntimeException: retorna 400 con el mensaje del error" classname="com.sportshop.admin.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.001"/>
+  <testcase name="handleRuntimeException: mensaje null no lanza NullPointerException" classname="com.sportshop.admin.infraestructure.entry_points.GlobalExceptionHandlerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

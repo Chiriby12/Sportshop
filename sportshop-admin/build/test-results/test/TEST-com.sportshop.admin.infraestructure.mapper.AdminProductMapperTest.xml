@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sportshop.admin.infraestructure.mapper.AdminProductMapperTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:17.709Z" hostname="SEBASGL" time="0.003">
+  <properties/>
+  <testcase name="toData: retorna null si domain es null" classname="com.sportshop.admin.infraestructure.mapper.AdminProductMapperTest" time="0.0"/>
+  <testcase name="toData: activo=true por defecto si es null" classname="com.sportshop.admin.infraestructure.mapper.AdminProductMapperTest" time="0.001"/>
+  <testcase name="toDomain: retorna null si data es null" classname="com.sportshop.admin.infraestructure.mapper.AdminProductMapperTest" time="0.001"/>
+  <testcase name="toData: convierte AdminProduct a AdminProductData correctamente" classname="com.sportshop.admin.infraestructure.mapper.AdminProductMapperTest" time="0.0"/>
+  <testcase name="toDomain: convierte AdminProductData a AdminProduct correctamente" classname="com.sportshop.admin.infraestructure.mapper.AdminProductMapperTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

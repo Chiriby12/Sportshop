@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - AdminUserUseCaseTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>AdminUserUseCaseTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.sportshop.admin.domain.usecase.html">com.sportshop.admin.domain.usecase</a> &gt; AdminUserUseCaseTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">29</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.052s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">changeUserRole: cambia rol correctamente</td>
+<td class="success">changeUserRole_exitoso()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">changeUserRole: acepta minúsculas</td>
+<td class="success">changeUserRole_minusculas()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">changeUserRole: error si usuario no existe</td>
+<td class="success">changeUserRole_noExiste()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">changeUserRole: error si rol inválido</td>
+<td class="success">changeUserRole_rolInvalido()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">changeUserRole: error si rol vacío</td>
+<td class="success">changeUserRole_rolVacio()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: asigna active=true si viene null</td>
+<td class="success">createUser_activePorDefecto()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: error si documento ya existe</td>
+<td class="success">createUser_documentoDuplicado()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: error si documento null</td>
+<td class="success">createUser_documentoNull()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: error si documento vacío</td>
+<td class="success">createUser_documentoVacio()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: error si email ya existe</td>
+<td class="success">createUser_emailDuplicado()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: error si email sin @</td>
+<td class="success">createUser_emailInvalido()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: error si email vacío</td>
+<td class="success">createUser_emailVacio()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: crea usuario correctamente</td>
+<td class="success">createUser_exitoso()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: error si nombre vacío</td>
+<td class="success">createUser_nombreVacio()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">createUser: error si rol inválido</td>
+<td class="success">createUser_rolInvalido()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteUser: elimina correctamente</td>
+<td class="success">deleteUser_exitoso()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">deleteUser: error si no existe</td>
+<td class="success">deleteUser_noExiste()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getAllUsers: retorna lista de usuarios</td>
+<td class="success">getAllUsers_exitoso()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUserByDocument: retorna usuario existente</td>
+<td class="success">getUserByDocument_exitoso()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUserByDocument: error si no existe</td>
+<td class="success">getUserByDocument_noExiste()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUserByDocument: error si documento vacío</td>
+<td class="success">getUserByDocument_vacio()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUsersByRole: filtra por rol USER</td>
+<td class="success">getUsersByRole_exitoso()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUsersByRole: error si rol inválido</td>
+<td class="success">getUsersByRole_invalido()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUsersByRole: acepta minúsculas</td>
+<td class="success">getUsersByRole_minusculas()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUsersByRole: error si rol vacío</td>
+<td class="success">getUsersByRole_vacio()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateUser: actualiza correctamente</td>
+<td class="success">updateUser_exitoso()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateUser: error si usuario no existe</td>
+<td class="success">updateUser_noExiste()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateUser: error si nombre vacío</td>
+<td class="success">updateUser_nombreVacio()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updateUser: error si rol inválido en update</td>
+<td class="success">updateUser_rolInvalido()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 29/05/2026, 12:37:18 a. m.</p>
+</div>
+</div>
+</body>
+</html>

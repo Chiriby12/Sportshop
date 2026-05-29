@@ -2,8 +2,8 @@ package com.sportshop.admin.infraestructure.entry_points;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sportshop.admin.application.config.OpenApiConfig;
 import com.sportshop.admin.application.config.SecurityConfig;
-import com.sportshop.admin.application.config.UseCaseConfig;
 import com.sportshop.admin.application.dto.AdminUserRequestDTO;
 import com.sportshop.admin.application.dto.AdminUserUpdateDTO;
 import com.sportshop.admin.domain.model.AdminUser;
@@ -28,14 +28,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AdminUserController.class)
-@Import({SecurityConfig.class, UseCaseConfig.class, AdminUserMapper.class})
+@Import({SecurityConfig.class, OpenApiConfig.class, JwtFilter.class})
 @DisplayName("AdminUserController - Tests de endpoints de usuarios")
 class AdminUserControllerTest {
 
     @Autowired private MockMvc mockMvc;
     @MockitoBean private AdminUserUseCase userUseCase;
     @MockitoBean private AdminUserMapper userMapper;
-    @MockitoBean private JwtFilter jwtFilter;
 
     private ObjectMapper objectMapper;
     private AdminUser user;
@@ -64,9 +63,10 @@ class AdminUserControllerTest {
     @Test @WithMockUser(roles = "USER")
     @DisplayName("POST /users: USER sin permisos retorna 403")
     void createUser_sinPermisos() throws Exception {
+        AdminUserRequestDTO dto = new AdminUserRequestDTO("12345678","Ana García","ana@test.com","3001234567",25,"USER",true);
         mockMvc.perform(post("/api/sportshop/admin/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{}"))
+                        .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isForbidden());
     }
 

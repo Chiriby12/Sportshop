@@ -3,12 +3,12 @@ package com.sportshop.admin.domain.usecase;
 import com.sportshop.admin.domain.model.AdminProduct;
 import com.sportshop.admin.domain.model.event.AdminEvent;
 import com.sportshop.admin.domain.model.gateway.AdminProductGateway;
+import com.sportshop.admin.domain.model.gateway.CatalogSyncGateway;
 import com.sportshop.admin.domain.model.gateway.EventPublisherGateway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -25,12 +25,15 @@ class AdminProductUseCaseTest {
 
     @Mock private AdminProductGateway productGateway;
     @Mock private EventPublisherGateway eventPublisher;
-    @InjectMocks private AdminProductUseCase useCase;
+    @Mock private CatalogSyncGateway catalogSync;
+
+    private AdminProductUseCase useCase;
 
     private AdminProduct product;
 
     @BeforeEach
     void setUp() {
+        useCase = new AdminProductUseCase(productGateway, eventPublisher, catalogSync);
         product = new AdminProduct(null, "Camiseta Nike", "Camiseta deportiva",
                 "Nike", "RUNNING", "ATLETISMO",
                 new BigDecimal("85000"), 50, "https://img.com/cam.jpg", true);
@@ -44,12 +47,14 @@ class AdminProductUseCaseTest {
         AdminProduct saved = new AdminProduct(1L, "Camiseta Nike", "Camiseta deportiva",
                 "Nike", "RUNNING", "ATLETISMO", new BigDecimal("85000"), 50, null, true);
         when(productGateway.save(any())).thenReturn(saved);
+        doNothing().when(catalogSync).createOrUpdate(any());
 
         AdminProduct result = useCase.createProduct(product, "admin-doc");
 
         assertNotNull(result);
         assertEquals(1L, result.getId());
         verify(eventPublisher).publish(any(AdminEvent.class));
+        verify(catalogSync).createOrUpdate(any());
     }
 
     @Test
@@ -59,6 +64,7 @@ class AdminProductUseCaseTest {
         AdminProduct saved = new AdminProduct(1L, "Camiseta Nike", null, "Nike",
                 "RUNNING", "ATLETISMO", new BigDecimal("85000"), 50, null, true);
         when(productGateway.save(any())).thenReturn(saved);
+        doNothing().when(catalogSync).createOrUpdate(any());
 
         useCase.createProduct(product, "admin");
         assertTrue(product.getActive());
@@ -236,11 +242,13 @@ class AdminProductUseCaseTest {
         product.setId(1L);
         when(productGateway.existsById(1L)).thenReturn(true);
         when(productGateway.save(any())).thenReturn(product);
+        doNothing().when(catalogSync).createOrUpdate(any());
 
         AdminProduct result = useCase.updateProduct(1L, product, "admin-doc");
 
         assertNotNull(result);
         verify(eventPublisher).publish(any(AdminEvent.class));
+        verify(catalogSync).createOrUpdate(any());
     }
 
     @Test
@@ -280,10 +288,12 @@ class AdminProductUseCaseTest {
         product.setId(1L);
         when(productGateway.findById(1L)).thenReturn(Optional.of(product));
         doNothing().when(productGateway).deleteById(1L);
+        doNothing().when(catalogSync).delete(1L);
 
         assertDoesNotThrow(() -> useCase.deleteProduct(1L, "admin-doc"));
         verify(productGateway).deleteById(1L);
         verify(eventPublisher).publish(any(AdminEvent.class));
+        verify(catalogSync).delete(1L);
     }
 
     @Test

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminEvent.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sportshop-admin</a> &gt; <a href="index.source.html" class="el_package">com.sportshop.admin.domain.model.event</a> &gt; <span class="el_source">AdminEvent.java</span></div><h1>AdminEvent.java</h1><pre class="source lang-java linenums">package com.sportshop.admin.domain.model.event;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+/**
+ * Evento de dominio que el admin publica al microservicio de notificaciones.
+ * Estructura idéntica al CatalogEvent del catálogo para que notifications
+ * pueda deserializarlo sin cambios.
+ */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class AdminEvent {
+
+<span class="fc" id="L21">    public enum EventType {</span>
+        // Eventos de productos (admin CRUD)
+<span class="fc" id="L23">        PRODUCT_CREATED,</span>
+<span class="fc" id="L24">        PRODUCT_UPDATED,</span>
+<span class="fc" id="L25">        PRODUCT_DELETED,</span>
+        // Eventos de usuarios (admin CRUD)
+<span class="fc" id="L27">        USER_CREATED,</span>
+<span class="fc" id="L28">        USER_UPDATED,</span>
+<span class="fc" id="L29">        USER_DELETED,</span>
+<span class="fc" id="L30">        USER_ROLE_CHANGED</span>
+    }
+
+    private EventType type;
+    private String title;
+    private String message;
+    private String performedBy;   // documento del admin que ejecutó la acción
+    private Object payload;
+    private LocalDateTime timestamp;
+
+    public static AdminEvent of(EventType type, String title, String message,
+                                String performedBy, Object payload) {
+<span class="fc" id="L42">        return new AdminEvent(type, title, message, performedBy, payload, LocalDateTime.now());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

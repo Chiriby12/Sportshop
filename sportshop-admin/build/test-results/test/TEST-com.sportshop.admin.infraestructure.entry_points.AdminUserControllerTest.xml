@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AdminUserController - Tests de endpoints de usuarios" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-05-29T05:37:17.188Z" hostname="SEBASGL" time="0.147">
+  <properties/>
+  <testcase name="POST /users: sin token retorna 401" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.005"/>
+  <testcase name="POST /users: crea usuario correctamente" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.032"/>
+  <testcase name="DELETE /users/{document}: USER sin permisos retorna 403" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.007"/>
+  <testcase name="PATCH /users/{document}/role: cambia rol correctamente" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.007"/>
+  <testcase name="GET /users/role/{role}: rol inválido retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.006"/>
+  <testcase name="GET /users/{document}: no existe retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.009"/>
+  <testcase name="DELETE /users/{document}: elimina correctamente" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.006"/>
+  <testcase name="PUT /users/{document}: actualiza usuario correctamente" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.012"/>
+  <testcase name="GET /users/{document}: retorna usuario existente" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.007"/>
+  <testcase name="DELETE /users/{document}: no existe retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.006"/>
+  <testcase name="PUT /users/{document}: no existe retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.008"/>
+  <testcase name="GET /users/role/{role}: filtra por rol" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.006"/>
+  <testcase name="POST /users: USER sin permisos retorna 403" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.007"/>
+  <testcase name="GET /users: USER sin permisos retorna 403" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.006"/>
+  <testcase name="PATCH /users/{document}/role: rol inválido retorna 400" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.007"/>
+  <testcase name="GET /users: lista todos los usuarios" classname="com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest" time="0.005"/>
+  <system-out><![CDATA[2026-05-29T00:37:16.931-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest]: AdminUserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-29T00:37:16.938-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.sportshop.admin.AdminApplication for test class com.sportshop.admin.infraestructure.entry_points.AdminUserControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.5)
+
+2026-05-29T00:37:16.961-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.e.AdminUserControllerTest        : Starting AdminUserControllerTest using Java 21.0.10 with PID 26792 (started by sebas in C:\SportShop\sportshop-admin)
+2026-05-29T00:37:16.961-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.e.AdminUserControllerTest        : No active profile set, falling back to 1 default profile: "default"
+2026-05-29T00:37:17.093-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-05-29T00:37:17.179-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-05-29T00:37:17.179-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-05-29T00:37:17.179-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-05-29T00:37:17.186-05:00  INFO 26792 --- [sportshop-admin] [    Test worker] c.s.a.i.e.AdminUserControllerTest        : Started AdminUserControllerTest in 0.246 seconds (process running for 19.201)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
